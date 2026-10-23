@@ -1,0 +1,32 @@
+{
+  "purpose": "Drop-in interface for the cinematic interlude (#cinematic) in index.html. Place rights-cleared source images here with these exact filenames and they appear automatically. If a file is absent, the section falls back to the journal gradient + cover-art.svg, so the layout never breaks.",
+  "section": "#cinematic",
+  "owner": "Yaniv Raz",
+  "note": "A filename listed here is a slot, not proof the binary was uploaded. Image import/curation is handled separately (GPT / Canva / Lovable); this folder is only the interface. One quality master per image, no duplicates, no private data.",
+  "slots": [
+    {
+      "file": "cinematic-01.jpg",
+      "role": "scene 1 background — opening giant word",
+      "recommended": "landscape, >=1920px wide, calm area for centered text",
+      "credit": "",
+      "source": "",
+      "status": "awaiting upload"
+    },
+    {
+      "file": "cinematic-02.jpg",
+      "role": "scene 2 background — verbatim teacher quote",
+      "recommended": "landscape, >=1920px wide, teachers learning together",
+      "credit": "",
+      "source": "",
+      "status": "awaiting upload"
+    },
+    {
+      "file": "cinematic-03.jpg",
+      "role": "scene 3 background — finale with Israel-flag reveal",
+      "recommended": "landscape, >=1920px wide, aspirational / Jerusalem / light",
+      "credit": "",
+      "source": "",
+      "status": "awaiting upload"
+    }
+  ]
+}

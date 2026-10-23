@@ -219,6 +219,57 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 @media(max-width:620px){.intro-payoff{gap:2px 8px;padding:8px 10px;margin-top:3%}.intro-payoff-label{font-size:11px}.intro-payoff p{font-size:clamp(11px,3.1vw,14px)}.intro-payoff small{font-size:9px}}
 @media(max-width:350px){.intro-payoff{grid-template-columns:1fr}.intro-payoff-label{grid-row:auto}.intro-payoff small{grid-column:1}}
 
+/* CINEMATIC INTERLUDE — center-spread trailer: moving imagery, giant animated type, Israel-flag reveal.
+   Default / no-JS / reduced-motion / print = the composed final frame (scene 3). ".is-playing" runs the sequence. */
+.cine-sheet{position:relative;overflow:hidden;background:#05070d;color:#fff;isolation:isolate}
+.cine-sheet::before,.cine-sheet::after{content:'';position:absolute;left:0;right:0;height:7.5%;background:#000;z-index:5;pointer-events:none}
+.cine-sheet::before{top:0}.cine-sheet::after{bottom:0}
+.cine-scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:13% 9%;opacity:0}
+.cine-scene.s3{opacity:1}
+.cine-media{position:absolute;inset:0;z-index:-1;background:linear-gradient(150deg,#0a1b4d,#3a0f63 38%,#b4186a 72%,#ec6a2f)}
+.cine-media::after{content:'';position:absolute;inset:0;z-index:0;background:url('assets/cover-art.svg') center/cover;opacity:.5;mix-blend-mode:screen}
+.cine-media img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover}
+.cine-media::before{content:'';position:absolute;inset:0;z-index:2;background:radial-gradient(130% 92% at 50% 44%,transparent 34%,#05070de6 90%)}
+.cine-kicker{font:800 clamp(11px,1.6vw,15px) Heebo,sans-serif;letter-spacing:.22em;color:#ffe2a2;margin:0 0 5%}
+.cine-title{font:900 clamp(60px,17vw,172px)/.9 'Frank Ruhl Libre',serif;letter-spacing:-.05em;margin:0;text-shadow:0 8px 42px #000b}
+.cine-quote{font:900 clamp(24px,5.2vw,52px)/1.32 'Frank Ruhl Libre',serif;margin:0;max-width:17ch;text-shadow:0 6px 32px #000c}
+.cine-final{font:900 clamp(50px,12vw,120px)/.95 'Frank Ruhl Libre',serif;letter-spacing:-.04em;margin:6% 0 0;text-shadow:0 8px 42px #000b}
+.cine-flag{width:clamp(96px,20vw,188px);aspect-ratio:11/8;filter:drop-shadow(0 6px 22px #0007)}
+.cine-flag .stripe,.cine-flag .star{stroke:#fff;fill:none;stroke-width:6;stroke-linejoin:round}
+.cine-caption{position:absolute;bottom:9%;inset-inline-end:9%;z-index:6;font:800 clamp(10px,1.3vw,13px) Heebo,sans-serif;letter-spacing:.12em;color:#ffffffcc}
+.cine-sheet.is-playing .cine-scene{animation:cineFade 10s ease both}
+.cine-sheet.is-playing .s1{animation-delay:0s}
+.cine-sheet.is-playing .s2{animation-delay:3.1s}
+.cine-sheet.is-playing .s3{animation:cineHold 10s ease both;animation-delay:6.2s}
+.cine-sheet.is-playing .cine-media img,.cine-sheet.is-playing .cine-media::after{animation:cineKen 10s ease-out both}
+.cine-sheet.is-playing .s1 .cine-kicker{animation:cineRise 1.2s ease both}
+.cine-sheet.is-playing .s1 .cine-title{animation:cineRise 1.4s cubic-bezier(.2,.7,.2,1) both}
+.cine-sheet.is-playing .s2 .cine-quote{animation:cineRise 1.4s cubic-bezier(.2,.7,.2,1) 3.3s both}
+.cine-sheet.is-playing .s3 .cine-final{animation:cineRise 1.4s cubic-bezier(.2,.7,.2,1) 6.6s both}
+.cine-sheet.is-playing .cine-flag .stripe,.cine-sheet.is-playing .cine-flag .star{stroke-dasharray:1;stroke-dashoffset:1;animation:cineDraw 1.9s ease 6.6s forwards}
+@keyframes cineFade{0%{opacity:0}4%{opacity:1}26%{opacity:1}31%{opacity:0}100%{opacity:0}}
+@keyframes cineHold{0%{opacity:0}4%{opacity:1}100%{opacity:1}}
+@keyframes cineKen{from{transform:scale(1.03)}to{transform:scale(1.17)}}
+@keyframes cineRise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes cineDraw{to{stroke-dashoffset:0}}
+@media(max-width:620px){
+ .cine-scene{padding:15% 7%}
+ .cine-kicker{letter-spacing:.16em;margin-bottom:6%}
+ .cine-title{font-size:clamp(52px,17vw,88px)}
+ .cine-quote{font-size:clamp(20px,6.2vw,34px);max-width:15ch}
+ .cine-final{font-size:clamp(46px,15vw,84px)}
+ .cine-caption{font-size:9px;bottom:8.5%}
+}
+@media print{.cine-sheet{width:210mm!important;height:297mm!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}.cine-final{font-size:92px}.cine-scene{animation:none!important;opacity:0}.cine-scene.s3{opacity:1}}
+
+/* Mobile: keep the sticky nav inside the bar so the page never scrolls horizontally */
+@media(max-width:620px){
+ .bar{overflow:hidden}
+ .brand{min-width:0}
+ .bar nav{flex:1 1 auto;min-width:0;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ .bar nav::-webkit-scrollbar{display:none}
+}
+
 /* Verified single A4 catalog, with first-session dates and two clickable actions */
 .summary-sheet .training-table-wrap{width:100%;min-width:0}
 .summary-sheet .training-table{margin-top:4%;table-layout:fixed}
@@ -322,6 +373,23 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="editorial-art" role="img" aria-label="צבעי הג׳ורנל וגאומטריה"></div>
 <blockquote>״מכל אחד אפשר ללמוד״</blockquote>
 <div class="editorial-foot">מורים לומדים · מורים מובילים</div></section>
+<section class="folio cine-sheet" id="cinematic" aria-label="מקטע קולנועי: מורים לומדים">
+<div class="cine-scene s1">
+<div class="cine-media"><img src="assets/selected/cinematic-01.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+<p class="cine-kicker" dir="ltr">THE TEACHERS JOURNAL · CINEMATIC</p>
+<h2 class="cine-title">השתלמות.</h2>
+</div>
+<div class="cine-scene s2">
+<div class="cine-media"><img src="assets/selected/cinematic-02.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+<blockquote class="cine-quote">״המורים שנכנסים לכיתה אחרי שישתתפו בהשתלמות, משדרים בשיעורים שקורה עכשיו משהו חדש.״</blockquote>
+</div>
+<div class="cine-scene s3">
+<div class="cine-media"><img src="assets/selected/cinematic-03.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+<svg class="cine-flag" viewBox="0 0 220 160" role="img" aria-label="דגל ישראל"><line class="stripe" x1="8" y1="34" x2="212" y2="34" pathLength="1"/><line class="stripe" x1="8" y1="126" x2="212" y2="126" pathLength="1"/><polygon class="star" points="110,52 86,94 134,94" pathLength="1"/><polygon class="star" points="110,108 86,66 134,66" pathLength="1"/></svg>
+<h2 class="cine-final">מורים לומדים.</h2>
+</div>
+<div class="cine-caption">מקטע קולנועי · למידת עמיתים</div>
+</section>
 <section class="folio catalog-sheet" id="course-201530" style="--accent:#e26b35" aria-label="השתלמות הוראת התלמיד המתקשה">
 <div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
 <div class="catalog-type">פיתוח מקצועי במתמטיקה</div>
@@ -398,4 +466,13 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="actions"><a href="#cover">חזרה לשער</a><a href="#opening">עמוד 2</a><button type="button" onclick="window.print()">הדפסה / PDF</button></div>
 <p class="note">מהדורת עבודה בהתהוות: חמישה סילבוסים ציבוריים אותרו ונבדקו במטא־נתונים של Drive; נתוני מועדים והרשמה נוספים יופיעו אחרי אימות. מקור הדרישות המחייב: SOURCE_OF_TRUTH.md.</p>
 </main>
+<script>
+(function(){
+ var sec=document.getElementById('cinematic');
+ if(!sec||!('IntersectionObserver' in window))return;
+ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;}catch(e){}
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){sec.classList.toggle('is-playing',e.isIntersecting);});},{threshold:0.45});
+ io.observe(sec);
+})();
+</script>
 </body></html>
