@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SSOT-aligned structural smoke check. This does not replace visual/mobile or external-link QA.
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { exit } from 'node:process';
 
 const source = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
@@ -102,7 +102,12 @@ assert(source.includes('ישראל') && source.includes('feature-flag'), 'Missin
 const artwork = [...source.matchAll(/<img\s+[^>]*src="(assets\/selected\/[^"]+\.(?:jpg|jpeg|png|webp))"/g)].map(m => m[1]);
 assert(artwork.length >= 6, 'Expected 6+ local hero images (assets/selected), found ' + artwork.length);
 assert(new Set(artwork).size === artwork.length, 'Hero artwork duplicated across pages');
-assert(!/lovable\.app/.test(source), 'No external temp image URLs (lovable.app) allowed — use local binaries in assets/selected');
+assert(/<link rel="icon" href="data:image\/svg\+xml,/.test(source), 'Missing inline favicon (avoids a /favicon.ico 404)');
+{
+  const og = source.match(/<meta property="og:image" content="https:\/\/slkum8\.vercel\.app\/([^"]+)"/);
+  assert(og && existsSync(new URL('../' + og[1], import.meta.url)), 'og:image must point to a file committed in this repo');
+}
+assert(!/lovable\.app/.test(source),'No external temp image URLs (lovable.app) allowed — use local binaries in assets/selected');
 warnings.push('Three distinct communities: Yaniv/Idan coordinators (no Compass number yet, 25 Oct), Yaniv/Idan teachers (no Compass number yet, started 7 Oct), numbered coordinators 201020 (13 Oct). Dates from separate written sources.');
 warnings.push('The six Compass courses follow the official flyer PDF (השתלמויות תשפ״ז - חט״ב) and jerusalem2 /hishtalmuyot; its hidden text-layer codes (200123, 201298, 201757, 203678) are not visible courses and are not used.');
 warnings.push('External syllabus and image URLs require live browser checks; this script only tests structure.');
