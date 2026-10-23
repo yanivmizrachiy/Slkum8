@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1000" role="img" aria-label="אומנות צבעונית של גשרים, קווים וגאומטריה בהשראת ירושלים">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d1741"/><stop offset=".21" stop-color="#4533a7"/><stop offset=".44" stop-color="#eb206d"/><stop offset=".73" stop-color="#f99632"/><stop offset="1" stop-color="#09c7dc"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#fff3ac" stop-opacity=".95"/><stop offset=".3" stop-color="#f9c87c" stop-opacity=".8"/><stop offset="1" stop-color="#ffba53" stop-opacity="0"/></radialGradient>
+<linearGradient id="ribbon" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#00f3ed"/><stop offset=".22" stop-color="#0d77f2"/><stop offset=".47" stop-color="#c80fbf"/><stop offset=".7" stop-color="#fb234e"/><stop offset="1" stop-color="#fff2a8"/></linearGradient>
+<linearGradient id="gold" x1=".2" y1="0" x2="1" y2=".8"><stop stop-color="#fff5ac"/><stop offset=".5" stop-color="#fb8c34"/><stop offset="1" stop-color="#e22a75"/></linearGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="36"/></filter>
+<filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="18" flood-opacity=".36"/></filter>
+<pattern id="grid" width="76" height="76" patternUnits="userSpaceOnUse"><path d="M 76 0 L 0 0 0 76" fill="none" stroke="#fff" stroke-opacity=".09" stroke-width="2"/></pattern>
+</defs>
+<rect width="1440" height="1000" fill="url(#sky)"/>
+<circle cx="995" cy="275" r="390" fill="url(#glow)"/>
+<g filter="url(#blur)" opacity=".7"><path d="M-80 700Q410 40 570 450T1490 80" fill="none" stroke="#45d9ff" stroke-width="180"/><path d="M-40 210Q340 950 850 220T1600 710" fill="none" stroke="#fa298c" stroke-width="150"/></g>
+<rect width="1440" height="1000" fill="url(#grid)"/>
+<g opacity=".65" stroke="#fff3d8" stroke-width="5" fill="none"><path d="M80 620H1320M172 526H1270M270 440H1170"/><path d="M480 240v570M960 230v570"/><circle cx="720" cy="525" r="295"/><circle cx="720" cy="525" r="215"/></g>
+<g opacity=".85" filter="url(#shadow)"><path d="M80 818V512h83v-89h88v105h76v-156h94v152h104v-247h82v134h84v-92h85v91h91V250h100v185h82v-95h102v182h100v-80h68v370Z" fill="#25225e"/><path d="M87 814V602h83v-77h91v112h72v-171h89v181h93V396h84v164h101v-92h82v138h90V374h99v215h76v-107h107v167h102v-83h75v248Z" fill="#111842" opacity=".77"/></g>
+<path d="M-130 882C255 852 275 262 690 565S1165 1190 1545 315" stroke="url(#ribbon)" fill="none" stroke-width="160" stroke-linecap="round" filter="url(#shadow)"/>
+<path d="M-90 850C270 890 325 284 690 565S1165 1190 1515 336" stroke="#fff8c7" fill="none" stroke-width="12" stroke-linecap="round" opacity=".8"/>
+<path d="M-150 335C285 70 450 680 811 202S1163 510 1530 57" stroke="url(#gold)" fill="none" stroke-width="87" stroke-linecap="round" opacity=".88"/>
+<path d="M-150 335C285 70 450 680 811 202S1163 510 1530 57" stroke="#fff" fill="none" stroke-width="5" opacity=".7"/>
+<g fill="#fff9cf"><circle cx="228" cy="770" r="14"/><circle cx="673" cy="370" r="10"/><circle cx="1120" cy="645" r="13"/><path d="m1128 171 16 46 46 16-46 16-16 46-16-46-46-16 46-16z"/><path d="m380 188 11 29 29 11-29 11-11 29-11-29-29-11 29-11z"/></g>
+<path d="M0 980Q450 905 815 976T1440 962V1000H0" fill="#08182a" opacity=".72"/>
+</svg>
