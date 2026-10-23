@@ -71,8 +71,36 @@ with sync_playwright() as playwright:
                    r.top < f.top - 2 || r.bottom > f.bottom + 2;
           }).map(el => (el.closest('.folio')?.id || '?') + ': ' +
                              (el.textContent || '').trim().slice(0, 35));
+          // Inspect real rendered links/dates/touch targets, not just HTML text.
+          const catalogRows = [...document.querySelectorAll('#catalog-summary tbody tr')];
+          const catalogLinkIssues = catalogRows.flatMap((row, i) => {
+            const links = [...row.querySelectorAll('.table-links a')];
+            return links.length === 2 &&
+              links.filter(a => a.getAttribute('href')?.startsWith('#')).length === 1 &&
+              links.filter(a => /^https:\/\//.test(a.getAttribute('href') || '')).length === 1
+              ? [] : ['row ' + (i + 1) + ': expected one page link and one HTTPS source link'];
+          });
+          const externalLinkIssues = [...document.querySelectorAll('a[target="_blank"]')]
+            .filter(a => !/^https:\/\//.test(a.href) ||
+              !a.relList.contains('noopener') || !a.relList.contains('noreferrer'))
+            .map(a => a.getAttribute('href'));
+          const dateMismatches = [...document.querySelectorAll('time[datetime]')]
+            .filter(el => {
+              const d = el.getAttribute('datetime');
+              return !/^\\d{4}-\\d{2}-\\d{2}$/.test(d) ||
+                el.textContent.trim() !== d.slice(8, 10) + '.' +
+                  d.slice(5, 7) + '.' + d.slice(0, 4);
+            }).map(el => (el.closest('.folio')?.id || '?') + ': ' + el.textContent.trim());
+          const touchTargets = viewport <= 430 ? [...document.querySelectorAll(
+            '#catalog-summary .table-links a, .catalog-sheet .catalog-actions > a, .event-registration a'
+          )].filter(el => {
+            const r = el.getBoundingClientRect();
+            return r.width < 44 || r.height < 44;
+          }).map(el => (el.closest('.folio')?.id || '?') + ': ' +
+            (el.textContent || '').trim().slice(0, 30)) : [];
           return {width: viewport, scrollWidth: doc.scrollWidth,
-                  folios: pages.length, outside, clipped};
+                  folios: pages.length, outside, clipped, catalogRows: catalogRows.length,
+                  catalogLinkIssues, externalLinkIssues, dateMismatches, touchTargets};
         }""")
         report["viewport_results"].append(metrics)
         if metrics["scrollWidth"] > metrics["width"] + 2:
@@ -83,8 +111,18 @@ with sync_playwright() as playwright:
             report["errors"].append(f"{width}px: folios outside viewport: {metrics['outside']}")
         if metrics["clipped"]:
             report["errors"].append(f"{width}px: key content outside folio: {metrics['clipped']}")
+        if metrics["catalogRows"] != 9:
+            report["errors"].append(f"{width}px: expected 9 catalog rows, got {metrics['catalogRows']}")
+        for field in ("catalogLinkIssues", "externalLinkIssues", "dateMismatches", "touchTargets"):
+            if metrics[field]:
+                report["errors"].append(f"{width}px: {field}: {metrics[field]}")
         if width in (375, 1280):
-            for section in SAMPLES:
+            # Save all 28 mobile folios for a complete human review; desktop
+            # retains the representative 8-page sample to bound artifact size.
+            screenshot_ids = ([el["id"] for el in page.locator("section.folio").evaluate_all(
+                "(els) => els.map(el => ({id: el.id}))")] if width == 375 else SAMPLES)
+            report.setdefault("screenshots", {})[str(width)] = len(screenshot_ids)
+            for section in screenshot_ids:
                 loc = page.locator("#" + section)
                 if loc.count() != 1:
                     report["errors"].append(f"{width}px: missing sample #{section}")
