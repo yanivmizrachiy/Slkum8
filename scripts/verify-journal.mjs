@@ -130,9 +130,10 @@ for (const path of artwork) {
 for (const asset of tracked) {
   assert(asset.file && asset.concept && asset.used, 'Incomplete image provenance entry');
   if (asset.file?.startsWith('lovable-')) {
-    assert(asset.source?.startsWith('https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/')
-      && asset.source.endsWith('/' + asset.source.split('/').at(-1)),
-      'Missing canonical Lovable origin for ' + asset.file);
+    const originalAssetId = asset.concept?.match(/\\(asset ([0-9a-f-]{36})\\)/)?.[1];
+    assert(originalAssetId && asset.source?.startsWith('https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/' + originalAssetId + '/')
+      && /\\.jpg$/.test(asset.source),
+      'Missing matching original Lovable asset ID and canonical image URL for ' + asset.file);
   }
 }
 
