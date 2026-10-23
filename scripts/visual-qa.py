@@ -85,7 +85,7 @@ with sync_playwright() as playwright:
             page.emulate_media(media="print")
             pdf_path = OUT / "journal-a4-qa.pdf"
             page.pdf(path=str(pdf_path), print_background=True,
-                     prefer_css_page_size=True, format="A4", timeout=90000)
+                     prefer_css_page_size=True, format="A4")
             count = len(PdfReader(str(pdf_path)).pages)
             report["print"] = {"pdf_pages": count, "expected_pages": 28,
                                "file": pdf_path.name}
