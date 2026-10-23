@@ -13,7 +13,7 @@ assert(unique.size === sections.length, 'Duplicate folio IDs');
 assert(sections.length >= 15, 'Expected 15+ folios including the two distinct coordinator community pages');
 assert(sections[0] === 'cover', 'First folio must be the cover');
 assert(sections.at(-1) === 'shabat', 'Last folio must be Shabbat greeting');
-for (const page of ['opening','manifesto','inspiration','cinematic','world-report','seminar-invite','event-203587','catalog-summary','community-yaniv-idan','community-teachers-jerusalem','lesson-tomorrow','shabat']) {
+for (const page of ['opening','manifesto','inspiration','cinematic','world-report','seminar-invite','event-203587','catalog-summary','community-yaniv-idan','community-teachers-jerusalem','lesson-tomorrow','know-ofek','know-oz','shabat']) {
   assert(unique.has(page), 'Missing required page: ' + page);
 }
 for (const id of ['201020','201590','201530','201041','204781','2014777']) {
@@ -61,6 +61,12 @@ if (summaryEnd > summaryStart) {
   for (const id of ['201020','201590','201530','201041','204781','2014777']) {
     assert(summary.includes('#course-' + id), 'Missing summary-to-course link: ' + id);
   }
+}
+assert(sections.indexOf('know-ofek') + 1 === sections.indexOf('know-oz'), 'The two "חשוב לדעת" pages (Ofek Hadash, Oz LaTmura) must be consecutive');
+const researchNotes = [...source.matchAll(/<aside class="research-note"[\s\S]*?<\/aside>/g)].map(m => m[0]);
+assert(researchNotes.length === 3, 'Expected exactly 3 cited research notes, found ' + researchNotes.length);
+for (const [author, year] of [['Darling-Hammond', '2017'], ['Yoon', '2007'], ['Garet', '2001']]) {
+  assert(researchNotes.some(n => n.includes(author) && n.includes('(' + year + ')') && n.includes('<cite')), 'Missing cited research note: ' + author + ' ' + year);
 }
 for (const href of [...source.matchAll(/href="#([^"]+)"/g)].map(m => m[1])) {
   assert(source.includes('id="' + href + '"'), 'Broken internal anchor: #' + href);
