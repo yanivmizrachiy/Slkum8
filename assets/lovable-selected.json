@@ -1,0 +1,39 @@
+{
+  "source_project": "https://lovable.dev/projects/48b47a05-85de-4209-8634-a9622a1b85ca",
+  "source_website": "https://jerusalem-geometry-garden.lovable.app",
+  "source_kind": "previously generated user-owned Lovable assets; referenced by original published URLs; not duplicated in GitHub",
+  "retrieved_at": "2026-10-23",
+  "assets": [
+    {
+      "file": "01-jerusalem-geometry-sky.jpg",
+      "asset_id": "2f5ef542-26e3-4e24-bd41-8506aa3046c3",
+      "used_at": "#cinematic scene 1",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/2f5ef542-26e3-4e24-bd41-8506aa3046c3/01-jerusalem-geometry-sky.jpg"
+    },
+    {
+      "file": "07-teachers-learning-together.jpg",
+      "asset_id": "1c29dc7e-6e67-4332-b7af-984f5efa886f",
+      "used_at": "#cinematic scene 2",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/1c29dc7e-6e67-4332-b7af-984f5efa886f/07-teachers-learning-together.jpg"
+    },
+    {
+      "file": "11-tessellation-art-studio.jpg",
+      "asset_id": "e3d0f94e-0f2e-4fe8-90d9-0dee0a2b9188",
+      "used_at": "#cinematic scene 3",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/e3d0f94e-0f2e-4fe8-90d9-0dee0a2b9188/11-tessellation-art-studio.jpg"
+    },
+    {
+      "file": "09-origami-polyhedra-workshop.jpg",
+      "asset_id": "148fb2ea-045a-457d-a899-5c3bd2dbba68",
+      "used_at": "#manifesto",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/148fb2ea-045a-457d-a899-5c3bd2dbba68/09-origami-polyhedra-workshop.jpg"
+    },
+    {
+      "file": "10-immersive-geometry-dome.jpg",
+      "asset_id": "1c334c23-65b7-4f3d-803d-b87bcb42e36d",
+      "used_at": "#inspiration",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/1c334c23-65b7-4f3d-803d-b87bcb42e36d/10-immersive-geometry-dome.jpg"
+    }
+  ],
+  "other_safeguards": "Do not create duplicate images or hotlink ephemeral thumbnails; live origin dependency means URLs must be verified from outside on multiple devices. CSS has gradient fallback and onerror handling."
+}
