@@ -1,14 +1,16 @@
 {
   "source_project": "https://lovable.dev/projects/48b47a05-85de-4209-8634-a9622a1b85ca",
   "source_website": "https://jerusalem-geometry-garden.lovable.app",
-  "source_kind": "previously generated user-owned Lovable assets. Since PR #8 the journal hero slots use the local Canva v2 binaries; a Lovable image is shown only where it has a local copy in assets/selected (no hotlinking).",
+  "source_kind": "previously generated user-owned Lovable assets. Since PR #8 the journal hero slots use the local Canva v2 binaries; a Lovable image is shown only where it has a local copy in assets/selected (no hotlinking). Since 2026-10-23 five more Lovable images fill full-bleed gallery pages placed between training pages.",
   "retrieved_at": "2026-10-23",
   "assets": [
     {
       "file": "01-jerusalem-geometry-sky.jpg",
       "asset_id": "2f5ef542-26e3-4e24-bd41-8506aa3046c3",
-      "used_at": "not placed (slot #cinematic scene 1 now uses Canva classroom-ignition.jpg)",
-      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/2f5ef542-26e3-4e24-bd41-8506aa3046c3/01-jerusalem-geometry-sky.jpg"
+      "used_at": "#gallery-jerusalem (before #course-2014777)",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/2f5ef542-26e3-4e24-bd41-8506aa3046c3/01-jerusalem-geometry-sky.jpg",
+      "local_copy": "assets/selected/lovable-jerusalem-geometry-sky.jpg",
+      "local_processing": "resized to 1400px wide, JPEG quality 82 (System.Drawing), 2026-10-23"
     },
     {
       "file": "07-teachers-learning-together.jpg",
@@ -26,14 +28,40 @@
     {
       "file": "09-origami-polyhedra-workshop.jpg",
       "asset_id": "148fb2ea-045a-457d-a899-5c3bd2dbba68",
-      "used_at": "not placed (slot #manifesto now uses Canva educators-leap.jpg)",
-      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/148fb2ea-045a-457d-a899-5c3bd2dbba68/09-origami-polyhedra-workshop.jpg"
+      "used_at": "#gallery-origami (before #course-204781)",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/148fb2ea-045a-457d-a899-5c3bd2dbba68/09-origami-polyhedra-workshop.jpg",
+      "local_copy": "assets/selected/lovable-origami-polyhedra.jpg",
+      "local_processing": "resized to 1400px wide, JPEG quality 82 (System.Drawing), 2026-10-23"
     },
     {
       "file": "10-immersive-geometry-dome.jpg",
       "asset_id": "1c334c23-65b7-4f3d-803d-b87bcb42e36d",
       "used_at": "not placed (slot #inspiration now uses Canva school-blooms.jpg)",
       "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/1c334c23-65b7-4f3d-803d-b87bcb42e36d/10-immersive-geometry-dome.jpg"
+    },
+    {
+      "file": "02-teachers-workshop.jpg",
+      "asset_id": "b521ba41-1a86-46bf-9416-5d9473cd5427",
+      "used_at": "#gallery-workshop (before #catalog-summary)",
+      "local_copy": "assets/selected/lovable-teachers-workshop.jpg",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/b521ba41-1a86-46bf-9416-5d9473cd5427/02-teachers-workshop.jpg",
+      "local_processing": "resized to 1400px wide, JPEG quality 82 (System.Drawing), 2026-10-23"
+    },
+    {
+      "file": "05-virtual-workshop-zoom.jpg",
+      "asset_id": "dd113f26-f1f8-463f-857b-a1d88850ce35",
+      "used_at": "#gallery-online (before #course-201530)",
+      "local_copy": "assets/selected/lovable-virtual-workshop.jpg",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/dd113f26-f1f8-463f-857b-a1d88850ce35/05-virtual-workshop-zoom.jpg",
+      "local_processing": "resized to 1400px wide, JPEG quality 82 (System.Drawing), 2026-10-23"
+    },
+    {
+      "file": "06-digital-math-lab.jpg",
+      "asset_id": "c0dfb1e7-275d-45d1-9c55-50aa61698936",
+      "used_at": "#gallery-digital (before #course-201590)",
+      "local_copy": "assets/selected/lovable-digital-math-lab.jpg",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/c0dfb1e7-275d-45d1-9c55-50aa61698936/06-digital-math-lab.jpg",
+      "local_processing": "resized to 1400px wide, JPEG quality 82 (System.Drawing), 2026-10-23"
     }
   ],
   "other_safeguards": "Do not create duplicate images or hotlink ephemeral thumbnails. To show another Lovable image, copy it into assets/selected and reference the local file."

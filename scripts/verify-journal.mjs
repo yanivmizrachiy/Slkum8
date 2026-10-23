@@ -16,6 +16,13 @@ assert(sections.at(-1) === 'shabat', 'Last folio must be Shabbat greeting');
 for (const page of ['opening','manifesto','inspiration','cinematic','world-report','seminar-invite','event-203587','catalog-summary','community-yaniv-idan','community-teachers-jerusalem','lesson-tomorrow','know-ofek','know-oz','shabat']) {
   assert(unique.has(page), 'Missing required page: ' + page);
 }
+for (const page of ['gallery-digital','gallery-online','gallery-origami','gallery-jerusalem','gallery-workshop']) {
+  assert(unique.has(page), 'Missing Lovable gallery page: ' + page);
+}
+const isTraining = id => /^(course|community|event)-/.test(id);
+for (let i = 1; i < sections.length; i++) {
+  assert(!(isTraining(sections[i - 1]) && isTraining(sections[i])), 'Two training pages are adjacent (put a design page between them): ' + sections[i - 1] + ' → ' + sections[i]);
+}
 for (const id of ['201020','201590','201530','201041','204781','2014777']) {
   const marker = 'id="course-' + id + '"';
   const start = source.indexOf(marker);
@@ -27,6 +34,15 @@ for (const id of ['201020','201590','201530','201041','204781','2014777']) {
     assert(/<time\s+datetime="\d{4}-\d{2}-\d{2}"/.test(content), 'Missing semantic first-meeting date: ' + id);
     assert(content.includes('href="https://drive.google.com/') || content.includes('href="https://docs.google.com/'), 'Missing syllabus link: ' + id);
   }
+}
+{
+  const start = source.indexOf('id="course-201020"');
+  const page = source.slice(start, source.indexOf('</section>', start));
+  assert(!page.includes('יניב רז') && !page.includes('עידן'), 'Compass 201020 is not the Yaniv/Idan coordinators community: do not name them on #course-201020');
+}
+for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['201530','בכיתתו וחנ״מ'],['201041','הוראת המתמטיקה בכיתות ט׳'],['204781','גיאומטריה מהשטח'],['2014777','עדכון תוכנית הלימודים במתמטיקה']]) {
+  const start = source.indexOf('id="course-' + id + '"');
+  assert(source.slice(start, source.indexOf('</section>', start)).includes(name), 'Course ' + id + ' must use the official flyer title: ' + name);
 }
 const communityStart = source.indexOf('id="community-yaniv-idan"');
 const communityEnd = source.indexOf('</section>', communityStart);
@@ -68,6 +84,7 @@ assert(researchNotes.length === 3, 'Expected exactly 3 cited research notes, fou
 for (const [author, year] of [['Darling-Hammond', '2017'], ['Yoon', '2007'], ['Garet', '2001']]) {
   assert(researchNotes.some(n => n.includes(author) && n.includes('(' + year + ')') && n.includes('<cite')), 'Missing cited research note: ' + author + ' ' + year);
 }
+assert(researchNotes.every(n => !n.includes('מן המחקר') && /<p>[^<]+<\/p><cite>על פי מחקר של /.test(n)), 'Research notes: the finding first, then a small "על פי מחקר של…" attribution; no "מן המחקר" label');
 for (const href of [...source.matchAll(/href="#([^"]+)"/g)].map(m => m[1])) {
   assert(source.includes('id="' + href + '"'), 'Broken internal anchor: #' + href);
 }
@@ -82,7 +99,7 @@ assert(artwork.length >= 6, 'Expected 6+ local hero images (assets/selected), fo
 assert(new Set(artwork).size === artwork.length, 'Hero artwork duplicated across pages');
 assert(!/lovable\.app/.test(source), 'No external temp image URLs (lovable.app) allowed — use local binaries in assets/selected');
 warnings.push('Three distinct communities: Yaniv/Idan coordinators (no Compass number yet, 25 Oct), Yaniv/Idan teachers (no Compass number yet, started 7 Oct), numbered coordinators 201020 (13 Oct). Dates from separate written sources.');
-warnings.push('Codes 2014777 and 202967 still require source validation before publishing their courses.');
+warnings.push('The six Compass courses follow the official flyer PDF (השתלמויות תשפ״ז - חט״ב) and jerusalem2 /hishtalmuyot; its hidden text-layer codes (200123, 201298, 201757, 203678) are not visible courses and are not used.');
 warnings.push('External syllabus and image URLs require live browser checks; this script only tests structure.');
 console.log(JSON.stringify({ status: errors.length ? 'FAIL' : 'PASS', pages: sections.length, courses: 6, summaryRows: 9, heroImages: artwork.length, errors, warnings }, null, 2));
 if (errors.length) exit(1);
