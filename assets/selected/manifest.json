@@ -1,32 +1,16 @@
 {
-  "purpose": "Drop-in interface for the cinematic interlude (#cinematic) in index.html. Place rights-cleared source images here with these exact filenames and they appear automatically. If a file is absent, the section falls back to the journal gradient + cover-art.svg, so the layout never breaks.",
-  "section": "#cinematic",
+  "purpose": "Curated hero images integrated into index.html as real binary JPGs (replacing external temp URLs). Source masters: the enhanced *_v2.jpg in Documents/TEACHERS_JOURNAL_MASTER/files.zip (the same curated art verified on Canva). Resized to <=1500px long edge, quality 82, stripped.",
   "owner": "Yaniv Raz",
-  "note": "A filename listed here is a slot, not proof the binary was uploaded. Image import/curation is handled separately (GPT / Canva / Lovable); this folder is only the interface. One quality master per image, no duplicates, no private data.",
-  "slots": [
-    {
-      "file": "cinematic-01.jpg",
-      "role": "scene 1 background — opening giant word",
-      "recommended": "landscape, >=1920px wide, calm area for centered text",
-      "credit": "",
-      "source": "",
-      "status": "awaiting upload"
-    },
-    {
-      "file": "cinematic-02.jpg",
-      "role": "scene 2 background — verbatim teacher quote",
-      "recommended": "landscape, >=1920px wide, teachers learning together",
-      "credit": "",
-      "source": "",
-      "status": "awaiting upload"
-    },
-    {
-      "file": "cinematic-03.jpg",
-      "role": "scene 3 background — finale with Israel-flag reveal",
-      "recommended": "landscape, >=1920px wide, aspirational / Jerusalem / light",
-      "credit": "",
-      "source": "",
-      "status": "awaiting upload"
-    }
+  "source": "TEACHERS_JOURNAL_MASTER/files.zip — enhanced v2 renders; Canva used for inspiration/verification only",
+  "note": "No duplicates: one master per concept (v2 only, never v2+original of the same image). Rights-cleared, no private data. Images are decorative heroes; all course/study-day text and links are unchanged.",
+  "images": [
+    { "file": "impossible-canvas.jpg",     "concept": "01_impossible_canvas",       "used": "#cinematic scene 1 (opening)" },
+    { "file": "intelligence-exchange.jpg",  "concept": "05_intelligence_exchange",   "used": "#cinematic scene 2 (quote)" },
+    { "file": "future-built.jpg",           "concept": "08_future_is_built_here",    "used": "#cinematic scene 3 (finale)" },
+    { "file": "educators-leap.jpg",         "concept": "04_educators_great_leap",    "used": "#manifesto editorial (image + background)" },
+    { "file": "school-blooms.jpg",          "concept": "03_school_that_blooms",      "used": "#inspiration editorial (image + background)" },
+    { "file": "moment-change.jpg",          "concept": "02_moment_everything_changes","used": "#world-report feature visual" },
+    { "file": "knowledge-cascade.jpg",      "concept": "07_knowledge_cascade",       "used": "available (not yet placed)" },
+    { "file": "classroom-ignition.jpg",     "concept": "06_classroom_ignition",      "used": "available (not yet placed)" }
   ]
 }

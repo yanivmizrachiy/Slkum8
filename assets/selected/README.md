@@ -1,17 +1,19 @@
-# assets/selected — curated hero images (drop-in)
+# assets/selected — curated hero images (real binaries)
 
-Interface for the cinematic interlude (`#cinematic`) and future hero spots.
+Hero images for the journal (`index.html`), committed as **real binary JPGs** — not
+external/temp URLs. See [`manifest.json`](./manifest.json) for the file→section map.
 
-**How it works**
-- Add images with the exact filenames listed in [`manifest.json`](./manifest.json)
-  (`cinematic-01.jpg`, `cinematic-02.jpg`, `cinematic-03.jpg`).
-- `index.html` references them directly. When a file is **missing**, that scene
-  degrades to the journal gradient + `assets/cover-art.svg` (via `onerror`), so the
-  layout never breaks and nothing looks empty.
-- No code change is needed when the images arrive — just drop the files in.
+**Source**
+- Masters: the enhanced `*_v2.jpg` renders in `Documents/TEACHERS_JOURNAL_MASTER/files.zip`
+  (the same curated art verified on Canva; Canva/Lovable used for inspiration/verification only).
+- Processed to ≤1500px long edge, quality 82, metadata stripped (~140–530 KB each).
 
-**Rules (per `SOURCE_OF_TRUTH.md`)**
-- Only rights-cleared assets; one quality master per image; no duplicates; no private data.
-- Record `credit` / `source` for each image in `manifest.json`.
-- Image import/curation is handled separately (GPT / Canva / Lovable). This folder is
-  only the interface — do not bulk-copy the full archive here.
+**Rules**
+- One master per concept — **no duplicates** (v2 only, never v2 + original of the same image).
+- Rights-cleared; no private data.
+- These are decorative heroes only. Course names, codes, dates, syllabus/registration links,
+  the study day and "שבת שלום" are **not** changed by image work.
+
+**To swap an image:** drop a new file with the same name here (or add a new name and point the
+matching `img`/`background-image` in `index.html` to it). The cinematic images degrade to the
+journal gradient via `onerror` if ever missing.
