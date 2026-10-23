@@ -1,0 +1,17 @@
+# Local environments and credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+node_modules/
+.next/
+.DS_Store
+Thumbs.db
+# Large raw archives must be explicitly curated before Git addition
+*.zip
+*.7z
+# Temporary design and QA scratch
+tmp/
+.cache/
