@@ -32,6 +32,26 @@ with sync_playwright() as playwright:
         page.goto((ROOT / "index.html").as_uri(), wait_until="domcontentloaded",
                   timeout=45000)
         page.wait_for_timeout(400)
+        # Eagerly decode local images before taking screenshots or printing. A
+        # screenshot of an off-screen lazy image can otherwise capture only the
+        # CSS gradient placeholder even when the image itself is valid.
+        if width in (375, 1280):
+            image_check = page.evaluate("""async () => {
+              const imgs = [...document.querySelectorAll('img[src^="assets/"]')];
+              imgs.forEach(img => { img.loading = 'eager'; });
+              const decoded = await Promise.all(imgs.map(img => Promise.race([
+                img.decode().then(() => true, () => false),
+                new Promise(resolve => setTimeout(() => resolve(false), 15000))
+              ])));
+              return {total: imgs.length, broken: imgs
+                .filter((img, i) => !decoded[i] || img.naturalWidth === 0)
+                .map(img => img.getAttribute('src'))};
+            }""")
+            report.setdefault("local_image_decoding", []).append(
+                {"width": width, **image_check})
+            if image_check["broken"]:
+                report["errors"].append(
+                    f"{width}px: local images failed to decode: {image_check['broken']}")
         metrics = page.evaluate("""() => {
           const pages = [...document.querySelectorAll('section.folio')];
           const doc = document.documentElement;
@@ -71,16 +91,6 @@ with sync_playwright() as playwright:
                     continue
                 loc.screenshot(path=str(OUT / f"{width}-{section}.png"),
                                animations="disabled", timeout=30000)
-        if width == 375:
-            for img in page.locator("img").all():
-                img.scroll_into_view_if_needed(timeout=15000)
-            page.wait_for_timeout(500)
-            broken = page.evaluate("""() => [...document.images]
-              .filter(img => !img.complete || img.naturalWidth === 0)
-              .map(img => img.getAttribute('src'))""")
-            report["broken_local_images"] = broken
-            if broken:
-                report["errors"].append(f"Images failed to load: {broken}")
         if width == 1280:
             page.emulate_media(media="print")
             pdf_path = OUT / "journal-a4-qa.pdf"
