@@ -119,6 +119,42 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 }
 @media print{.catalog-sheet,.summary-sheet,.editorial-sheet,.shabat-sheet{width:210mm!important;height:297mm!important}.catalog-sheet h2{font-size:53px}.compass strong{font-size:100px}.editorial-sheet blockquote{font-size:70px}}
 
+/* WORLD REPORT — international newspaper deep-feature with an integral Israel flag motif */
+.feature-sheet{position:relative;overflow:hidden;background:#fbf8f0;color:#121a26;padding:6.2% 8%;display:flex;flex-direction:column;--flag:#0038b8}
+.feature-sheet>*{position:relative;z-index:1}
+.feature-watermark{position:absolute;z-index:0;bottom:-6%;inset-inline-start:-14%;width:66%;max-width:560px;opacity:.07;pointer-events:none;transform:rotate(-8deg)}
+.feature-top{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:3px solid var(--flag);padding-top:12px;font:800 clamp(10px,1.35vw,13px) Heebo,sans-serif;letter-spacing:.07em;color:#1a2b4d}
+.feature-top span:first-child{direction:ltr}
+.feature-flag{width:clamp(44px,6vw,58px);flex:none;aspect-ratio:11/8;border:1px solid #d7dbe2}
+.feature-kicker{font:800 clamp(13px,1.75vw,16px) Heebo,sans-serif;color:var(--flag);margin:7.5% 0 0;letter-spacing:.02em}
+.feature-headline{font:900 clamp(46px,9.3vw,94px)/1.0 'Frank Ruhl Libre',serif;letter-spacing:-.05em;margin:2.2% 0 0;color:#0b1a33;text-align:right}
+.feature-headline em{font-style:normal;color:var(--flag)}
+.feature-deck{font:700 clamp(17px,2.45vw,24px)/1.5 Heebo,sans-serif;color:#2b3b54;margin:4.4% 0 0;max-width:94%}
+.feature-pull{margin:5.2% 0 0;border-inline-start:6px solid var(--flag);padding-inline-start:4.2%;font:900 clamp(19px,2.9vw,29px)/1.42 'Frank Ruhl Libre',serif;color:#0b1a33}
+.feature-text{font:600 clamp(14px,1.85vw,18px)/1.62 Assistant,sans-serif;color:#33465c;margin:5% 0 0;max-width:94%}
+.feature-text b{color:var(--flag);font-weight:800}
+.feature-foot{margin-top:auto;padding-top:12px;border-top:1px solid #c6ccd6;display:flex;justify-content:space-between;gap:12px;color:#48546b;font:800 clamp(10px,1.25vw,13px) Heebo,sans-serif}
+@media(max-width:620px){
+ .feature-sheet{padding:6% 7%}
+ .feature-top{font-size:9px;padding-top:7px}
+ .feature-kicker{margin-top:6%;font-size:12px}
+ .feature-headline{font-size:clamp(40px,11vw,64px)}
+ .feature-deck{font-size:clamp(14px,4vw,18px);margin-top:5%;max-width:100%}
+ .feature-pull{font-size:clamp(17px,4.6vw,22px);margin-top:6%}
+ .feature-text{font-size:clamp(12px,3.6vw,15px);margin-top:5%;max-width:100%}
+ .feature-watermark{width:84%;bottom:-3%;opacity:.06}
+ .feature-foot{font-size:9px;margin-top:6%;padding-top:7px}
+}
+@media print{.feature-sheet{width:210mm!important;height:297mm!important}.feature-headline{font-size:78px}}
+
+/* Mobile: keep the sticky nav inside the bar so the page never scrolls horizontally */
+@media(max-width:620px){
+ .bar{overflow:hidden}
+ .brand{min-width:0}
+ .bar nav{flex:1 1 auto;min-width:0;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ .bar nav::-webkit-scrollbar{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -201,6 +237,16 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>מהתנסות והמחשה אל דיון, טיעון וחשיבה גיאומטרית בכיתת המתמטיקה.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>204781</b> במערכת מצפן</div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>08</span></div>
+</section>
+<section class="folio feature-sheet" id="world-report" aria-label="עמוד 9: כתבת עומק — לישראל מגיע מורים לומדים">
+<svg class="feature-watermark" viewBox="0 0 200 200" aria-hidden="true"><polygon points="100,14 25,143 175,143" fill="none" stroke="#0038b8" stroke-width="7"/><polygon points="100,186 25,57 175,57" fill="none" stroke="#0038b8" stroke-width="7"/></svg>
+<div class="feature-top"><span dir="ltr">THE TEACHERS JOURNAL · WORLD REPORT</span><svg class="feature-flag" viewBox="0 0 220 160" role="img" aria-label="דגל ישראל"><rect width="220" height="160" fill="#fff"/><rect y="24" width="220" height="14" fill="#0038b8"/><rect y="122" width="220" height="14" fill="#0038b8"/><polygon points="110,52 86,94 134,94" fill="none" stroke="#0038b8" stroke-width="6"/><polygon points="110,108 86,66 134,66" fill="none" stroke="#0038b8" stroke-width="6"/></svg></div>
+<p class="feature-kicker">כתבת עומק · פיתוח מקצועי במתמטיקה</p>
+<h2 class="feature-headline">לישראל מגיע<br><em>מורים לומדים</em></h2>
+<p class="feature-deck">כשמורות ומורים למתמטיקה יושבים ללמוד יחד, הכיתה כולה מרוויחה. פיתוח מקצועי איננו מותרות — הוא הדרך שבה ההוראה נשארת חיה, סקרנית ומדויקת.</p>
+<blockquote class="feature-pull">״למידת עמיתים. זה משהו שלא לומדים במכללות להוראה. היא ממקצעת אותנו, ואין דרך טובה יותר להתפתח כדי להיות מורים טובים.״</blockquote>
+<p class="feature-text">כשמורות ומורים נפגשים סביב שולחן אחד — לא כדי לשמוע הרצאה אלא כדי ללמוד זה מזה — נוצר <b>ידע שעובר ממורה למורה</b>, מכיתה לכיתה. מורה שממשיכה ללמוד מביאה אל הכיתה אור חדש, ומשם הוא מתפשט הלאה. לכך מגיעה מדינה: מורים שלא מפסיקים ללמוד.</p>
+<div class="feature-foot"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>09</span></div>
 </section>
 <section class="folio summary-sheet" id="catalog-summary" aria-label="טבלת סיכום השתלמויות חטיבות הביניים">
 <div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג חטיבות הביניים</span></div>
