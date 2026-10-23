@@ -16,7 +16,7 @@ assert(sections.at(-1) === 'shabat', 'Last folio must be Shabbat greeting');
 for (const page of ['opening','manifesto','inspiration','cinematic','world-report','event-203587','catalog-summary','community-yaniv-idan','shabat']) {
   assert(unique.has(page), 'Missing required page: ' + page);
 }
-for (const id of ['201020','201590','201530','201041','204781']) {
+for (const id of ['201020','201590','201530','201041','204781','2014777']) {
   const marker = 'id="course-' + id + '"';
   const start = source.indexOf(marker);
   const end = source.indexOf('</section>', start);
@@ -25,7 +25,7 @@ for (const id of ['201020','201590','201530','201041','204781']) {
     const content = source.slice(start, end);
     assert(content.includes('course-opening'), 'Missing first-meeting callout: ' + id);
     assert(/<time\s+datetime="\d{4}-\d{2}-\d{2}"/.test(content), 'Missing semantic first-meeting date: ' + id);
-    assert(content.includes('href="https://drive.google.com/'), 'Missing syllabus link: ' + id);
+    assert(content.includes('href="https://drive.google.com/') || content.includes('href="https://docs.google.com/'), 'Missing syllabus link: ' + id);
   }
 }
 const communityStart = source.indexOf('id="community-yaniv-idan"');
@@ -44,10 +44,10 @@ assert(summaryStart >= 0 && summaryEnd > summaryStart, 'Missing summary page');
 if (summaryEnd > summaryStart) {
   const summary = source.slice(summaryStart, summaryEnd);
   const rows = [...summary.matchAll(/<tr(?:\s|>)/g)].length - 1;
-  assert(rows === 7, 'Expected 7 summary rows (2 separate communities + 4 more courses + symposium), got ' + rows);
-  assert([...summary.matchAll(/class="table-links"/g)].length === 7, 'Expected 2 action links for each summary row');
+  assert(rows === 8, 'Expected 8 summary rows (2 separate communities + 5 more courses + symposium), got ' + rows);
+  assert([...summary.matchAll(/class="table-links"/g)].length === 8, 'Expected 2 action links for each summary row');
   assert(summary.includes('#community-yaniv-idan'), 'Missing distinct no-Compass community table row');
-  for (const id of ['201020','201590','201530','201041','204781']) {
+  for (const id of ['201020','201590','201530','201041','204781','2014777']) {
     assert(summary.includes('#course-' + id), 'Missing summary-to-course link: ' + id);
   }
 }
@@ -67,5 +67,5 @@ assert(!/lovable\.app/.test(source), 'No external temp image URLs (lovable.app) 
 warnings.push('Two distinct coordinator communities: Yaniv/Idan no Compass, starts 25 Oct; numbered 201020 starts 13 Oct. Dates from separate written sources.');
 warnings.push('Codes 2014777 and 202967 still require source validation before publishing their courses.');
 warnings.push('External syllabus and image URLs require live browser checks; this script only tests structure.');
-console.log(JSON.stringify({ status: errors.length ? 'FAIL' : 'PASS', pages: sections.length, courses: 6, summaryRows: 7, heroImages: artwork.length, errors, warnings }, null, 2));
+console.log(JSON.stringify({ status: errors.length ? 'FAIL' : 'PASS', pages: sections.length, courses: 6, summaryRows: 8, heroImages: artwork.length, errors, warnings }, null, 2));
 if (errors.length) exit(1);
