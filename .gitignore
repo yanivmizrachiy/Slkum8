@@ -15,3 +15,4 @@ Thumbs.db
 # Temporary design and QA scratch
 tmp/
 .cache/
+.playwright-mcp/

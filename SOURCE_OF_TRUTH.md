@@ -486,3 +486,18 @@
 10. **זרימת עבודה:** קרא תחילה את SSOT הנוכחי, `COURSE_VERIFICATION.md`, `assets/selected/manifest.json` ו-`assets/lovable-selected.json`; בדוק diff מדויק ב-main וב־PRs; בלי עיצובים חדשים מיותרים; טפל בחסרים מדורגים, ב־PR קטן לכל קבוצת שינויים, עם צילום מסך / ראיית QA; עדכן ב־SSOT **בוצע / טרם בוצע / מקור / קישור**. אל תדרוס עבודת GPT/Codex או קנבה. כל טענה ש״הושלם״ דורשת הצגה/בדיקה אמיתית של האתר `https://slkum8.vercel.app`.
 
 **דרישת סגירה:** כל המשתמש מבקש לראות את **הג׳ורנל שלו ולא עיצוב גנרי חדש**. להציג קודם מפת פערים מול הדרישות, אז *לתקן בפועל* אותם לפי סדר ערך, להעדיף העברת נכסים קיים לתוך הג׳ורנל על פני יצירת תמונות/מסמכים חדשים. אין לשנות את Lovable המקורי ואין למחוק קבצים.
+
+## בוצע ונבדק — AUDIT + תיקון (23.10.2026, Claude Code, ענף design/journal8-canva-content)
+**AUDIT מול main `68138f6` (לפני תיקון):** 8 קובצי JPG בינריים של Canva v2 **כבר קיימים בריפו** תחת `assets/selected/` (impossible-canvas 406KB … classroom-ignition 187KB) ולא רק manifest — הטענה בסעיף 0A שחסרים בינאריים הייתה **מיושנת**. 6 שובצו בפועל; **0 קישורי lovable.app חיצוניים** (המחרוזות "lovable" הן שמות מחלקות CSS בלבד). כל התוכן המחייב כבר היה קיים (שתי קהילות, 5 קורסים, עיתון+דגל, יום עיון 203587, טבלה, שבת שלום·יניב רז, משפט שכר קצר, reduced-motion+A4+מובייל). **שני פערים אמיתיים:** (1) השער השתמש ב-SVG מופשט ולא בתמונת Canva אמיתית; (2) עמוד `course-2014777` נעדר.
+
+**מה תוקן בפועל:**
+- **שער:** `#cover` עכשיו טוען את `assets/selected/impossible-canvas.jpg` (נכס `MAHYxRfTBGQ`, תמונת השער לפי חוזה השער), עם נפילה חזרה ל-`cover-art.svg` ב-onerror. התמונה נבדקה בפועל: naturalWidth 1500, HTTP 200 image/jpeg 406,856 bytes.
+- **קטע קולנועי s1:** עבר ל-`assets/selected/classroom-ignition.jpg` (נכס שלא היה בשימוש), כדי לשחרר את impossible-canvas לשער בלי כפילות.
+- **עמוד חדש `#course-2014777`:** A4 בהיר בתבנית `catalog-sheet` הקיימת — שם "עדכון תוכנית הלימודים", מצפן **2014777** בולט, מפגש ראשון **28.10.2026** (פתיחה 16:00–18:30, פסג״ה מודיעין) מודגש, קישור סילבוס Docs אמיתי. גם **שורה בטבלה** המרכזת.
+- CI `scripts/verify-journal.mjs` עודכן: כולל 2014777, מתיר קישור סילבוס מסוג docs.google.com, מצפה ל-8 שורות טבלה. **ריצה מקומית: PASS**, pages 16, heroImages 7 (ללא כפילות), errors 0.
+
+**מפת נכס → עמוד (אחרי התיקון):** impossible-canvas→#cover · educators-leap→#manifesto · school-blooms→#inspiration · classroom-ignition→#cinematic s1 · intelligence-exchange→#cinematic s2 · future-built→#cinematic s3 · moment-change→#world-report. **רזרבה (לא שובצה):** knowledge-cascade.
+
+**בדיקות שבוצעו בדפדפן (localhost):** 7 תמונות ה-hero נטענות (allOk), 0 שגיאות קונסול (בדפדפן הפנימי), **0 גלילה רוחבית** ב-320/375/430px, הדפסת print כל folio 210.1×297.1mm (A4) כולל העמוד החדש. **לא נבדק:** פתיחת גוף מסמכי הסילבוס החיצוניים (Drive/Docs דורשים אישור אינטראקטיבי); אימות רישום בפועל במצפן; תוכן 202967 (**HOLD** — אין סילבוס/מועד מאומת, לא פורסם). **אמירות מחקר עם מקור (סעיף 0A/3):** לא נוספו — כדי לא להמציא ייחוס; נשארות pending עד אימות נוסח ומקור אמיתי.
+
+**עודכן:** 23.10.2026 · Claude Code · ענף `design/journal8-canva-content` + PR. אין לטעון 100% עד אישור המשתמש והצגה ב-slkum8.vercel.app.

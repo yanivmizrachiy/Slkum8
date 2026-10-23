@@ -4,13 +4,13 @@
   "source": "TEACHERS_JOURNAL_MASTER/files.zip — enhanced v2 renders; Canva used for inspiration/verification only",
   "note": "No duplicates: one master per concept (v2 only, never v2+original of the same image). Rights-cleared, no private data. Images are decorative heroes; all course/study-day text and links are unchanged.",
   "images": [
-    { "file": "impossible-canvas.jpg",     "concept": "01_impossible_canvas",       "used": "#cinematic scene 1 (opening)" },
+    { "file": "impossible-canvas.jpg",     "concept": "01_impossible_canvas",       "used": "#cover hero (masthead artwork)" },
     { "file": "intelligence-exchange.jpg",  "concept": "05_intelligence_exchange",   "used": "#cinematic scene 2 (quote)" },
     { "file": "future-built.jpg",           "concept": "08_future_is_built_here",    "used": "#cinematic scene 3 (finale)" },
     { "file": "educators-leap.jpg",         "concept": "04_educators_great_leap",    "used": "#manifesto editorial (image + background)" },
     { "file": "school-blooms.jpg",          "concept": "03_school_that_blooms",      "used": "#inspiration editorial (image + background)" },
     { "file": "moment-change.jpg",          "concept": "02_moment_everything_changes","used": "#world-report feature visual" },
     { "file": "knowledge-cascade.jpg",      "concept": "07_knowledge_cascade",       "used": "available (not yet placed)" },
-    { "file": "classroom-ignition.jpg",     "concept": "06_classroom_ignition",      "used": "available (not yet placed)" }
+    { "file": "classroom-ignition.jpg",     "concept": "06_classroom_ignition",      "used": "#cinematic scene 1 (opening)" }
   ]
 }
