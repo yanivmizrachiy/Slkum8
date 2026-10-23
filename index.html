@@ -434,6 +434,13 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
  .cover{aspect-ratio:auto;height:auto;min-height:141.4vw;grid-template-rows:63.6vw auto}
 }
 
+/* USER ORIGINAL WORDING — cinematic finale, readable on print and phone */
+.cine-finale-quote{position:relative;z-index:3;max-width:36ch;margin:7% 0 0;padding:0 2%;color:#fff5db;font:800 clamp(15px,2.4vw,23px)/1.5 Heebo,sans-serif;text-align:center;text-wrap:balance;text-shadow:0 3px 18px #000f,0 1px 3px #071527}
+.cine-sheet.is-playing .s3 .cine-finale-quote{animation:cineRise 1.3s cubic-bezier(.2,.7,.2,1) 6.9s both}
+@media(max-width:620px){.cine-finale-quote{font-size:clamp(13px,3.5vw,17px);margin-top:5%;max-width:31ch;line-height:1.38}}
+@media print{.cine-scene.s3 .cine-finale-quote{animation:none!important;opacity:1!important;transform:none!important;color:#fff5db;font-size:20px}}
+@media(prefers-reduced-motion:reduce){.cine-sheet.is-playing .s3 .cine-finale-quote{animation:none!important;opacity:1!important;transform:none!important}}
+
 </style>
 </head>
 <body>
@@ -524,6 +531,7 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="cine-media"><img src="assets/selected/future-built.jpg" alt="חזון חינוכי מרומם — העתיד נבנה כאן" loading="lazy" decoding="async" onerror="this.remove()"></div>
 <svg class="cine-flag" viewBox="0 0 220 160" role="img" aria-label="דגל ישראל"><line class="stripe" x1="8" y1="34" x2="212" y2="34" pathLength="1"/><line class="stripe" x1="8" y1="126" x2="212" y2="126" pathLength="1"/><polygon class="star" points="110,52 86,94 134,94" pathLength="1"/><polygon class="star" points="110,108 86,66 134,66" pathLength="1"/></svg>
 <h2 class="cine-final">מורים לומדים.</h2>
+<blockquote class="cine-finale-quote" lang="he">״אם אתה חושב שאתה צריך להירשם להשתלמות, כנראה שההורים שלך זוכים ללמוד אצל הטוב ביותר.״</blockquote>
 </div>
 <div class="cine-caption">מקטע קולנועי · למידת עמיתים</div>
 </section>
