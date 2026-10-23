@@ -42,11 +42,88 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 @media(max-width:350px){.cover h1{font-size:44px}.mark p{display:none}.mark img{width:39px;height:39px}.credit{gap:2px}.credit .district{font-size:11px}.credit .lead{font-size:11px}.credit .writer{font-size:10px}.intro h2{font-size:57px}.bar nav a:last-child{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important}}
 @media print{@page{size:A4 portrait;margin:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}html,body{background:white!important}body{margin:0}.bar,.actions,.note,.skip{display:none!important}main{padding:0;margin:0;display:block}.folio{width:210mm!important;height:297mm!important;aspect-ratio:auto;box-shadow:none;break-after:page;page-break-after:always}.folio:last-of-type{break-after:auto}.cover h1{font-size:82px}.intro h2{font-size:110px}.cover .credit .district{font-size:17px}}
+
+/* JOURNAL CATALOG EXTENSION — every training page uses the same design language */
+.catalog-sheet,.summary-sheet{background:#fffdfa;color:#102b38;padding:6.4% 8%;display:flex;flex-direction:column;--accent:#236fb9}
+.catalog-head{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:3px solid var(--accent);padding-top:13px;color:#435968;font:700 clamp(9px,1.25vw,12px) Heebo,Arial,sans-serif}
+.catalog-head span:first-child{direction:ltr;letter-spacing:.06em}
+.catalog-type{font:800 clamp(13px,1.8vw,16px) Heebo,sans-serif;color:var(--accent);margin-top:9%}
+.catalog-sheet h2{font:900 clamp(31px,5.65vw,58px)/1.12 'Frank Ruhl Libre',serif;letter-spacing:-.035em;margin:3.2% 0 0;color:#092e41}
+.catalog-sub{font:700 clamp(16px,2.7vw,25px) Heebo,sans-serif;color:#30495b;margin:2% 0 5%;line-height:1.45}
+.compass{display:flex;flex-direction:column;gap:2px;margin:0 0 3%;align-items:flex-start}
+.compass>span{font:800 clamp(13px,1.8vw,18px) Heebo,sans-serif;color:var(--accent)}
+.compass strong{font:900 clamp(57px,13vw,126px)/.99 Heebo,sans-serif;letter-spacing:-.07em;color:#152d41;white-space:nowrap}
+.catalog-rule{height:6px;width:100%;background:linear-gradient(to left,var(--accent),#c8d5d9 72%,transparent);margin:2% 0 4%}
+.course-description{font-size:clamp(15px,2.1vw,21px);line-height:1.5;color:#223c4c}
+.course-description p{margin:1.5% 0}
+.course-kicker{font:800 clamp(13px,1.6vw,16px) Heebo,sans-serif;color:#4b6572}
+.catalog-actions{display:grid;gap:12px;margin-top:auto}
+.catalog-actions>a{background:#15364a;color:white;display:flex;align-items:center;justify-content:center;border-radius:4px;font:800 clamp(14px,2vw,19px) Heebo,sans-serif;padding:12px 18px;text-align:center;text-decoration:none;min-height:42px}
+.catalog-actions>a:hover,.catalog-actions>a:focus-visible{background:var(--accent)}
+.compass-instruction{font:700 clamp(12px,1.75vw,16px)/1.5 Heebo,sans-serif;color:#213b4b;background:#f0f5f6;padding:12px 16px;border-inline-start:5px solid var(--accent)}
+.catalog-footer{margin-top:6%;padding-top:11px;border-top:1px solid #aabdc7;display:flex;justify-content:space-between;gap:12px;color:#425b65;font:700 clamp(10px,1.25vw,13px) Heebo,sans-serif}
+.editorial-sheet{background:linear-gradient(150deg,#0d1c59,#1b1261 32%,#c22175 67%,#ec875b);display:flex;flex-direction:column;color:#fff;padding:7.3% 8%;position:relative}
+.editorial-deep{background:linear-gradient(150deg,#0a3e58,#11377c 42%,#bd276b 76%,#ef6d32)}
+.editorial-top{border-top:1px solid #ffffff88;padding-top:9px;font:700 clamp(11px,1.5vw,15px) Heebo,sans-serif;letter-spacing:.11em;color:#fff9d8}
+.editorial-art{position:absolute;top:19%;left:-25%;right:11%;height:45%;background:url('assets/cover-art.svg') center/cover;border-radius:90% 20% 70% 15%;transform:rotate(-10deg);opacity:.7;filter:saturate(1.15);pointer-events:none}
+.editorial-sheet blockquote{position:relative;margin:auto 0 18%;font:900 clamp(42px,8vw,78px)/1.27 'Frank Ruhl Libre',serif;letter-spacing:-.035em;text-shadow:0 5px 25px #0009;text-align:right}
+.editorial-foot{border-top:1px solid #ffffff88;padding-top:12px;font:700 clamp(14px,2vw,19px) Heebo,sans-serif;color:#ffeda6}
+.summary-sheet{--accent:#d54b87}
+.summary-sheet h2{margin:9% 0 3%;font:900 clamp(39px,6.5vw,62px)/1.2 'Frank Ruhl Libre',serif;letter-spacing:-.04em}
+.summary-sheet h2 em{font-style:normal;color:#b43b77}
+.table-desc{font:700 clamp(14px,1.65vw,16px) Heebo,sans-serif;color:#46606a}
+.training-table{width:100%;border-collapse:collapse;text-align:right;table-layout:fixed;margin-top:6%}
+.training-table thead{background:#102e40;color:white}
+.training-table th,.training-table td{padding:14px 10px;border-bottom:1px solid #d4dfe4;vertical-align:middle}
+.training-table thead th{font:800 clamp(11px,1.5vw,14px) Heebo,sans-serif}
+.training-table tbody th{font:800 clamp(13px,1.8vw,17px)/1.35 Heebo,sans-serif}
+.training-table tbody th small{display:block;font:600 clamp(10px,1.35vw,12px)/1.4 Assistant,sans-serif;color:#59717c;margin-top:3px}
+.training-table td{font:700 clamp(11px,1.6vw,15px) Heebo,sans-serif}
+.training-table th:nth-child(1){width:58%}.training-table th:nth-child(2){width:23%}.training-table th:nth-child(3){width:19%}
+.training-table a{color:#135682;text-decoration-thickness:2px;text-underline-offset:3px}
+.table-note{margin-top:auto;background:#f0f4f5;padding:16px;font:600 clamp(12px,1.6vw,15px)/1.55 Assistant,sans-serif;color:#365363}
+.shabat-sheet{background:radial-gradient(circle at 50% 26%,#fff6c5 0,#ffc782 20%,#d64773 48%,#231e65 90%);padding:7% 8%;display:flex;flex-direction:column;align-items:center;text-align:center;color:white}
+.shabat-sheet .editorial-top{align-self:stretch;text-align:left}
+.shabat-glow{margin-top:13%;width:43%;aspect-ratio:1;border-radius:50%;background:#fff8c3;box-shadow:0 0 80px 30px #ffc66d88;opacity:.85}
+.shabat-kicker{margin:9% 0 0;font:800 clamp(17px,2.4vw,24px) Heebo,sans-serif}
+.shabat-sheet h2{margin:5% 0 0;font:900 clamp(85px,15vw,149px)/1.1 'Frank Ruhl Libre',serif;text-shadow:0 6px 20px #2d174c7a}
+.shabat-sheet h2 em{font-style:normal;color:#fff5c4}
+.shabat-line{width:56%;height:1px;background:#fff8; margin:auto 0 4%}
+.shabat-name{margin:0;font:900 clamp(28px,4vw,38px) 'Frank Ruhl Libre',serif}
+.shabat-role{font:600 clamp(11px,1.5vw,14px) Heebo,sans-serif;line-height:1.45;max-width:80%;margin:2% 0 0}
+@media(max-width:620px){
+ .catalog-sheet,.summary-sheet{padding:6% 7%}
+ .catalog-head{font-size:9px;padding-top:7px}
+ .catalog-type{margin-top:5%;font-size:12px}
+ .catalog-sheet h2{font-size:clamp(28px,8.5vw,43px);margin-top:3%}
+ .catalog-sub{font-size:clamp(13px,3.7vw,18px);margin:1% 0 4%}
+ .compass strong{font-size:clamp(52px,17vw,83px)}
+ .compass>span,.course-kicker{font-size:12px}
+ .course-description{font-size:clamp(12px,3.4vw,16px)}
+ .course-description p{line-height:1.4}
+ .catalog-actions{gap:5px}
+ .catalog-actions>a{font-size:13px;padding:6px 9px;min-height:36px}
+ .compass-instruction{font-size:11px;padding:6px 9px}
+ .catalog-footer{margin-top:4%;font-size:9px;padding-top:6px}
+ .editorial-sheet blockquote{font-size:clamp(36px,9vw,65px)}
+ .training-table th,.training-table td{padding:6px 4px}
+ .training-table tbody th{font-size:11px}
+ .training-table tbody th small{font-size:8px}
+ .training-table td{font-size:11px}
+ .table-desc{font-size:12px}
+ .summary-sheet h2{font-size:clamp(34px,8.5vw,49px);margin:5% 0 2%}
+ .table-note{font-size:10px;padding:9px}
+ .shabat-sheet h2{font-size:clamp(71px,18vw,110px)}
+ .shabat-glow{margin-top:11%}
+ .shabat-kicker{font-size:14px}
+}
+@media print{.catalog-sheet,.summary-sheet,.editorial-sheet,.shabat-sheet{width:210mm!important;height:297mm!important}.catalog-sheet h2{font-size:53px}.compass strong{font-size:100px}.editorial-sheet blockquote{font-size:70px}}
+
 </style>
 </head>
 <body>
 <a class="skip" href="#cover">מעבר לתוכן</a>
-<header class="bar"><div class="brand"><img src="https://raw.githubusercontent.com/yanivmizrachiy/summary7-public/main/assets/logo.png" alt="לוגו מחוז ירושלים"><div><strong>סיכום שבועי 08</strong><small>הדרכה במתמטיקה • מחוז ועיר ירושלים</small></div></div><nav aria-label="ניווט בין עמודים"><a href="#cover">שער</a><a href="#opening">מי צריך השתלמות?</a></nav></header>
+<header class="bar"><div class="brand"><img src="https://raw.githubusercontent.com/yanivmizrachiy/summary7-public/main/assets/logo.png" alt="לוגו מחוז ירושלים"><div><strong>סיכום שבועי 08</strong><small>הדרכה במתמטיקה • מחוז ועיר ירושלים</small></div></div><nav aria-label="ניווט בין עמודים"><a href="#cover">שער</a><a href="#opening">מי צריך השתלמות?</a><a href="#course-201020">קטלוג</a><a href="#catalog-summary">טבלה</a></nav></header>
 <main>
 <section class="folio cover" id="cover" aria-label="עמוד 1: שער סיכום שבועי 8">
 <div class="art"><img src="assets/cover-art.svg" alt="ציור מופשט ססגוני בהשראת ירושלים, גשרים, תנועה וגאומטריה"></div>
@@ -65,7 +142,85 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="lineart" aria-hidden="true"><svg viewBox="0 0 660 370" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 339h660" stroke="#e5e0d9" stroke-width="1"/><path d="M20 325Q150 40 310 285T640 110" stroke="#234df4" stroke-width="5"/><path d="M5 349Q250 235 370 64T660 310" stroke="#db277a" stroke-width="4"/><path d="M45 300Q270 390 405 125T641 55" stroke="#ef642c" stroke-width="3"/><circle cx="367" cy="170" r="80" stroke="#234df4" stroke-width="1.5" opacity=".25"/><circle cx="367" cy="170" r="119" stroke="#ef642c" stroke-width="1.5" opacity=".25"/><circle cx="367" cy="170" r="161" stroke="#db277a" stroke-width="1.5" opacity=".15"/><circle cx="367" cy="170" r="7" fill="#ef642c"/></svg></div>
 <div class="intro-footer"><span>02&nbsp; / &nbsp;08</span><span>מחוז ירושלים · עיר ירושלים</span></div>
 </section>
+<section class="folio editorial-sheet" id="manifesto" aria-label="עמוד השראה על למידת עמיתים">
+<div class="editorial-top" dir="ltr">THE TEACHERS JOURNAL&nbsp; / &nbsp;EDITORIAL&nbsp; 03</div>
+<div class="editorial-art" role="img" aria-label="רצועות צבעוניות של גאומטריה וירושלים"></div>
+<blockquote>״רק כשלומדים ביחד באמת<br>שוברים תקרת זכוכית״</blockquote>
+<div class="editorial-foot">למידת עמיתים · ידע שעובר ממורה למורה</div></section>
+<section class="folio catalog-sheet" id="course-201020" style="--accent:#3069be" aria-label="השתלמות קהילת רכזי מתמטיקה">
+<div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
+<div class="catalog-type">פיתוח מקצועי במתמטיקה</div>
+<h2>קהילת רכזי מתמטיקה</h2><p class="catalog-sub">פיתוח מקצועי לרכזות ולרכזי מתמטיקה</p>
+<div class="compass"><span>מספר במצפן</span><strong dir="ltr">201020</strong></div>
+<div class="catalog-rule"></div>
+<div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>למידה מקצועית משותפת והובלת הוראת המתמטיקה בחטיבות הביניים.</p></div>
+<div class="catalog-actions"><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201020</b> במערכת מצפן</div></div>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>04</span></div>
+</section>
+<section class="folio catalog-sheet" id="course-201590" style="--accent:#bd3682" aria-label="השתלמות בינה מלאכותית ו־Moodle">
+<div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
+<div class="catalog-type">פיתוח מקצועי במתמטיקה</div>
+<h2>בינה מלאכותית ו־Moodle</h2><p class="catalog-sub">בהוראת מתמטיקה בכיתות ז׳–ח׳</p>
+<div class="compass"><span>מספר במצפן</span><strong dir="ltr">201590</strong></div>
+<div class="catalog-rule"></div>
+<div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>שילוב כלים של בינה מלאכותית ומרחבי למידה דיגיטליים בהוראת המתמטיקה.</p></div>
+<div class="catalog-actions"><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201590</b> במערכת מצפן</div></div>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>05</span></div>
+</section>
+<section class="folio editorial-sheet editorial-deep" id="inspiration" aria-label="עמוד השראה על מורים לומדים">
+<div class="editorial-top" dir="ltr">LEARNING NEVER STOPS&nbsp; / &nbsp;ISSUE 08</div>
+<div class="editorial-art" role="img" aria-label="צבעי הג׳ורנל וגאומטריה"></div>
+<blockquote>״מכל אחד אפשר ללמוד״</blockquote>
+<div class="editorial-foot">מורים לומדים · מורים מובילים</div></section>
+<section class="folio catalog-sheet" id="course-201530" style="--accent:#e26b35" aria-label="השתלמות הוראת התלמיד המתקשה">
+<div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
+<div class="catalog-type">פיתוח מקצועי במתמטיקה</div>
+<h2>הוראת התלמיד המתקשה</h2><p class="catalog-sub">בכיתתו ובחינוך המיוחד</p>
+<div class="compass"><span>מספר במצפן</span><strong dir="ltr">201530</strong></div>
+<div class="catalog-rule"></div>
+<div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>העמקת דרכי ההוראה וההתאמה לצורכי תלמידים מתקשים בלימודי המתמטיקה.</p></div>
+<div class="catalog-actions"><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201530</b> במערכת מצפן</div></div>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>06</span></div>
+</section>
+<section class="folio catalog-sheet" id="course-201041" style="--accent:#236fb9" aria-label="השתלמות מתמטיקה בכיתה ט׳">
+<div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
+<div class="catalog-type">פיתוח מקצועי במתמטיקה</div>
+<h2>מתמטיקה בכיתה ט׳</h2><p class="catalog-sub">לקראת לימודי 4–5 יחידות</p>
+<div class="compass"><span>מספר במצפן</span><strong dir="ltr">201041</strong></div>
+<div class="catalog-rule"></div>
+<div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>העמקת ההוראה בכיתה ט׳ והקשר ללימודי המתמטיקה בהמשך.</p></div>
+<div class="catalog-actions"><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201041</b> במערכת מצפן</div></div>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>07</span></div>
+</section>
+<section class="folio catalog-sheet" id="course-204781" style="--accent:#258b85" aria-label="השתלמות גיאומטריה מהשטח">
+<div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
+<div class="catalog-type">פיתוח מקצועי במתמטיקה</div>
+<h2>גיאומטריה מהשטח</h2><p class="catalog-sub">מהמחשה פיזית להבנה מתמטית</p>
+<div class="compass"><span>מספר במצפן</span><strong dir="ltr">204781</strong></div>
+<div class="catalog-rule"></div>
+<div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>מהתנסות והמחשה אל דיון, טיעון וחשיבה גיאומטרית בכיתת המתמטיקה.</p></div>
+<div class="catalog-actions"><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>204781</b> במערכת מצפן</div></div>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>08</span></div>
+</section>
+<section class="folio summary-sheet" id="catalog-summary" aria-label="טבלת סיכום השתלמויות חטיבות הביניים">
+<div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג חטיבות הביניים</span></div>
+<h2>כל ההשתלמויות<br><em>במבט אחד.</em></h2>
+<p class="table-desc">השתלמויות במתמטיקה לחטיבות הביניים · קוד במצפן וקישור למסמך המקור</p>
+<table class="training-table"><thead><tr><th scope="col">השתלמות</th><th scope="col">מספר מצפן</th><th scope="col">סילבוס</th></tr></thead><tbody><tr><th scope="row">קהילת רכזי מתמטיקה<small>פיתוח מקצועי לרכזות ולרכזי מתמטיקה</small></th><td dir="ltr">201020</td><td><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
+<tr><th scope="row">בינה מלאכותית ו־Moodle<small>בהוראת מתמטיקה בכיתות ז׳–ח׳</small></th><td dir="ltr">201590</td><td><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
+<tr><th scope="row">הוראת התלמיד המתקשה<small>בכיתתו ובחינוך המיוחד</small></th><td dir="ltr">201530</td><td><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
+<tr><th scope="row">מתמטיקה בכיתה ט׳<small>לקראת לימודי 4–5 יחידות</small></th><td dir="ltr">201041</td><td><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
+<tr><th scope="row">גיאומטריה מהשטח<small>מהמחשה פיזית להבנה מתמטית</small></th><td dir="ltr">204781</td><td><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr></tbody></table>
+<p class="table-note">להרשמה, יש לחפש את מספר ההשתלמות באתר מצפן. קישור לסילבוס אינו קישור הרשמה. פרטים ומועדים נוספים יפורסמו לאחר אימות מול המסמכים הרשמיים.</p>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>10</span></div></section>
+<section class="folio shabat-sheet" id="shabat" aria-label="ברכת שבת שלום">
+<div class="editorial-top" dir="ltr">THE TEACHERS JOURNAL&nbsp; / &nbsp;ISSUE 08</div>
+<div class="shabat-glow" aria-hidden="true"></div>
+<p class="shabat-kicker">פרשת לך לך · י״ב בחשוון תשפ״ז</p>
+<h2>שבת<br><em>שלום</em></h2>
+<div class="shabat-line"></div>
+<p class="shabat-name">יניב רז</p><p class="shabat-role">הדרכה במתמטיקה · חטיבות הביניים במחוז ירושלים ובעיר ירושלים</p></section>
 <div class="actions"><a href="#cover">חזרה לשער</a><a href="#opening">עמוד 2</a><button type="button" onclick="window.print()">הדפסה / PDF</button></div>
-<p class="note">תצוגת עבודה ראשונית של שני העמודים מתוך הריפו Slkum8. המקור המחייב לדרישות ולתיקונים: SOURCE_OF_TRUTH.md.</p>
+<p class="note">מהדורת עבודה בהתהוות: חמישה סילבוסים ציבוריים אותרו ונבדקו במטא־נתונים של Drive; נתוני מועדים והרשמה נוספים יופיעו אחרי אימות. מקור הדרישות המחייב: SOURCE_OF_TRUTH.md.</p>
 </main>
 </body></html>
