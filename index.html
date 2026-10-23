@@ -160,11 +160,62 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 }
 @media print{.course-opening{print-color-adjust:exact}.seminar-sheet .catalog-type{margin-top:4%}}
 
+
+/* EVENT A4 + COURSE START DATES — source-led editorial extension */
+.start-date{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;padding:9px 14px;background:#f2f7f8;border-inline-start:5px solid var(--accent);border-radius:2px;color:#183849;margin:0 0 1.5%}
+.start-date>span{font:800 clamp(13px,1.7vw,17px) Heebo,sans-serif}
+.start-date strong{font:900 clamp(23px,3vw,31px) Heebo,sans-serif}
+.start-date small{flex-basis:100%;font:600 clamp(10px,1.2vw,12px)/1.35 Assistant,sans-serif;color:#536977}
+.event-sheet{--accent:#175a77;background:#fffefd;color:#122d3d;padding:5.5% 7.2%;display:flex;flex-direction:column;gap:0}
+.event-eyebrow{margin:6% 0 1%;font:800 clamp(12px,1.75vw,16px) Heebo,sans-serif;color:#0b7a91}
+.event-sheet h2{font:900 clamp(39px,6.5vw,64px)/1.15 'Frank Ruhl Libre',serif;letter-spacing:-.035em;margin:0;color:#10354a}
+.event-sheet h2 em{font-style:normal;color:#c13a71}
+.event-subtitle{font:700 clamp(15px,2.05vw,19px) Heebo,sans-serif;margin:1% 0 3%;color:#405767}
+.event-information{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 3%}
+.event-datebox,.event-location{padding:15px;border:1px solid #d3e3eb;border-top:5px solid #175a77;display:flex;flex-direction:column;gap:4px;min-height:94px}
+.event-datebox span,.event-location span,.event-location small{font:700 clamp(12px,1.6vw,15px)/1.35 Assistant,sans-serif;color:#4b6170}
+.event-datebox strong{font:900 clamp(23px,3.15vw,31px)/1.1 Heebo,sans-serif;letter-spacing:-.03em}
+.event-location strong{font:900 clamp(16px,2.1vw,20px) Heebo,sans-serif}
+.event-registration{background:#f1f8fa;border-inline-start:6px solid #17638a;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px;margin-bottom:3%}
+.event-registration>div{display:flex;flex-direction:column;gap:2px}
+.event-registration small,.event-registration span{font:700 clamp(11px,1.35vw,13px) Assistant,sans-serif;color:#31556d}
+.event-registration strong{font:900 clamp(31px,4.4vw,43px) Heebo,sans-serif;line-height:1.05}
+.event-registration a{display:block;text-align:center;text-decoration:none;padding:12px 14px;border-radius:4px;color:white;background:#143a52;font:800 clamp(12px,1.65vw,16px) Heebo,sans-serif;max-width:45%;min-width:160px}
+.event-registration a:hover,.event-registration a:focus-visible{background:#175a77}
+.event-sheet h3{font:900 clamp(19px,2.6vw,26px) 'Frank Ruhl Libre',serif;color:#15485f;margin:0 0 1.5%;padding-bottom:7px;border-bottom:2px solid #d1e5e8}
+.event-timeline{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0}
+.event-timeline li{display:grid;grid-template-columns:minmax(100px,27%) 1fr;gap:12px;padding:8px 6px;border-bottom:1px solid #e4eef1;align-items:start;font:600 clamp(12px,1.7vw,16px)/1.33 Assistant,sans-serif}
+.event-timeline li:nth-child(odd){background:#f6fafb}
+.event-timeline time{font:800 clamp(12px,1.6vw,16px) Heebo,sans-serif;color:#15516c;text-align:left}
+.event-fineprint{margin:auto 0 1%;padding-top:9px;color:#4b6272;font:600 clamp(10px,1.25vw,12px)/1.34 Assistant,sans-serif}
+.event-sheet .catalog-footer{margin-top:1.5%;padding-top:7px}
+@media(max-width:620px){
+ .start-date{padding:6px 9px;gap:4px 10px}.start-date strong{font-size:clamp(17px,5vw,25px)}.start-date>span{font-size:11px}.start-date small{font-size:9px}
+ .event-sheet{padding:4.5% 6%;height:auto;min-height:0;aspect-ratio:auto}
+ .event-sheet h2{font-size:clamp(31px,8.2vw,48px)}
+ .event-eyebrow{margin:5% 0 1%;font-size:11px}
+ .event-subtitle{font-size:12px}
+ .event-information{gap:7px}.event-datebox,.event-location{min-height:0;padding:9px 7px;gap:2px}
+ .event-datebox strong{font-size:clamp(17px,5vw,25px)}
+ .event-location strong{font-size:clamp(12px,3.5vw,17px)}
+ .event-datebox span,.event-location span,.event-location small{font-size:10px}
+ .event-registration{padding:8px;gap:8px}
+ .event-registration small,.event-registration span{font-size:10px}
+ .event-registration strong{font-size:28px}
+ .event-registration a{min-width:0;max-width:48%;font-size:11px;padding:10px 6px}
+ .event-sheet h3{font-size:19px}
+ .event-timeline li{grid-template-columns:minmax(80px,30%) 1fr;gap:5px;padding:6px 3px;font-size:11px}
+ .event-timeline time{font-size:11px}
+ .event-fineprint{font-size:9px;padding-top:9px}
+ .event-sheet .catalog-footer{font-size:8px}
+}
+@media print{.event-sheet{width:210mm!important;height:297mm!important;min-height:297mm!important;aspect-ratio:auto!important}.event-sheet h2{font-size:59px}.event-timeline li{font-size:15px}.start-date strong{font-size:28px}}
+
 </style>
 </head>
 <body>
 <a class="skip" href="#cover">מעבר לתוכן</a>
-<header class="bar"><div class="brand"><img src="https://raw.githubusercontent.com/yanivmizrachiy/summary7-public/main/assets/logo.png" alt="לוגו מחוז ירושלים"><div><strong>סיכום שבועי 08</strong><small>הדרכה במתמטיקה • מחוז ועיר ירושלים</small></div></div><nav aria-label="ניווט בין עמודים"><a href="#cover">שער</a><a href="#opening">מי צריך השתלמות?</a><a href="#course-201020">קטלוג</a><a href="#seminar-203587">יום עיון</a><a href="#catalog-summary">טבלה</a></nav></header>
+<header class="bar"><div class="brand"><img src="https://raw.githubusercontent.com/yanivmizrachiy/summary7-public/main/assets/logo.png" alt="לוגו מחוז ירושלים"><div><strong>סיכום שבועי 08</strong><small>הדרכה במתמטיקה • מחוז ועיר ירושלים</small></div></div><nav aria-label="ניווט בין עמודים"><a href="#cover">שער</a><a href="#opening">מי צריך השתלמות?</a><a href="#course-201020">קטלוג</a><a href="#seminar-203587">יום עיון</a><a href="#event-203587">יום העיון</a><a href="#catalog-summary">טבלה</a></nav></header>
 <main>
 <section class="folio cover" id="cover" aria-label="עמוד 1: שער סיכום שבועי 8">
 <div class="art"><img src="assets/cover-art.svg" alt="ציור מופשט ססגוני בהשראת ירושלים, גשרים, תנועה וגאומטריה"></div>
@@ -194,6 +245,8 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>קהילת רכזי מתמטיקה</h2><p class="catalog-sub">פיתוח מקצועי לרכזות ולרכזי מתמטיקה</p>
 <div class="compass"><span>מספר במצפן — שיוך לקהילה בבדיקה</span><strong dir="ltr">201020</strong></div>
 <div class="catalog-rule"></div>
+<div class="start-date" aria-label="מועד פתיחה"><span>מתי מתחילים?</span><strong dir="ltr">13.10.2026</strong><small>לפי רשומת אתר המחוז; שיוך הקוד לאחת משתי קהילות הרכזים עדיין בבדיקה</small></div>
+
 <div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-13">13.10.2026</time><small>שיוך הקוד לאחת משתי הקהילות עדיין בבדיקה</small></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>למידה מקצועית משותפת והובלת הוראת המתמטיקה בחטיבות הביניים.</p><p style="font-size:.8em;line-height:1.35;color:#85521c;border-right:3px solid #c99832;padding-right:10px">לתשומת לב: קיימות שתי קהילות רכזי מתמטיקה נפרדות. שיוך הקוד 201020 לקהילה המסוימת עדיין בבדיקה מול הסילבוס ומצפן.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201020</b> במערכת מצפן</div></div>
@@ -205,6 +258,8 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>בינה מלאכותית ו־Moodle</h2><p class="catalog-sub">בהוראת מתמטיקה בכיתות ז׳–ח׳</p>
 <div class="compass"><span>מספר במצפן</span><strong dir="ltr">201590</strong></div>
 <div class="catalog-rule"></div>
+<div class="start-date" aria-label="מועד פתיחה"><span>מתי מתחילים?</span><strong dir="ltr">28.10.2026</strong><small>מפגש פתיחה ביום העיון במודיעין</small></div>
+
 <div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-28">28.10.2026</time></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>שילוב כלים של בינה מלאכותית ומרחבי למידה דיגיטליים בהוראת המתמטיקה.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201590</b> במערכת מצפן</div></div>
@@ -221,6 +276,8 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>הוראת התלמיד המתקשה</h2><p class="catalog-sub">בכיתתו ובחינוך המיוחד</p>
 <div class="compass"><span>מספר במצפן</span><strong dir="ltr">201530</strong></div>
 <div class="catalog-rule"></div>
+<div class="start-date" aria-label="מועד פתיחה"><span>מתי מתחילים?</span><strong dir="ltr">28.10.2026</strong><small>לפי רשומת השתלמויות חט״ב באתר המחוז</small></div>
+
 <div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-28">28.10.2026</time></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>העמקת דרכי ההוראה וההתאמה לצורכי תלמידים מתקשים בלימודי המתמטיקה.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201530</b> במערכת מצפן</div></div>
@@ -232,6 +289,8 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>מתמטיקה בכיתה ט׳</h2><p class="catalog-sub">לקראת לימודי 4–5 יחידות</p>
 <div class="compass"><span>מספר במצפן</span><strong dir="ltr">201041</strong></div>
 <div class="catalog-rule"></div>
+<div class="start-date" aria-label="מועד פתיחה"><span>מתי מתחילים?</span><strong dir="ltr">13.10.2026</strong><small>לפי רשומת השתלמויות חט״ב באתר המחוז</small></div>
+
 <div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-13">13.10.2026</time></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>העמקת ההוראה בכיתה ט׳ והקשר ללימודי המתמטיקה בהמשך.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201041</b> במערכת מצפן</div></div>
@@ -243,6 +302,8 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>גיאומטריה מהשטח</h2><p class="catalog-sub">מהמחשה פיזית להבנה מתמטית</p>
 <div class="compass"><span>מספר במצפן</span><strong dir="ltr">204781</strong></div>
 <div class="catalog-rule"></div>
+<div class="start-date" aria-label="מועד פתיחה"><span>מתי מתחילים?</span><strong dir="ltr">28.10.2026</strong><small>מפגש פתיחה ביום העיון במודיעין</small></div>
+
 <div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-28">28.10.2026</time></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>מהתנסות והמחשה אל דיון, טיעון וחשיבה גיאומטרית בכיתת המתמטיקה.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>204781</b> במערכת מצפן</div></div>
@@ -268,6 +329,28 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="compass-instruction">בנוסף, יש לחפש ולהירשם במערכת מצפן לפי מספר <b dir="ltr">203587</b>. <small>קישור ישיר במצפן לא אומת. קיימת גרסת טופס נוספת במקורות; יש לבדוק את טופס ההזמנה המעודכן לפני הפצה.</small></div>
 </div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>יום עיון מיוחד</span></div>
+</section>
+
+
+<section class="folio event-sheet" id="event-203587" aria-label="יום העיון הדו־מחוזי למורי המתמטיקה בחטיבת הביניים">
+<div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>יום עיון · עדכון תוכנית הלימודים</span></div>
+<p class="event-eyebrow">מפגש מקצועי דו־מחוזי · חטיבות הביניים · ז׳–ח׳</p>
+<h2>נפגשים. <em>לומדים.</em><br>מובילים שינוי.</h2>
+<p class="event-subtitle">יום העיון למורות ולמורי המתמטיקה בחטיבות הביניים</p>
+<div class="event-information"><div class="event-datebox"><span>יום רביעי</span><strong dir="ltr">28.10.2026</strong><span>14:30–19:15</span></div><div class="event-location"><span>מקום המפגש</span><strong>מרכז פסג״ה מודיעין</strong><small>שדרות יצחק רבין 4, מודיעין־מכבים־רעות</small></div></div>
+<div class="event-registration"><div><small>קוד יום העיון במצפן</small><strong dir="ltr">203587</strong><span>חפשו את המספר במערכת מצפן — בנוסף להרשמה בטופס</span></div><a href="https://forms.gle/aekTYoPvQtMYmxGA8" target="_blank" rel="noopener noreferrer">לטופס ההרשמה ליום העיון ↗</a></div>
+<h3>סדר היום</h3>
+<ol class="event-timeline">
+<li><time dir="ltr">14:30–15:00</time><span>התכנסות ורישום · כיבוד קל</span></li>
+<li><time dir="ltr">15:00–15:20</time><span>ברכות</span></li>
+<li><time dir="ltr">15:20–16:20</time><span>דגשים בעדכון תוכנית הלימודים — מר גרגורי שפוריין, מפמ״ר מתמטיקה</span></li>
+<li><time dir="ltr">16:20–16:30</time><span>מעבר לסדנאות</span></li>
+<li><time dir="ltr">16:30–17:40</time><span>סדנה ראשונה</span></li>
+<li><time dir="ltr">17:40–17:50</time><span>הפסקה</span></li>
+<li><time dir="ltr">17:50–19:00</time><span>סדנה שנייה</span></li>
+</ol>
+<p class="event-fineprint">על פי הזמנת איילת קריספין מ־21.10.2026 · שעת סיום הכנס הרשמית: 19:15; לוח הסדנאות מסתיים ב־19:00. להרשמה יש להשלים גם את הרישום במצפן. כתובת הטופס נאספה מהמקורות הקודמים וטרם אומתה פתיחתה מכל מכשיר.</p>
+<div class="catalog-footer"><span>מחוז ירושלים והעיר ירושלים – מנח״י · בהובלת איילת קריספין</span><span>יום העיון</span></div>
 </section>
 
 <section class="folio summary-sheet" id="catalog-summary" aria-label="טבלת סיכום השתלמויות חטיבות הביניים">
