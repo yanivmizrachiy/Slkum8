@@ -60,11 +60,12 @@ assert(finalPage.includes('יניב רז'), 'Closing page must contain יניב 
 assert(source.includes('prefers-reduced-motion'), 'Missing reduced-motion support');
 assert(source.includes('@media print'), 'Missing A4 print rules');
 assert(source.includes('ישראל') && source.includes('feature-flag'), 'Missing Israel editorial motif');
-const artwork = [...source.matchAll(/<img\s+[^>]*src="(https:\/\/jerusalem-geometry-garden\.lovable\.app\/[^"]+)"/g)].map(m => m[1]);
-assert(artwork.length >= 6, 'Expected 6+ original Lovable art references, found ' + artwork.length);
-assert(new Set(artwork).size === artwork.length, 'Lovable artwork duplicated across pages');
+const artwork = [...source.matchAll(/<img\s+[^>]*src="(assets\/selected\/[^"]+\.(?:jpg|jpeg|png|webp))"/g)].map(m => m[1]);
+assert(artwork.length >= 6, 'Expected 6+ local hero images (assets/selected), found ' + artwork.length);
+assert(new Set(artwork).size === artwork.length, 'Hero artwork duplicated across pages');
+assert(!/lovable\.app/.test(source), 'No external temp image URLs (lovable.app) allowed — use local binaries in assets/selected');
 warnings.push('Two distinct coordinator communities: Yaniv/Idan no Compass, starts 25 Oct; numbered 201020 starts 13 Oct. Dates from separate written sources.');
 warnings.push('Codes 2014777 and 202967 still require source validation before publishing their courses.');
 warnings.push('External syllabus and image URLs require live browser checks; this script only tests structure.');
-console.log(JSON.stringify({ status: errors.length ? 'FAIL' : 'PASS', pages: sections.length, courses: 6, summaryRows: 7, lovableArtwork: artwork.length, errors, warnings }, null, 2));
+console.log(JSON.stringify({ status: errors.length ? 'FAIL' : 'PASS', pages: sections.length, courses: 6, summaryRows: 7, heroImages: artwork.length, errors, warnings }, null, 2));
 if (errors.length) exit(1);
