@@ -62,6 +62,22 @@
       "local_copy": "assets/selected/lovable-digital-math-lab.jpg",
       "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/c0dfb1e7-275d-45d1-9c55-50aa61698936/06-digital-math-lab.jpg",
       "local_processing": "resized to 1400px wide, JPEG quality 82 (System.Drawing), 2026-10-23"
+    },
+    {
+      "file": "08-hybrid-session-jerusalem.jpg",
+      "asset_id": "36034ad0-0f53-471d-9050-c48ed32a7a35",
+      "used_at": "#gallery-hybrid (before #course-201020)",
+      "local_copy": "assets/selected/lovable-hybrid-session.jpg",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/36034ad0-0f53-471d-9050-c48ed32a7a35/08-hybrid-session-jerusalem.jpg",
+      "local_processing": "resized to 1400px wide, JPEG quality 82 (System.Drawing), 2026-10-23"
+    },
+    {
+      "file": "03-mosaic-geometry.jpg",
+      "asset_id": "1323a78f-0f93-42b1-a100-3ef04902917a",
+      "used_at": "#gallery-mosaic (before #know-ofek)",
+      "local_copy": "assets/selected/lovable-mosaic-geometry.jpg",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/1323a78f-0f93-42b1-a100-3ef04902917a/03-mosaic-geometry.jpg",
+      "local_processing": "resized to 1400px wide, JPEG quality 82 (System.Drawing), 2026-10-23"
     }
   ],
   "other_safeguards": "Do not create duplicate images or hotlink ephemeral thumbnails. To show another Lovable image, copy it into assets/selected and reference the local file."
