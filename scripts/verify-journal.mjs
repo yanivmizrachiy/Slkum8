@@ -45,6 +45,16 @@ for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['20
   const start = source.indexOf('id="course-' + id + '"');
   assert(source.slice(start, source.indexOf('</section>', start)).includes(name), 'Course ' + id + ' must use the official flyer title: ' + name);
 }
+// The 2014777 linked syllabus is image-based. Its title names "Motivation and Mathematics",
+// while the district flyer uses a different headline. Keep that distinction visible.
+{
+  const start = source.indexOf('id="course-2014777"');
+  const page = start >= 0 ? source.slice(start, source.indexOf('</section>', start)) : '';
+  assert(page.includes('2014777 מוטיבציה ומתמטיקה')
+    && page.includes('שמו שונה מכותרת העלון')
+    && page.includes('זמינות ההרשמה במצפן טרם אומתה'),
+    'Course 2014777 must disclose the syllabus/flyer title mismatch and unverified Compass registration');
+}
 const communityStart = source.indexOf('id="community-yaniv-idan"');
 const communityEnd = source.indexOf('</section>', communityStart);
 assert(communityStart >= 0 && communityEnd > communityStart, 'Missing no-Compass coordinator community');
