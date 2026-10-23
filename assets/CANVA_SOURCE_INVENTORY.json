@@ -1,0 +1,189 @@
+{
+  "title": "סיכום 8 — מאגר תמונות אמיתיות שנמצאות בחשבון קנבה, לא משובצות עדיין באתר",
+  "status": "inventory_only_NOT_imported",
+  "checked_date": "2026-10-23",
+  "source_folder_url": "https://www.canva.com/folder/FAHYxHHzquo",
+  "existing_designs": [
+    {
+      "id": "DAHYw7qeQD4",
+      "pages": 41,
+      "role": "מיקס עריכה קיים בקנבה"
+    },
+    {
+      "id": "DAHYw2mklDY",
+      "pages": 97,
+      "role": "מאגר גרסאות לבחירה"
+    },
+    {
+      "id": "DAHYxMmE29Q",
+      "pages": 4,
+      "role": "ארבע תמונות מתמטיקה ללא כיתוב"
+    },
+    {
+      "id": "DAHYzUQoVOU",
+      "pages": 1,
+      "role": "השער המקורי"
+    }
+  ],
+  "improved_images": [
+    {
+      "canva_asset_id": "MAHYxRfTBGQ",
+      "index": "01",
+      "name": "impossible_canvas",
+      "orientation": "landscape",
+      "asset_type": "image",
+      "available_in_canva": true,
+      "available_as_local_binary_in_Slkum8": false,
+      "used_in_published_journal": false,
+      "selection_status": "candidate_needs_visual_selection"
+    },
+    {
+      "canva_asset_id": "MAHYxQ9l9rk",
+      "index": "02",
+      "name": "moment_everything_changes",
+      "orientation": "landscape",
+      "asset_type": "image",
+      "available_in_canva": true,
+      "available_as_local_binary_in_Slkum8": false,
+      "used_in_published_journal": false,
+      "selection_status": "candidate_needs_visual_selection"
+    },
+    {
+      "canva_asset_id": "MAHYxUmPv7o",
+      "index": "03",
+      "name": "school_that_blooms",
+      "orientation": "portrait",
+      "asset_type": "image",
+      "available_in_canva": true,
+      "available_as_local_binary_in_Slkum8": false,
+      "used_in_published_journal": false,
+      "selection_status": "candidate_needs_visual_selection"
+    },
+    {
+      "canva_asset_id": "MAHYxaMeMKU",
+      "index": "04",
+      "name": "educators_great_leap",
+      "orientation": "landscape",
+      "asset_type": "image",
+      "available_in_canva": true,
+      "available_as_local_binary_in_Slkum8": false,
+      "used_in_published_journal": false,
+      "selection_status": "candidate_needs_visual_selection"
+    },
+    {
+      "canva_asset_id": "MAHYxTBG37k",
+      "index": "05",
+      "name": "intelligence_exchange",
+      "orientation": "landscape",
+      "asset_type": "image",
+      "available_in_canva": true,
+      "available_as_local_binary_in_Slkum8": false,
+      "used_in_published_journal": false,
+      "selection_status": "candidate_needs_visual_selection"
+    },
+    {
+      "canva_asset_id": "MAHYxctgcE0",
+      "index": "06",
+      "name": "classroom_ignition",
+      "orientation": "landscape",
+      "asset_type": "image",
+      "available_in_canva": true,
+      "available_as_local_binary_in_Slkum8": false,
+      "used_in_published_journal": false,
+      "selection_status": "candidate_needs_visual_selection"
+    },
+    {
+      "canva_asset_id": "MAHYxRMCACA",
+      "index": "07",
+      "name": "knowledge_cascade",
+      "orientation": "portrait",
+      "asset_type": "image",
+      "available_in_canva": true,
+      "available_as_local_binary_in_Slkum8": false,
+      "used_in_published_journal": false,
+      "selection_status": "candidate_needs_visual_selection"
+    },
+    {
+      "canva_asset_id": "MAHYxTaxFOc",
+      "index": "08",
+      "name": "future_is_built_here",
+      "orientation": "landscape",
+      "asset_type": "image",
+      "available_in_canva": true,
+      "available_as_local_binary_in_Slkum8": false,
+      "used_in_published_journal": false,
+      "selection_status": "candidate_needs_visual_selection"
+    }
+  ],
+  "additional_canva_assets": [
+    {
+      "canva_asset_id": "MAHYxRiIcw0",
+      "index": "09",
+      "name": "original_09",
+      "available_in_canva": true
+    },
+    {
+      "canva_asset_id": "MAHYxUfyM9I",
+      "index": "10",
+      "name": "generation_effect",
+      "available_in_canva": true
+    },
+    {
+      "canva_asset_id": "MAHYxQBVB1s",
+      "index": "02",
+      "name": "moment_everything_changes_v2_upload",
+      "available_in_canva": true
+    },
+    {
+      "canva_asset_id": "MAHYxR-4fGU",
+      "index": "lovable01",
+      "name": "jerusalem_geometry_sky",
+      "available_in_canva": true
+    },
+    {
+      "canva_asset_id": "MAHYxU_2cvQ",
+      "index": "lovable07",
+      "name": "teachers_learning_together",
+      "available_in_canva": true
+    },
+    {
+      "canva_asset_id": "MAHYxRPkNcM",
+      "index": "lovable09",
+      "name": "origami_polyhedra",
+      "available_in_canva": true
+    },
+    {
+      "canva_asset_id": "MAHYxWzD3ns",
+      "index": "lovable10",
+      "name": "immersive_geometry_dome",
+      "available_in_canva": true
+    },
+    {
+      "canva_asset_id": "MAHYxfrt6ao",
+      "index": "lovable11",
+      "name": "tessellation_art_studio",
+      "available_in_canva": true
+    }
+  ],
+  "local_archive": {
+    "path": "C:\\Users\\yaniv\\Documents\\TEACHERS_JOURNAL_MASTER\\files.zip",
+    "observed_bytes": 47425611,
+    "status": "archive exists on Salon; file-by-file equivalence to Canva IDs not independently established"
+  },
+  "lovable": {
+    "project_id": "48b47a05-85de-4209-8634-a9622a1b85ca",
+    "source": "https://lovable.dev/projects/48b47a05-85de-4209-8634-a9622a1b85ca",
+    "asset_sources_found": 11,
+    "referenced_in_Slkum8_html": 6,
+    "local_binary_copies_confirmed": 0
+  },
+  "rules": [
+    "לפעול רק על העבודות האמיתיות שכבר נוצרו; אין ליצור דמו או תמונות כפולות",
+    "לבחור את היצירות הצבעוניות החזקות ביותר, לא להשתמש בכל האוסף",
+    "אין להשתמש ב-Canva 200px thumbnails או בכתובות media.canva זמניות בתור תמונות באיכות דפוס",
+    "כל תמונה שתיבחר חייבת להגיע לעיצוב ולפריסה באיכות הולמת ולזכות למקום מאומת בדף",
+    "לא לבלבל בין תיקיית Canva, פרויקט Lovable המקורי, הריפו Slkum8 ואתר Vercel",
+    "כאשר שם הקובץ בארכיון אינו משויך בוודאות ל-canva_asset_id, לסמן לא אומת ולא להתחזות"
+  ],
+  "handoff": "Claude Code: before designing more, read SOURCE_OF_TRUTH.md and this exact media inventory; confirm binary assets obtained (from the owner's existing Canva originals or salon archive) and actually present in Slkum8 or embedded Canva design. The user has already shared Canva links directly with you; do not duplicate that request. Record placement per folio and visual QA."
+}
