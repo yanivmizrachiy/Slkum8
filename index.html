@@ -119,11 +119,52 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 }
 @media print{.catalog-sheet,.summary-sheet,.editorial-sheet,.shabat-sheet{width:210mm!important;height:297mm!important}.catalog-sheet h2{font-size:53px}.compass strong{font-size:100px}.editorial-sheet blockquote{font-size:70px}}
 
+
+/* Course opening dates and one-page professional study day — 23.10 editorial patch */
+.course-opening{display:flex;align-items:center;gap:12px;background:#f1f5f7;border-inline-start:5px solid var(--accent);padding:11px 14px;margin:1% 0 3%;color:#163c50;font:700 clamp(13px,1.65vw,17px)/1.4 Heebo,Arial,sans-serif}
+.course-opening .opening-label{font-weight:900;color:#435969;font-size:.78em;white-space:nowrap}
+.course-opening time{font-size:1.18em;font-weight:900;white-space:nowrap}
+.course-opening small{font-size:.72em;color:#795723}
+.seminar-sheet{--accent:#236abc}
+.seminar-sheet .catalog-type{margin-top:5%;font-size:clamp(13px,1.7vw,17px)}
+.seminar-sheet h2{margin:2% 0 0;font-size:clamp(34px,6.4vw,63px)}
+.seminar-sheet .catalog-sub{margin:1% 0 2.4%;font-size:clamp(15px,2.5vw,24px)}
+.seminar-date{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#eaf2f9;padding:16px 18px;border-inline-start:6px solid #236abc;margin:2% 0 3%}
+.seminar-date strong{font:900 clamp(24px,4.7vw,45px)/1.1 Heebo,sans-serif;color:#143b5b}
+.seminar-date span{font:700 clamp(13px,1.7vw,17px)/1.35 Heebo,sans-serif;color:#365971}
+.seminar-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.5%}
+.seminar-fact{padding:11px 14px;border:1px solid #d9e5ee;background:#fff}
+.seminar-fact strong{display:block;color:#235677;font:900 clamp(12px,1.5vw,15px) Heebo,sans-serif}
+.seminar-fact span{display:block;color:#1f3747;font:700 clamp(13px,1.7vw,17px)/1.4 Heebo,sans-serif}
+.seminar-sheet .compass{margin:0 0 2%}
+.seminar-sheet .compass strong{font-size:clamp(53px,9vw,94px)}
+.seminar-sheet .catalog-rule{margin:1.5% 0 2%}
+.seminar-guidance{color:#355262;font-size:clamp(13px,1.65vw,17px);font-weight:700;line-height:1.45;margin:1% 0}
+.seminar-sheet .catalog-actions{gap:9px}
+.seminar-sheet .catalog-actions>a{min-height:47px;background:#194872}
+.seminar-sheet .catalog-footer{margin-top:3%}
+@media(max-width:550px){
+.course-opening{flex-wrap:wrap;padding:8px 10px;gap:6px;font-size:clamp(9px,2.7vw,13px)}
+.course-opening .opening-label{min-width:100%}
+.course-opening time{font-size:1.08em}
+.seminar-date{padding:8px;gap:7px}
+.seminar-date strong{font-size:clamp(16px,5.5vw,26px)}
+.seminar-date span{font-size:clamp(9px,2.6vw,12px)}
+.seminar-grid{gap:5px}
+.seminar-fact{padding:5px}
+.seminar-fact strong{font-size:clamp(9px,2.6vw,12px)}
+.seminar-fact span{font-size:clamp(9px,2.6vw,13px)}
+.seminar-sheet .catalog-type{margin-top:3%}
+.seminar-sheet .catalog-actions>a{padding:7px 8px;min-height:35px;font-size:clamp(10px,2.8vw,15px)}
+.seminar-guidance{font-size:clamp(9px,2.6vw,13px)}
+}
+@media print{.course-opening{print-color-adjust:exact}.seminar-sheet .catalog-type{margin-top:4%}}
+
 </style>
 </head>
 <body>
 <a class="skip" href="#cover">מעבר לתוכן</a>
-<header class="bar"><div class="brand"><img src="https://raw.githubusercontent.com/yanivmizrachiy/summary7-public/main/assets/logo.png" alt="לוגו מחוז ירושלים"><div><strong>סיכום שבועי 08</strong><small>הדרכה במתמטיקה • מחוז ועיר ירושלים</small></div></div><nav aria-label="ניווט בין עמודים"><a href="#cover">שער</a><a href="#opening">מי צריך השתלמות?</a><a href="#course-201020">קטלוג</a><a href="#catalog-summary">טבלה</a></nav></header>
+<header class="bar"><div class="brand"><img src="https://raw.githubusercontent.com/yanivmizrachiy/summary7-public/main/assets/logo.png" alt="לוגו מחוז ירושלים"><div><strong>סיכום שבועי 08</strong><small>הדרכה במתמטיקה • מחוז ועיר ירושלים</small></div></div><nav aria-label="ניווט בין עמודים"><a href="#cover">שער</a><a href="#opening">מי צריך השתלמות?</a><a href="#course-201020">קטלוג</a><a href="#seminar-203587">יום עיון</a><a href="#catalog-summary">טבלה</a></nav></header>
 <main>
 <section class="folio cover" id="cover" aria-label="עמוד 1: שער סיכום שבועי 8">
 <div class="art"><img src="assets/cover-art.svg" alt="ציור מופשט ססגוני בהשראת ירושלים, גשרים, תנועה וגאומטריה"></div>
@@ -153,6 +194,7 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>קהילת רכזי מתמטיקה</h2><p class="catalog-sub">פיתוח מקצועי לרכזות ולרכזי מתמטיקה</p>
 <div class="compass"><span>מספר במצפן — שיוך לקהילה בבדיקה</span><strong dir="ltr">201020</strong></div>
 <div class="catalog-rule"></div>
+<div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-13">13.10.2026</time><small>שיוך הקוד לאחת משתי הקהילות עדיין בבדיקה</small></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>למידה מקצועית משותפת והובלת הוראת המתמטיקה בחטיבות הביניים.</p><p style="font-size:.8em;line-height:1.35;color:#85521c;border-right:3px solid #c99832;padding-right:10px">לתשומת לב: קיימות שתי קהילות רכזי מתמטיקה נפרדות. שיוך הקוד 201020 לקהילה המסוימת עדיין בבדיקה מול הסילבוס ומצפן.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201020</b> במערכת מצפן</div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>04</span></div>
@@ -163,6 +205,7 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>בינה מלאכותית ו־Moodle</h2><p class="catalog-sub">בהוראת מתמטיקה בכיתות ז׳–ח׳</p>
 <div class="compass"><span>מספר במצפן</span><strong dir="ltr">201590</strong></div>
 <div class="catalog-rule"></div>
+<div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-28">28.10.2026</time></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>שילוב כלים של בינה מלאכותית ומרחבי למידה דיגיטליים בהוראת המתמטיקה.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201590</b> במערכת מצפן</div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>05</span></div>
@@ -178,6 +221,7 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>הוראת התלמיד המתקשה</h2><p class="catalog-sub">בכיתתו ובחינוך המיוחד</p>
 <div class="compass"><span>מספר במצפן</span><strong dir="ltr">201530</strong></div>
 <div class="catalog-rule"></div>
+<div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-28">28.10.2026</time></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>העמקת דרכי ההוראה וההתאמה לצורכי תלמידים מתקשים בלימודי המתמטיקה.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201530</b> במערכת מצפן</div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>06</span></div>
@@ -188,6 +232,7 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>מתמטיקה בכיתה ט׳</h2><p class="catalog-sub">לקראת לימודי 4–5 יחידות</p>
 <div class="compass"><span>מספר במצפן</span><strong dir="ltr">201041</strong></div>
 <div class="catalog-rule"></div>
+<div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-13">13.10.2026</time></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>העמקת ההוראה בכיתה ט׳ והקשר ללימודי המתמטיקה בהמשך.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201041</b> במערכת מצפן</div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>07</span></div>
@@ -198,19 +243,42 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <h2>גיאומטריה מהשטח</h2><p class="catalog-sub">מהמחשה פיזית להבנה מתמטית</p>
 <div class="compass"><span>מספר במצפן</span><strong dir="ltr">204781</strong></div>
 <div class="catalog-rule"></div>
+<div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-28">28.10.2026</time></div>
 <div class="course-description"><span class="course-kicker">השתלמות חטיבת ביניים</span><p>מהתנסות והמחשה אל דיון, טיעון וחשיבה גיאומטרית בכיתת המתמטיקה.</p></div>
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>204781</b> במערכת מצפן</div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>08</span></div>
 </section>
+<section class="folio catalog-sheet seminar-sheet" id="seminar-203587" aria-label="יום עיון מחוזי למורי מתמטיקה בחטיבת הביניים">
+<div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>יום עיון · חטיבות הביניים</span></div>
+<div class="catalog-type">מפגש מקצועי · מחוז ירושלים והעיר ירושלים – מנח״י</div>
+<h2>יום עיון למורי<br>מתמטיקה בחט״ב</h2>
+<p class="catalog-sub">הטמעת עדכון תוכנית הלימודים בכיתות ז׳–ח׳</p>
+<div class="seminar-date"><strong>רביעי · 28.10.2026</strong><span>מפגש פנים אל פנים<br>פסג״ה מודיעין</span></div>
+<div class="seminar-grid" aria-label="מידע על יום העיון">
+<div class="seminar-fact"><strong>מקום</strong><span>מרכז פסג״ה מודיעין<br>שדרות יצחק רבין 4, מודיעין</span></div>
+<div class="seminar-fact"><strong>היקף</strong><span>6 שעות הנחשבות במסגרת השתלמויות המורים</span></div>
+<div class="seminar-fact"><strong>שעת מפגש</strong><span>לפי טיוטת ההזמנה: 14:30–19:15<br><small>יש לאמת שעת סיום מול ההזמנה</small></span></div>
+<div class="seminar-fact"><strong>למי מיועד</strong><span>מורות ומורי מתמטיקה בחטיבות הביניים</span></div>
+</div>
+<div class="compass"><span>מספר פתרון למידה במצפן</span><strong dir="ltr">203587</strong></div>
+<div class="catalog-rule"></div>
+<p class="seminar-guidance">יום העיון מוקדש להיכרות ולהטמעה של תוכנית הלימודים המעודכנת במתמטיקה. ההשתתפות מחייבת <b>שתי הרשמות נפרדות:</b> בטופס יום העיון וגם במערכת מצפן לפי מספר פתרון הלמידה.</p>
+<div class="catalog-actions">
+<a href="https://forms.gle/aekTYoPvQtMYmxGA8" target="_blank" rel="noopener noreferrer" aria-label="פתיחת קישור טופס הרשמה כפי שנמסר בהודעת ההזמנה">טופס הרשמה ליום העיון ↗</a>
+<div class="compass-instruction">בנוסף, יש לחפש ולהירשם במערכת מצפן לפי מספר <b dir="ltr">203587</b>. <small>קישור ישיר במצפן לא אומת. קיימת גרסת טופס נוספת במקורות; יש לבדוק את טופס ההזמנה המעודכן לפני הפצה.</small></div>
+</div>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>יום עיון מיוחד</span></div>
+</section>
+
 <section class="folio summary-sheet" id="catalog-summary" aria-label="טבלת סיכום השתלמויות חטיבות הביניים">
 <div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג חטיבות הביניים</span></div>
 <h2>כל ההשתלמויות<br><em>במבט אחד.</em></h2>
 <p class="table-desc">השתלמויות במתמטיקה לחטיבות הביניים · קוד במצפן וקישור למסמך המקור</p>
-<table class="training-table"><thead><tr><th scope="col">השתלמות</th><th scope="col">מספר מצפן</th><th scope="col">סילבוס</th></tr></thead><tbody><tr><th scope="row">קהילת רכזי מתמטיקה<small>פיתוח מקצועי לרכזות ולרכזי מתמטיקה</small></th><td><span dir="ltr">201020</span><small style="display:block;color:#85521c;font-weight:600">שיוך לקהילה בבדיקה</small></td><td><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
-<tr><th scope="row">בינה מלאכותית ו־Moodle<small>בהוראת מתמטיקה בכיתות ז׳–ח׳</small></th><td dir="ltr">201590</td><td><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
-<tr><th scope="row">הוראת התלמיד המתקשה<small>בכיתתו ובחינוך המיוחד</small></th><td dir="ltr">201530</td><td><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
-<tr><th scope="row">מתמטיקה בכיתה ט׳<small>לקראת לימודי 4–5 יחידות</small></th><td dir="ltr">201041</td><td><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
-<tr><th scope="row">גיאומטריה מהשטח<small>מהמחשה פיזית להבנה מתמטית</small></th><td dir="ltr">204781</td><td><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr></tbody></table>
+<table class="training-table"><thead><tr><th scope="col">השתלמות</th><th scope="col">מספר מצפן</th><th scope="col">סילבוס</th></tr></thead><tbody><tr><th scope="row">קהילת רכזי מתמטיקה<small>פיתוח מקצועי לרכזות ולרכזי מתמטיקה · תחילה 13.10.2026</small></th><td><span dir="ltr">201020</span><small style="display:block;color:#85521c;font-weight:600">שיוך לקהילה בבדיקה</small></td><td><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
+<tr><th scope="row">בינה מלאכותית ו־Moodle<small>בהוראת מתמטיקה בכיתות ז׳–ח׳ · תחילה 28.10.2026</small></th><td dir="ltr">201590</td><td><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
+<tr><th scope="row">הוראת התלמיד המתקשה<small>בכיתתו ובחינוך המיוחד · תחילה 28.10.2026</small></th><td dir="ltr">201530</td><td><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
+<tr><th scope="row">מתמטיקה בכיתה ט׳<small>לקראת לימודי 4–5 יחידות · תחילה 13.10.2026</small></th><td dir="ltr">201041</td><td><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
+<tr><th scope="row">גיאומטריה מהשטח<small>מהמחשה פיזית להבנה מתמטית · תחילה 28.10.2026</small></th><td dir="ltr">204781</td><td><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr><tr><th scope="row">יום עיון — עדכון תוכנית הלימודים<small>28.10.2026 · פסג״ה מודיעין · שתי הרשמות</small></th><td dir="ltr">203587</td><td><a href="#seminar-203587">פרטים ↗</a></td></tr></tbody></table>
 <p class="table-note">להרשמה, יש לחפש את מספר ההשתלמות באתר מצפן. קישור לסילבוס אינו קישור הרשמה. פרטים ומועדים נוספים יפורסמו לאחר אימות מול המסמכים הרשמיים.</p>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>10</span></div></section>
 <section class="folio shabat-sheet" id="shabat" aria-label="ברכת שבת שלום">
