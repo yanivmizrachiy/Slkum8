@@ -33,7 +33,13 @@
       "asset_id": "1c334c23-65b7-4f3d-803d-b87bcb42e36d",
       "used_at": "#inspiration",
       "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/1c334c23-65b7-4f3d-803d-b87bcb42e36d/10-immersive-geometry-dome.jpg"
+    },
+    {
+      "file": "04-teacher-rooftop-light.jpg",
+      "asset_id": "566d46bc-12cd-462e-8bb5-4b54c370ff86",
+      "used_at": "#world-report",
+      "url": "https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/566d46bc-12cd-462e-8bb5-4b54c370ff86/04-teacher-rooftop-light.jpg"
     }
   ],
-  "other_safeguards": "Do not create duplicate images or hotlink ephemeral thumbnails; live origin dependency means URLs must be verified from outside on multiple devices. CSS has gradient fallback and onerror handling."
+  "other_safeguards": "Reuse existing Lovable originals only; no binary duplication. All six public image URLs were opened in a real Chrome session on salon on 2026-10-23 and each displayed an image title with dimensions. Origin remains a runtime dependency. External links should be retested before circulation."
 }
