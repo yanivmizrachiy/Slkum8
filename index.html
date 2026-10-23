@@ -218,6 +218,52 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 .intro-payoff small{grid-column:2;font:600 clamp(10px,1.25vw,13px) Assistant,sans-serif;color:#526970}
 @media(max-width:620px){.intro-payoff{gap:2px 8px;padding:8px 10px;margin-top:3%}.intro-payoff-label{font-size:11px}.intro-payoff p{font-size:clamp(11px,3.1vw,14px)}.intro-payoff small{font-size:9px}}
 @media(max-width:350px){.intro-payoff{grid-template-columns:1fr}.intro-payoff-label{grid-row:auto}.intro-payoff small{grid-column:1}}
+
+/* Verified single A4 catalog, with first-session dates and two clickable actions */
+.summary-sheet .training-table-wrap{width:100%;min-width:0}
+.summary-sheet .training-table{margin-top:4%;table-layout:fixed}
+.summary-sheet .training-table th:nth-child(1){width:35%}
+.summary-sheet .training-table th:nth-child(2){width:22%}
+.summary-sheet .training-table th:nth-child(3){width:17%}
+.summary-sheet .training-table th:nth-child(4){width:26%}
+.summary-sheet .training-table th,.summary-sheet .training-table td{padding:10px 5px}
+.summary-sheet .training-table tbody th{font-size:clamp(12px,1.65vw,15px);line-height:1.27}
+.summary-sheet .training-table tbody th small{font-size:clamp(9px,1.1vw,11px);line-height:1.3}
+.summary-sheet .training-table .first-date{font-weight:900;color:#125d80;font-size:clamp(12px,1.65vw,16px);white-space:nowrap}
+.summary-sheet .training-table .code-cell strong{font:900 clamp(13px,1.75vw,17px) Heebo,sans-serif;color:#1a3545;white-space:nowrap}
+.summary-sheet .training-table .verify-caption{display:block;color:#85521c;font-size:10px;line-height:1.15}
+.summary-sheet .table-links a{display:block;width:100%;padding:5px 3px;margin:3px 0;border-radius:4px;color:#fff;background:#174761;text-align:center;text-decoration:none;font:800 clamp(10px,1.25vw,13px)/1.35 Heebo,sans-serif;white-space:nowrap;min-height:28px}
+.summary-sheet .table-links a:nth-child(2){background:#eaf5f7;color:#174761;box-shadow:inset 0 0 0 1px #65919e}
+.summary-sheet .table-links a:hover,.summary-sheet .table-links a:focus-visible{outline:2px solid #e88c44;outline-offset:1px}
+.summary-sheet .training-table tbody tr:nth-child(even){background:#f7fafb}
+.summary-sheet .training-table .event-row{border-top:2px solid #184f66}
+.summary-sheet .table-note{font-size:clamp(11px,1.35vw,13px);padding:10px;line-height:1.4;margin-top:auto}
+.summary-sheet .catalog-footer{margin-top:2%}
+.course-opening{background:#e8f3f5;border-inline-start-width:7px;padding:13px 15px;flex-wrap:wrap;gap:4px 12px}
+.course-opening .opening-label{font-size:clamp(12px,1.6vw,16px);color:#24546b}
+.course-opening time{font-size:clamp(21px,3.15vw,32px);color:#124969;letter-spacing:-.025em}
+.course-opening small{flex-basis:100%;font-size:clamp(10px,1.12vw,12px)}
+@media(max-width:620px){
+ .summary-sheet{padding:5% 5.6%}
+ .summary-sheet h2{font-size:clamp(30px,7.5vw,44px);margin:3% 0 1%}
+ .summary-sheet .table-desc{font-size:clamp(10px,2.8vw,13px)}
+ .summary-sheet .training-table th,.summary-sheet .training-table td{padding:7px 2px}
+ .summary-sheet .training-table thead th{font-size:clamp(9px,2.1vw,11px);text-align:center}
+ .summary-sheet .training-table tbody th{font-size:clamp(10px,2.65vw,13px);text-align:right}
+ .summary-sheet .training-table tbody th small{font-size:clamp(8px,2vw,10px)}
+ .summary-sheet .training-table .first-date{font-size:clamp(10px,2.6vw,13px)}
+ .summary-sheet .training-table .code-cell strong{font-size:clamp(10px,2.6vw,14px)}
+ .summary-sheet .training-table .verify-caption{font-size:8px}
+ .summary-sheet .table-links a{font-size:clamp(9px,2.3vw,11px);padding:5px 1px;min-height:27px}
+ .summary-sheet .table-note{font-size:clamp(9px,2.25vw,11px);padding:7px}
+ .course-opening{padding:9px 11px;gap:4px 10px}
+ .course-opening .opening-label{font-size:clamp(11px,2.8vw,14px)}
+ .course-opening time{font-size:clamp(21px,5.5vw,27px)}
+ .course-opening small{font-size:10px}
+}
+@media(max-width:350px){.summary-sheet .table-links a{min-height:25px}.summary-sheet .training-table .first-date{font-size:10px}}
+@media print{.summary-sheet .training-table th,.summary-sheet .training-table td{padding:10px 6px}.course-opening time{font-size:30px}}
+
 </style>
 </head>
 <body>
@@ -331,17 +377,17 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="catalog-footer"><span>מחוז ירושלים והעיר ירושלים – מנח״י · בהובלת איילת קריספין</span><span>יום העיון</span></div>
 </section>
 
-<section class="folio summary-sheet" id="catalog-summary" aria-label="טבלת סיכום השתלמויות חטיבות הביניים">
+<section class="folio summary-sheet" id="catalog-summary" aria-label="טבלת השתלמויות: מפגש ראשון, מצפן וקישורים">
 <div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג חטיבות הביניים</span></div>
 <h2>כל ההשתלמויות<br><em>במבט אחד.</em></h2>
-<p class="table-desc">השתלמויות במתמטיקה לחטיבות הביניים · קוד במצפן וקישור למסמך המקור</p>
-<table class="training-table"><thead><tr><th scope="col">השתלמות</th><th scope="col">מספר מצפן</th><th scope="col">סילבוס</th></tr></thead><tbody><tr><th scope="row">קהילת רכזי מתמטיקה<small>פיתוח מקצועי לרכזות ולרכזי מתמטיקה · תחילה 13.10.2026</small></th><td><span dir="ltr">201020</span><small style="display:block;color:#85521c;font-weight:600">שיוך לקהילה בבדיקה</small></td><td><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
-<tr><th scope="row">בינה מלאכותית ו־Moodle<small>בהוראת מתמטיקה בכיתות ז׳–ח׳ · תחילה 28.10.2026</small></th><td dir="ltr">201590</td><td><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
-<tr><th scope="row">הוראת התלמיד המתקשה<small>בכיתתו ובחינוך המיוחד · תחילה 28.10.2026</small></th><td dir="ltr">201530</td><td><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
-<tr><th scope="row">מתמטיקה בכיתה ט׳<small>לקראת לימודי 4–5 יחידות · תחילה 13.10.2026</small></th><td dir="ltr">201041</td><td><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr>
-<tr><th scope="row">גיאומטריה מהשטח<small>מהמחשה פיזית להבנה מתמטית · תחילה 28.10.2026</small></th><td dir="ltr">204781</td><td><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer">סילבוס ↗</a></td></tr><tr><th scope="row">יום עיון — עדכון תוכנית הלימודים<small>28.10.2026 · פסג״ה מודיעין · שתי הרשמות</small></th><td dir="ltr">203587</td><td><a href="#event-203587">פרטים ↗</a></td></tr></tbody></table>
-<p class="table-note">להרשמה, יש לחפש את מספר ההשתלמות באתר מצפן. קישור לסילבוס אינו קישור הרשמה. פרטים ומועדים נוספים יפורסמו לאחר אימות מול המסמכים הרשמיים.</p>
-<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>10</span></div></section>
+<p class="table-desc">המפגש הראשון, מספר המצפן וכל הקישורים — בשורה אחת לכל השתלמות.</p>
+<div class="training-table-wrap"><table class="training-table"><thead><tr><th scope="col">השתלמות</th><th scope="col">מפגש ראשון</th><th scope="col">מצפן</th><th scope="col">קישורים</th></tr></thead><tbody><tr><th scope="row">קהילת רכזי מתמטיקה<small>שיוך לשתי הקהילות בבדיקה</small></th><td class="first-date"><time datetime="2026-10-13" dir="ltr">13.10.2026</time></td><td class="code-cell"><strong dir="ltr">201020</strong><small class="verify-caption">שיוך בבדיקה</small></td><td class="table-links"><a href="#course-201020" aria-label="לעמוד: קהילת רכזי מתמטיקה">לעמוד</a><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: קהילת רכזי מתמטיקה">סילבוס ↗</a></td></tr>
+<tr><th scope="row">בינה מלאכותית ו־Moodle<small>בהוראת מתמטיקה ז׳–ח׳</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">201590</strong></td><td class="table-links"><a href="#course-201590" aria-label="לעמוד: בינה מלאכותית ו־Moodle">לעמוד</a><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: בינה מלאכותית ו־Moodle">סילבוס ↗</a></td></tr>
+<tr><th scope="row">הוראת התלמיד המתקשה<small>בכיתה הרגילה ובחינוך המיוחד</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">201530</strong></td><td class="table-links"><a href="#course-201530" aria-label="לעמוד: הוראת התלמיד המתקשה">לעמוד</a><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: הוראת התלמיד המתקשה">סילבוס ↗</a></td></tr>
+<tr><th scope="row">מתמטיקה בכיתה ט׳<small>לקראת לימודי 4–5 יחידות</small></th><td class="first-date"><time datetime="2026-10-13" dir="ltr">13.10.2026</time></td><td class="code-cell"><strong dir="ltr">201041</strong></td><td class="table-links"><a href="#course-201041" aria-label="לעמוד: מתמטיקה בכיתה ט׳">לעמוד</a><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: מתמטיקה בכיתה ט׳">סילבוס ↗</a></td></tr>
+<tr><th scope="row">גיאומטריה מהשטח<small>מהמחשה פיזית להבנה מתמטית</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">204781</strong></td><td class="table-links"><a href="#course-204781" aria-label="לעמוד: גיאומטריה מהשטח">לעמוד</a><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: גיאומטריה מהשטח">סילבוס ↗</a></td></tr><tr class="event-row"><th scope="row">יום העיון<small>עדכון תוכנית הלימודים בחטיבת הביניים</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">203587</strong></td><td class="table-links"><a href="#event-203587">לעמוד</a><a href="https://forms.gle/aekTYoPvQtMYmxGA8" target="_blank" rel="noopener noreferrer">הרשמה ↗</a></td></tr></tbody></table></div>
+<p class="table-note">להרשמה במצפן חפשו לפי המספר. שיוך שתי קהילות הרכזים ותוכניות נוספות טרם אומת ולכן לא פורסמו כעובדות. קישורים חיצוניים טעונים בדיקת פתיחה לפני הפצה.</p>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>קטלוג השתלמויות</span></div></section>
 <section class="folio shabat-sheet" id="shabat" aria-label="ברכת שבת שלום">
 <div class="editorial-top" dir="ltr">THE TEACHERS JOURNAL&nbsp; / &nbsp;ISSUE 08</div>
 <div class="shabat-glow" aria-hidden="true"></div>
