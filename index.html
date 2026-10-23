@@ -326,6 +326,29 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 @media(max-width:620px){.editorial-sheet.lovable-artwork .editorial-lovable{object-position:50% 50%}.editorial-sheet.lovable-artwork::before{background:linear-gradient(160deg,#071727ba,#102034b8)}}
 @media print{.editorial-sheet.lovable-artwork .editorial-lovable{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 
+
+/* LOVABLE EXISTING ART: linked source assets, not regenerated */
+#manifesto .editorial-art{
+  inset:17% 6% auto 6%;left:6%;right:6%;height:61%;
+  transform:none;border-radius:9px;opacity:1;filter:saturate(1.15);
+  background-image:linear-gradient(180deg,rgba(4,17,35,.18),rgba(5,18,42,.68)),url('https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/148fb2ea-045a-457d-a899-5c3bd2dbba68/09-origami-polyhedra-workshop.jpg');
+  background-position:center;background-size:cover;
+}
+#inspiration .editorial-art{
+  inset:17% 6% auto 6%;left:6%;right:6%;height:61%;
+  transform:none;border-radius:9px;opacity:1;filter:saturate(1.12);
+  background-image:linear-gradient(180deg,rgba(4,20,35,.2),rgba(4,17,39,.71)),url('https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/1c29dc7e-6e67-4332-b7af-984f5efa886f/07-teachers-learning-together.jpg');
+  background-position:center;background-size:cover;
+}
+#manifesto blockquote,#inspiration blockquote{z-index:2;text-shadow:0 5px 24px rgba(0,0,0,.85);isolation:isolate}
+@media(max-width:620px){
+  #manifesto .editorial-art,#inspiration .editorial-art{
+    inset:16% 4% auto 4%;left:4%;right:4%;height:65%;background-position:center;
+  }
+}
+@media print{
+  #manifesto .editorial-art,#inspiration .editorial-art{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
 </head>
 <body>
