@@ -58,6 +58,15 @@ if (communityEnd > communityStart) {
     assert(community.replace(/<[^>]+>/g, '').includes(fact), 'Yaniv-Idan coordinators community must follow its flyer: ' + fact);
   }
 }
+// A form link does not establish that it currently accepts submissions.
+assert(!source.includes('ניתן עדיין להירשם') && !source.includes('ההרשמה כעת בטופס הקהילה'), 'Do not promise unverified community registration availability');
+assert(source.slice(communityStart, communityEnd).includes('זמינות ההרשמה טעונה בדיקה'), 'Coordinator community must qualify registration availability');
+for (const formId of ['1bnZ2j8x9UpR4l-2R5dr6-z0eg0Ai6EO1qpPkGnFm8fk','12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc']) {
+  const tableStart = source.indexOf('id="catalog-summary"');
+  const formLink = 'href="https://docs.google.com/forms/d/' + formId + '/viewform"';
+  const at = source.indexOf(formLink, tableStart);
+  assert(at >= 0 && source.slice(at, source.indexOf('</a>', at) + 4).includes('>טופס ↗</a>'), 'Unverified community link must be labeled as a form, not open registration: ' + formId);
+}
 const teachersStart = source.indexOf('id="community-teachers-jerusalem"');
 const teachersEnd = source.indexOf('</section>', teachersStart);
 assert(teachersStart >= 0 && teachersEnd > teachersStart, 'Missing Jerusalem district teachers community page');
