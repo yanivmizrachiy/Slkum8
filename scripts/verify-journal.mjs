@@ -91,6 +91,21 @@ if (summaryEnd > summaryStart) {
   for (const id of ['201020','201590','201530','201041','204781','2014777']) {
     assert(summary.includes('#course-' + id), 'Missing summary-to-course link: ' + id);
   }
+  // Each of the nine catalog dates must match the corresponding detail page.
+  // This catches silent first-meeting drift without inferring dates from weekday labels.
+  const summaryRows = [...summary.matchAll(/<tr(?:\s[^>]*)?>[\s\S]*?<\/tr>/g)].map(m => m[0]);
+  for (const id of ['community-yaniv-idan','community-teachers-jerusalem','course-201020','course-201590','course-201530','course-201041','course-204781','course-2014777','event-203587']) {
+    const start = source.indexOf('id="' + id + '"');
+    const end = source.indexOf('</section>', start);
+    assert(start >= 0 && end > start, 'Missing detail page for catalog date: ' + id);
+    const page = start >= 0 && end > start ? source.slice(start, end) : '';
+    const pageDate = page.match(/<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"/)?.[1];
+    const matchingRows = summaryRows.filter(row => row.includes('href="#' + id + '"'));
+    const tableDate = matchingRows[0]?.match(/<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"/)?.[1];
+    assert(matchingRows.length === 1, 'Expected exactly one catalog row for: ' + id);
+    assert(Boolean(pageDate) && Boolean(tableDate) && pageDate === tableDate,
+      'First-meeting date mismatch or missing semantic date: ' + id + ' (detail ' + (pageDate ?? 'missing') + ', table ' + (tableDate ?? 'missing') + ')');
+  }
 }
 assert(sections.indexOf('know-ofek') + 1 === sections.indexOf('know-oz'), 'The two "חשוב לדעת" pages (Ofek Hadash, Oz LaTmura) must be consecutive');
 const researchNotes = [...source.matchAll(/<aside class="research-note"[\s\S]*?<\/aside>/g)].map(m => m[0]);
