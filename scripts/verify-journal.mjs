@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // SSOT-aligned structural smoke check. This does not replace visual/mobile or external-link QA.
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { exit } from 'node:process';
 
 const source = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
@@ -103,6 +104,38 @@ const artwork = [...source.matchAll(/<img\s+[^>]*src="(assets\/selected\/[^"]+\.
 assert(artwork.length >= 6, 'Expected 6+ local hero images (assets/selected), found ' + artwork.length);
 assert(new Set(artwork).size === artwork.length, 'Hero artwork duplicated across pages');
 assert(!/lovable\.app/.test(source), 'No external temp image URLs (lovable.app) allowed — use local binaries in assets/selected');
+
+/* Real-media gate: CI must fail when a page references an absent, empty,
+   duplicated or untracked image. Static references alone are insufficient. */
+const curatedManifest = JSON.parse(readFileSync(new URL('../assets/selected/manifest.json', import.meta.url), 'utf8'));
+const tracked = curatedManifest.images ?? [];
+const referencedFiles = artwork.map(p => p.slice('assets/selected/'.length));
+assert(new Set(referencedFiles).size === referencedFiles.length, 'Duplicate local artwork filename');
+assert(new Set(tracked.map(a => a.file)).size === tracked.length, 'Duplicate asset filename in manifest');
+assert(new Set(tracked.map(a => a.concept)).size === tracked.length, 'Duplicate image concept in manifest');
+assert(referencedFiles.length === tracked.length
+  && referencedFiles.every(f => tracked.some(a => a.file === f))
+  && tracked.every(a => referencedFiles.includes(a.file)),
+  'Manifest must match exactly the local artwork actually used in index.html');
+const fingerprints = new Map();
+for (const path of artwork) {
+  const file = new URL('../' + path, import.meta.url);
+  assert(existsSync(file), 'Referenced image file missing: ' + path);
+  if (!existsSync(file)) continue;
+  assert(statSync(file).size > 1024, 'Image file suspiciously small: ' + path);
+  const digest = createHash('sha256').update(readFileSync(file)).digest('hex');
+  assert(!fingerprints.has(digest), 'Duplicate image bytes: ' + fingerprints.get(digest) + ' and ' + path);
+  fingerprints.set(digest, path);
+}
+for (const asset of tracked) {
+  assert(asset.file && asset.concept && asset.used, 'Incomplete image provenance entry');
+  if (asset.file?.startsWith('lovable-')) {
+    assert(asset.source?.startsWith('https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/')
+      && asset.source.endsWith('/' + asset.source.split('/').at(-1)),
+      'Missing canonical Lovable origin for ' + asset.file);
+  }
+}
+
 warnings.push('Three distinct communities: Yaniv/Idan coordinators (no Compass number yet, 25 Oct), Yaniv/Idan teachers (no Compass number yet, started 7 Oct), numbered coordinators 201020 (13 Oct). Dates from separate written sources.');
 warnings.push('The six Compass courses follow the official flyer PDF (השתלמויות תשפ״ז - חט״ב) and jerusalem2 /hishtalmuyot; its hidden text-layer codes (200123, 201298, 201757, 203678) are not visible courses and are not used.');
 warnings.push('External syllabus and image URLs require live browser checks; this script only tests structure.');
