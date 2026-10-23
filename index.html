@@ -210,7 +210,7 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 
 
 
-/* ISS 08: concise professional learning and salary recognition – no salary reform page */
+/* ISS 08: concise professional learning and salary recognition (details: the #know-ofek / #know-oz spread) */
 .intro-payoff{margin:2.8% 0 0;align-self:stretch;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:3px 15px;background:#f1f7f5;border-inline-start:5px solid #158f91;padding:13px 17px;color:#173847;border-radius:2px}
 .intro-payoff-label{font:800 clamp(12px,1.65vw,16px) Heebo,sans-serif;color:#087b82;grid-row:1/3;white-space:nowrap}
 .intro-payoff p{margin:0;font:700 clamp(15px,2vw,20px)/1.35 Heebo,sans-serif}
@@ -447,6 +447,71 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 @media print{.cine-scene.s3 .cine-finale-quote{animation:none!important;opacity:1!important;transform:none!important;color:#fff5db;font-size:20px}}
 @media(prefers-reduced-motion:reduce){.cine-sheet.is-playing .s3 .cine-finale-quote{animation:none!important;opacity:1!important;transform:none!important}}
 
+/* KNOW: two-page "חשוב לדעת" spread — Ofek Hadash / Oz LaTmura (user-supplied text, 23.10.2026). Dark-on-light info pages. */
+.know-sheet{container-type:inline-size;background:#fffdf8;color:#11293a;padding:6% 8% 5.4%;display:flex;flex-direction:column;--accent:#234df4;--accent2:#05b2b9;--soft:#eef2fe}
+.know-oz{--accent:#c2246f;--accent2:#ef642c;--soft:#fcf0f4}
+.know-sheet::before{content:'';position:absolute;top:0;bottom:0;left:0;width:2.4%;background:linear-gradient(180deg,var(--accent),var(--accent2))}
+.know-head{display:flex;align-items:center;gap:12px;border-top:3px solid #11293a;padding-top:12px;font:700 clamp(10px,1.35vw,13px) Heebo,sans-serif;color:#4a5d68}
+.know-tag{background:var(--accent);color:#fff;font-weight:900;padding:5px 13px;border-radius:999px;white-space:nowrap}
+.know-page{margin-right:auto;white-space:nowrap}
+.know-title{margin:5.2% 0 0;font:900 clamp(64px,22vw,170px)/.92 'Frank Ruhl Libre',serif;font-size:28cqw;letter-spacing:-.05em;color:#0d2233;white-space:nowrap}
+.know-oz .know-title{font-size:clamp(56px,19.5vw,150px);font-size:25cqw}
+.know-title em{font-style:normal;color:var(--accent)}
+.know-sub{margin:3% 0 0;display:flex;align-items:center;gap:14px;font:800 clamp(16px,2.8vw,26px)/1.3 Heebo,sans-serif;color:var(--accent)}
+.know-sub::after{content:'';flex:1;height:3px;background:linear-gradient(to left,var(--accent2),transparent)}
+.know-lead{margin:2.6% 0 0;font:500 clamp(14px,1.9vw,18px)/1.58 Assistant,sans-serif;color:#1d3646}
+.know-lead strong{font-weight:800;color:#0d2233;background:linear-gradient(transparent 60%,#ffe2a2 60%)}
+.know-table{width:100%;margin:4.5% 0 0;border-collapse:collapse;table-layout:fixed}
+.know-table thead th{background:#0d2233;color:#fff;font:800 clamp(11px,1.45vw,14px)/1.3 Heebo,sans-serif;padding:9px 10px;text-align:right}
+.know-table tbody th,.know-table td{padding:8px 10px;border-bottom:1px solid #d6dde2;font:700 clamp(12px,1.6vw,15px)/1.35 Heebo,sans-serif;color:#1d3646;text-align:right;vertical-align:middle}
+.know-table tbody tr:nth-child(even){background:var(--soft)}
+.know-table td b{font:900 clamp(18px,2.6vw,25px)/1 Heebo,sans-serif;color:var(--accent)}
+.know-ranks th:nth-child(1){width:46%}
+.know-ranks td b{display:block;margin-bottom:3px}
+.know-gmul th:nth-child(1){width:38%}
+.know-bar{display:flex;align-items:center;gap:12px}
+.know-bar b{flex:0 0 4.2em;text-align:right}
+.know-bar i{display:block;height:15px;width:calc(var(--w) * .78);min-width:7px;border-radius:7px 0 0 7px;background:linear-gradient(to left,var(--accent),var(--accent2))}
+.know-facts{display:grid;gap:12px;margin-top:3.6%}
+.know-fact{display:grid;grid-template-columns:clamp(84px,25cqw,150px) 1fr;gap:16px;align-items:start;border-top:2px solid var(--accent);padding-top:11px}
+.know-fact strong{font:900 clamp(40px,7.6vw,70px)/.9 Heebo,sans-serif;font-size:11.5cqw;letter-spacing:-.05em;color:var(--accent);text-align:center;white-space:nowrap}
+.know-fact-pct strong{font-size:clamp(34px,6.4vw,58px);font-size:9.6cqw}
+.know-fact strong small{display:block;margin-top:7px;font:800 clamp(10px,1.3vw,13px)/1.3 Heebo,sans-serif;letter-spacing:0;color:#4a5d68}
+.know-fact p{margin:0;font:500 clamp(13px,1.75vw,16.5px)/1.55 Assistant,sans-serif;color:#1d3646}
+.know-fact p b{font-weight:800;color:#0d2233}
+.know-fact-lead{margin-top:5%}
+.know-note{margin:2.4% 0 0;font:500 clamp(12px,1.6vw,15px)/1.55 Assistant,sans-serif;color:#33505f}
+.know-check{margin:5% 0 0;background:var(--soft);border-inline-start:6px solid var(--accent);padding:14px 18px;font:600 clamp(13px,1.75vw,16.5px)/1.55 Assistant,sans-serif;color:#1d3646}
+.know-check b{font:900 1.08em Heebo,sans-serif;color:var(--accent)}
+.know-sheet cite{font:700 clamp(10px,1.2vw,12px) Heebo,sans-serif;font-style:normal;color:#6b7c86;white-space:nowrap;unicode-bidi:isolate}
+.know-foot{margin-top:auto;padding-top:10px;border-top:1px solid #b9c5cc;display:flex;justify-content:space-between;gap:12px;font:700 clamp(10px,1.25vw,13px) Heebo,sans-serif;color:#4a5d68}
+@media(max-width:620px){
+ .know-sheet{padding:7% 6.5% 6%}
+ .know-head{gap:7px;font-size:clamp(9px,2.5vw,11px);padding-top:8px}.know-tag{padding:4px 9px}
+ .know-sub{font-size:clamp(14px,4.3vw,19px);gap:8px}
+ .know-lead{font-size:clamp(13px,3.7vw,16px)}
+ .know-table thead th{font-size:clamp(9px,2.6vw,12px);padding:7px 5px}
+ .know-table tbody th,.know-table td{font-size:clamp(10px,3vw,13px);padding:7px 5px}
+ .know-table td b{font-size:clamp(14px,4.4vw,19px)}
+ .know-bar{gap:6px}.know-bar b{flex-basis:3.6em}
+ .know-fact{grid-template-columns:clamp(70px,25cqw,104px) 1fr;gap:10px}
+ .know-fact strong{font-size:clamp(30px,11.5cqw,44px)}.know-fact-pct strong{font-size:clamp(26px,9.6cqw,38px)}.know-fact strong small{font-size:clamp(8px,2.4vw,11px)}
+ .know-fact p,.know-check{font-size:clamp(12px,3.5vw,15px)}
+ .know-note{font-size:clamp(11px,3.3vw,14px)}
+ .know-check{padding:10px 12px}
+ .know-foot{font-size:clamp(9px,2.5vw,11px)}
+}
+@media print{.know-sheet{width:210mm!important;height:297mm!important}}
+
+/* RESEARCH NOTES — three user-supplied, cited research sentences scattered on editorial pages */
+.has-research blockquote{margin-bottom:5%}
+.research-note{position:relative;z-index:2;margin:0 0 5%;padding:14px 18px 12px;background:#06142acc;border-inline-start:4px solid #ffd77a;border-radius:2px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.research-label{display:block;margin-bottom:6px;font:900 clamp(11px,1.45vw,14px) Heebo,sans-serif;letter-spacing:.06em;color:#ffd77a}
+.research-note p{margin:0;font:600 clamp(14px,1.95vw,18.5px)/1.55 Assistant,sans-serif;color:#fff}
+.research-note cite{display:block;margin-top:8px;font:600 clamp(9px,1.15vw,11.5px)/1.4 Heebo,sans-serif;font-style:normal;color:#c9d6f2;text-align:left}
+@media(max-width:620px){.research-note{padding:10px 12px 9px}.research-note p{font-size:clamp(12px,3.6vw,15px)}.research-label{font-size:clamp(10px,2.8vw,12px)}.research-note cite{font-size:clamp(8px,2.3vw,10px)}}
+@media print{.research-note{-webkit-backdrop-filter:none;backdrop-filter:none;background:#06142ae0}}
+
 </style>
 </head>
 <body>
@@ -471,11 +536,12 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="lineart" aria-hidden="true"><svg viewBox="0 0 660 370" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 339h660" stroke="#e5e0d9" stroke-width="1"/><path d="M20 325Q150 40 310 285T640 110" stroke="#234df4" stroke-width="5"/><path d="M5 349Q250 235 370 64T660 310" stroke="#db277a" stroke-width="4"/><path d="M45 300Q270 390 405 125T641 55" stroke="#ef642c" stroke-width="3"/><circle cx="367" cy="170" r="80" stroke="#234df4" stroke-width="1.5" opacity=".25"/><circle cx="367" cy="170" r="119" stroke="#ef642c" stroke-width="1.5" opacity=".25"/><circle cx="367" cy="170" r="161" stroke="#db277a" stroke-width="1.5" opacity=".15"/><circle cx="367" cy="170" r="7" fill="#ef642c"/></svg></div>
 <div class="intro-footer"><span>02&nbsp; / &nbsp;08</span><span>מחוז ירושלים · עיר ירושלים</span></div>
 </section>
-<section class="folio editorial-sheet lovable-artwork" id="manifesto" aria-label="עמוד השראה על למידת עמיתים">
+<section class="folio editorial-sheet lovable-artwork has-research" id="manifesto" aria-label="עמוד השראה על למידת עמיתים">
 <div class="editorial-top" dir="ltr">THE TEACHERS JOURNAL&nbsp; / &nbsp;EDITORIAL&nbsp; 03</div>
 <img class="editorial-lovable" src="assets/selected/educators-leap.jpg" alt="מורים מובילים קפיצת מדרגה בלמידה משותפת" loading="lazy" decoding="async" onerror="this.style.display='none'">
 <div class="editorial-art" role="img" aria-label="רצועות צבעוניות של גאומטריה וירושלים"></div>
 <blockquote>״רק כשלומדים ביחד באמת<br>שוברים תקרת זכוכית״</blockquote>
+<aside class="research-note" aria-label="מן המחקר"><span class="research-label">מן המחקר</span><p>על פי מחקר של <bdi>Darling-Hammond</bdi> ועמיתותיה (2017), אם המורים משתתפים בהשתלמויות המשלבות התנסות, שיתוף פעולה ומשוב, הם יכולים לשפר את ההוראה ואת הישגי תלמידיהם.</p><cite dir="ltr">Darling-Hammond, Hyler &amp; Gardner (2017). <i>Effective Teacher Professional Development</i>. Learning Policy Institute</cite></aside>
 <div class="editorial-foot">למידת עמיתים · ידע שעובר ממורה למורה</div></section>
 <section class="folio catalog-sheet unnumbered-community" id="community-teachers-jerusalem" style="--accent:#6a4bc4" aria-label="קהילת מורים למתמטיקה מחוז ירושלים עם יניב רז ועידן אחוון — אין עדיין מספר במצפן">
 <div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
@@ -491,11 +557,12 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="catalog-actions"><a href="https://docs.google.com/forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc/viewform" target="_blank" rel="noopener noreferrer" aria-label="פתיחת טופס ההרשמה לקהילת המורים מחוז ירושלים">לטופס ההרשמה לקהילת המורים ↗</a><div class="compass-instruction"><b>שימו לב:</b> זו קהילה <b>למורים</b>, נפרדת משתי קהילות הרכזים: קהילת הרכזים של יניב רז ועידן אחוון, וקהילת הרכזים שבמצפן <b dir="ltr">201020</b>.</div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>קהילה · מספר מצפן בהמשך</span></div>
 </section>
-<section class="folio editorial-sheet editorial-deep lovable-artwork" id="inspiration" aria-label="עמוד השראה על מורים לומדים">
+<section class="folio editorial-sheet editorial-deep lovable-artwork has-research" id="inspiration" aria-label="עמוד השראה על מורים לומדים">
 <div class="editorial-top" dir="ltr">LEARNING NEVER STOPS&nbsp; / &nbsp;ISSUE 08</div>
 <img class="editorial-lovable" src="assets/selected/school-blooms.jpg" alt="צמיחה ולמידה — תחושת פריחה בבית הספר" loading="lazy" decoding="async" onerror="this.style.display='none'">
 <div class="editorial-art" role="img" aria-label="צבעי הג׳ורנל וגאומטריה"></div>
 <blockquote>״כולם לומדים מכולם״</blockquote>
+<aside class="research-note" aria-label="מן המחקר"><span class="research-label">מן המחקר</span><p>על פי מחקר של <bdi>Yoon</bdi> ועמיתיו (2007), השתלמויות מעמיקות ומתמשכות עשויות לתרום לשיפור בהישגי התלמידים.</p><cite dir="ltr">Yoon et al. (2007). <i>Reviewing the Evidence on How Teacher Professional Development Affects Student Achievement</i>. REL Southwest / IES</cite></aside>
 <div class="editorial-foot">מורים לומדים · מורים מובילים</div></section>
 <section class="folio catalog-sheet unnumbered-community" id="community-yaniv-idan" style="--accent:#0b8588" aria-label="קהילת רכזי מתמטיקה מחוז ירושלים בהדרכת יניב רז ועידן אחוון — אין עדיין מספר במצפן">
 <div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
@@ -563,11 +630,12 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <div class="catalog-actions"><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer">פתיחת סילבוס ההשתלמות ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>201530</b> במערכת מצפן</div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>10</span></div>
 </section>
-<section class="folio editorial-sheet lovable-artwork" id="lesson-tomorrow" aria-label="עמוד השראה: השיעור של מחר">
+<section class="folio editorial-sheet lovable-artwork has-research" id="lesson-tomorrow" aria-label="עמוד השראה: השיעור של מחר">
 <div class="editorial-top" dir="ltr">THE TEACHERS JOURNAL&nbsp; / &nbsp;TOMORROW'S LESSON</div>
 <img class="editorial-lovable" src="assets/selected/knowledge-cascade.jpg" alt="מפל של ידע וצבע — למידה שזורמת אל הכיתה" loading="lazy" decoding="async" onerror="this.style.display='none'">
 <div class="editorial-art" role="img" aria-label="צבעי הג׳ורנל וגאומטריה"></div>
 <blockquote>״מורה שלומד בהשתלמות<br>לא יודע איך ייראה<br>השיעור שלו מחר״</blockquote>
+<aside class="research-note" aria-label="מן המחקר"><span class="research-label">מן המחקר</span><p>על פי מחקר של <bdi>Garet</bdi> ועמיתיו (2001), אם המורים משתתפים בהשתלמויות המתמקדות בתחום הדעת ומשלבות למידה פעילה, הם נוטים לדווח על שיפור בידע ובמיומנויות ההוראה שלהם.</p><cite dir="ltr">Garet et al. (2001). <i>What Makes Professional Development Effective?</i> American Educational Research Journal, 38(4)</cite></aside>
 <div class="editorial-foot">למידה מקצועית · מתמטיקה בחטיבות הביניים</div></section>
 <section class="folio catalog-sheet" id="course-201041" style="--accent:#236fb9" aria-label="השתלמות מתמטיקה בכיתה ט׳">
 <div class="catalog-head"><span>THE TEACHERS JOURNAL / 08</span><span>קטלוג השתלמויות · חטיבות הביניים</span></div>
@@ -652,6 +720,37 @@ main{padding:34px 18px 66px;display:grid;justify-items:center;gap:36px}.folio{wi
 <tr><th scope="row">גיאומטריה מהשטח<small>מהמחשה פיזית להבנה מתמטית</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">204781</strong></td><td class="table-links"><a href="#course-204781" aria-label="לעמוד: גיאומטריה מהשטח">לעמוד</a><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: גיאומטריה מהשטח">סילבוס ↗</a></td></tr><tr><th scope="row">עדכון תוכנית הלימודים<small>התמדה, התמודדות ופתרון בעיות</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">2014777</strong></td><td class="table-links"><a href="#course-2014777" aria-label="לעמוד: עדכון תוכנית הלימודים">לעמוד</a><a href="https://docs.google.com/document/d/1-FTftCvxTF0v1HiR4p8eUg464LUVHlfU3dd_-kuCbB4/edit" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: עדכון תוכנית הלימודים">סילבוס ↗</a></td></tr><tr class="event-row"><th scope="row">יום העיון<small>עדכון תוכנית הלימודים בחטיבת הביניים</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">203587</strong></td><td class="table-links"><a href="#event-203587">לעמוד</a><a href="https://forms.gle/aekTYoPvQtMYmxGA8" target="_blank" rel="noopener noreferrer">הרשמה ↗</a></td></tr></tbody></table></div>
 <p class="table-note">להרשמה במצפן חפשו לפי המספר. לשתי הקהילות של יניב רז ועידן אחוון — קהילת הרכזים וקהילת המורים — <b>אין עדיין מספר במצפן</b>, וההרשמה אליהן בטופס. קהילת רכזי המתמטיקה <b dir="ltr">201020</b> היא השתלמות אחרת, הרשומה במצפן.</p>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>קטלוג השתלמויות</span></div></section>
+<section class="folio know-sheet know-ofek" id="know-ofek" aria-label="חשוב לדעת: אופק חדש — השתלמויות לצורך עלייה בדרגה">
+<div class="know-head"><span class="know-tag">חשוב לדעת</span><span>השתלמויות שמקדמות גם את השכר</span><span class="know-page">עמוד 1 מתוך 2</span></div>
+<h2 class="know-title">אופק <em>חדש</em></h2>
+<p class="know-sub">השתלמויות לצורך עלייה בדרגה</p>
+<p class="know-lead">באופק חדש שעות ההשתלמות נצברות לצורך קידום בדרגות 1–9. העלייה בדרגה מחייבת השלמת שלושה תנאים: שעות פיתוח מקצועי מוכרות, תקופת שהייה בדרגה ותהליך הערכה. <strong>סיום השתלמות לבדו אינו מקנה תוספת שכר מיידית.</strong></p>
+<table class="know-table know-ranks"><thead><tr><th scope="col">מעבר דרגה</th><th scope="col">שעות פיתוח מקצועי</th><th scope="col">תקופת שהייה נדרשת</th></tr></thead><tbody>
+<tr><th scope="row">מדרגה 1 ל־2 ומדרגה 2 ל־3</th><td><b>120</b> שעות לכל מעבר</td><td><b>30</b> חודשים</td></tr>
+<tr><th scope="row">מדרגה 3 ל־4, מ־4 ל־5 ומ־5 ל־6</th><td><b>180</b> שעות לכל מעבר</td><td><b>36</b> חודשים</td></tr>
+<tr><th scope="row">מדרגה 6 ל־7, מ־7 ל־8 ומ־8 ל־9</th><td><b>210</b> שעות לכל מעבר</td><td><b>48</b> חודשים</td></tr>
+</tbody></table>
+<div class="know-facts">
+<div class="know-fact"><strong>30<small>שעות מוכרות בשנה</small></strong><p>ככלל, יש ללמוד לפחות 30 שעות מוכרות בכל שנת לימודים. החל מדרגה 3 ניתן לקבל פטור משנת למידה אחת בדרגה, עד שלוש פעמים לאורך הקריירה, בכפוף לכללים ולהשלמת מלוא השעות הנדרשות. רק לימודים שהוכרו לאופק חדש או אושרו במסלול אישי נספרים לקידום. <cite dir="ltr">poh.education.gov.il</cite></p></div>
+<div class="know-fact know-fact-pct"><strong><span dir="ltr">7.5%</span><small>הפרש בין דרגות</small></strong><p><b>מה מקבלים בשכר?</b> בטבלת השכר באופק חדש, ההפרש בין דרגה מלאה לזו שאחריה הוא 7.5%. זו אינה בהכרח עלייה של 7.5% בכל הברוטו או בנטו: הסכום בפועל תלוי בוותק, בהשכלה, בהיקף המשרה וברכיבי השכר הנוספים. <cite dir="ltr">itu.org.il</cite></p></div>
+</div>
+<div class="know-foot"><span>נכון לבדיקה ב־23.10.2026</span><span>בעמוד הבא: עוז לתמורה</span></div>
+</section>
+<section class="folio know-sheet know-oz" id="know-oz" aria-label="חשוב לדעת: עוז לתמורה — השתלמויות לצבירת גמולי שכר">
+<div class="know-head"><span class="know-tag">חשוב לדעת</span><span>השתלמויות שמקדמות גם את השכר</span><span class="know-page">עמוד 2 מתוך 2</span></div>
+<h2 class="know-title">עוז <em>לתמורה</em></h2>
+<p class="know-sub">השתלמויות לצבירת גמולי שכר</p>
+<div class="know-fact know-fact-lead"><strong>112<small>שעות ליחידת גמול</small></strong><p>יחידת גמול השתלמות כוללת 112 שעות לימוד מוכרות, שמתוכן לפחות 56 שעות עם ציון. החל מ־1.9.2025, כל יחידת גמול מזכה ב־1.3% במקום 1.2%, על בסיס השכר שעליו מחושב הגמול. בעוז לתמורה ניתן להגיע עד 19 יחידות גמול, בכפוף לתנאי הזכאות וההכרה. <cite>משרד החינוך</cite></p></div>
+<table class="know-table know-gmul"><thead><tr><th scope="col">מספר יחידות גמול מוכרות</th><th scope="col">שיעור הגמול המצטבר</th></tr></thead><tbody>
+<tr><th scope="row">יחידה אחת</th><td><span class="know-bar" style="--w:5.3%"><b dir="ltr">1.3%</b><i></i></span></td></tr>
+<tr><th scope="row">5 יחידות</th><td><span class="know-bar" style="--w:26.3%"><b dir="ltr">6.5%</b><i></i></span></td></tr>
+<tr><th scope="row">10 יחידות</th><td><span class="know-bar" style="--w:52.6%"><b dir="ltr">13%</b><i></i></span></td></tr>
+<tr><th scope="row">19 יחידות</th><td><span class="know-bar" style="--w:100%"><b dir="ltr">24.7%</b><i></i></span></td></tr>
+</tbody></table>
+<p class="know-note">האחוזים בטבלה מחושבים לפי 1.3% לכל יחידה; הם אינם אחוז תוספת לנטו. ככלל, ניתן להתקדם בגמול אחד בשנה, עם חריגים לשבתון, לחצי שבתון ולחל״ת. לגמולים ה־18 וה־19 קיימים תנאים מיוחדים הנוגעים למועד הלימודים ולהצטרפות לרפורמה. <cite dir="ltr">poh.education.gov.il</cite></p>
+<p class="know-check"><b>לפני שנרשמים,</b> חשוב לוודא שהקורס מוכר לרפורמה שבה מועסקים, מהו מספר השעות המוכר והאם נדרש ציון. לאחר סיום הלימודים יש לבדוק שהשעות נקלטו בפורטל עובדי הוראה, ושהדרגה או הגמול עודכנו בהתאם לזכאות.</p>
+<div class="know-foot"><span>נכון לבדיקה ב־23.10.2026</span><span>חשוב לדעת · אופק חדש ועוז לתמורה</span></div>
+</section>
 <section class="folio shabat-sheet" id="shabat" aria-label="ברכת שבת שלום">
 <div class="editorial-top" dir="ltr">THE TEACHERS JOURNAL&nbsp; / &nbsp;ISSUE 08</div>
 <div class="shabat-glow" aria-hidden="true"></div>
