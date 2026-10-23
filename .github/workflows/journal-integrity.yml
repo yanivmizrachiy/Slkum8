@@ -1,0 +1,27 @@
+name: Journal integrity (offline)
+
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'assets/lovable-selected.json'
+      - 'scripts/verify-*.mjs'
+      - '.github/workflows/journal-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  journal-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check journal structure and links
+        run: node scripts/verify-journal.mjs
+      - name: Check original Lovable image manifest
+        run: node scripts/verify-assets.mjs
