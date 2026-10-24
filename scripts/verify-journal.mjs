@@ -153,7 +153,7 @@ const israelPage = folioHtml('world-report');
 assert(israelPage.includes('לישראל מגיע') && israelPage.includes('מורים לומדים.')
   && israelPage.includes('class="feature-flag"'), 'Israel newspaper page lost its headline or flag');
 assert(israelPage.includes('למידת עמיתים. זה משהו שלא לומדים במכללות להוראה. היא ממקצעת אותנו, ואין דרך טובה יותר להתפתח כדי להיות מורים טובים.'),
-  'Israel newspaper page changed the user's peer-learning quote');
+  'Israel newspaper page changed the original peer-learning quote');
 assert(finalPage.includes('שבת') && finalPage.includes('שלום'), 'Final page lost Shabbat greeting');
 
 assert(source.includes('prefers-reduced-motion'), 'Missing reduced-motion support');
