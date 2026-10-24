@@ -55,6 +55,27 @@ for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['20
     && page.includes('זמינות ההרשמה במצפן טרם אומתה'),
     'Course 2014777 must disclose the syllabus/flyer title mismatch and unverified Compass registration');
 }
+// First-session hours are distinct from the recurring schedule. Guard only hours
+// confirmed in the course records; do not invent a first-session hour for 201590.
+for (const [id, firstHours] of [
+  ['community-yaniv-idan', '19:00–21:30'],
+  ['course-201020', '19:00–21:30'],
+  ['course-201530', '19:00–21:30'],
+  ['course-201041', '19:00–21:30'],
+  ['course-204781', '15:00–19:00'],
+  ['course-2014777', '16:00–18:30']
+]) {
+  const page = source.slice(source.indexOf('id="' + id + '"'));
+  const opening = page.match(/<div class="course-opening">([\\s\\S]*?)<\\/div>/)?.[1] ?? '';
+  assert(opening.includes(firstHours), 'Missing verified first-session hours for ' + id + ': ' + firstHours);
+}
+{
+  const page = source.slice(source.indexOf('id="course-201590"'));
+  const opening = page.match(/<div class="course-opening">([\\s\\S]*?)<\\/div>/)?.[1] ?? '';
+  assert(opening.includes('פתיחה בפסג״ה מודיעין') && opening.includes('בהמשך יום א׳'),
+    '201590 must distinguish the opening session from later Sunday sessions; opening hour is not verified');
+}
+
 const communityStart = source.indexOf('id="community-yaniv-idan"');
 const communityEnd = source.indexOf('</section>', communityStart);
 assert(communityStart >= 0 && communityEnd > communityStart, 'Missing no-Compass coordinator community');
