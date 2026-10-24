@@ -129,6 +129,19 @@ if (summaryEnd > summaryStart) {
   // Each of the nine catalog dates must match the corresponding detail page.
   // This catches silent first-meeting drift without inferring dates from weekday labels.
   const summaryRows = [...summary.matchAll(/<tr(?:\s[^>]*)?>[\s\S]*?<\/tr>/g)].map(m => m[0]);
+  // Pin the verified source dates, not merely the agreement between page and table.
+  // Otherwise the same incorrect date in both places would silently pass CI.
+  const expectedFirstDates = {
+    'community-yaniv-idan': '2026-10-25',
+    'community-teachers-jerusalem': '2026-10-07',
+    'course-201020': '2026-10-13',
+    'course-201590': '2026-10-28',
+    'course-201530': '2026-10-28',
+    'course-201041': '2026-10-13',
+    'course-204781': '2026-10-28',
+    'course-2014777': '2026-10-28',
+    'event-203587': '2026-10-28'
+  };
   for (const id of ['community-yaniv-idan','community-teachers-jerusalem','course-201020','course-201590','course-201530','course-201041','course-204781','course-2014777','event-203587']) {
     const start = source.indexOf('id="' + id + '"');
     const end = source.indexOf('</section>', start);
@@ -140,6 +153,8 @@ if (summaryEnd > summaryStart) {
     assert(matchingRows.length === 1, 'Expected exactly one catalog row for: ' + id);
     assert(Boolean(pageDate) && Boolean(tableDate) && pageDate === tableDate,
       'First-meeting date mismatch or missing semantic date: ' + id + ' (detail ' + (pageDate ?? 'missing') + ', table ' + (tableDate ?? 'missing') + ')');
+    assert(pageDate === expectedFirstDates[id] && tableDate === expectedFirstDates[id],
+      'First-meeting date differs from the verified source for ' + id + ': expected ' + expectedFirstDates[id]);
     // A catalog link must open the same source as its detail page.
     // In particular, this prevents swapping the two community registration forms.
     const rowLinks = [...(matchingRows[0] ?? '').matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>/g)].map(m => m[1]);
@@ -149,6 +164,15 @@ if (summaryEnd > summaryStart) {
     assert(rowLinks[1]?.startsWith('https://') && detailLinks.includes(rowLinks[1]),
       'Catalog external link differs from the detail-page source: ' + id);
   }
+}
+// The symposium ends at 19:15; its final workshop ends at 19:00.
+// Protect each value in its proper context (both numbers merely appearing is insufficient).
+{
+  const event = source.slice(source.indexOf('id="event-203587"'), source.indexOf('</section>', source.indexOf('id="event-203587"')));
+  assert(/class="event-datebox"[\\s\\S]*?14:30–19:15[\\s\\S]*?<\\/div>/.test(event),
+    'Symposium datebox must show 14:30–19:15');
+  assert(/<li><time[^>]*>[^<]*<span class="nw">17:50–19:00<\\/span>[\\s\\S]*?סדנה שנייה<\\/span><\\/li>/.test(event),
+    'Final symposium workshop must end at 19:00, not 19:15');
 }
 assert(sections.indexOf('know-ofek') + 1 === sections.indexOf('know-oz'), 'The two "חשוב לדעת" pages (Ofek Hadash, Oz LaTmura) must be consecutive');
 const researchNotes = [...source.matchAll(/<aside class="research-note"[\s\S]*?<\/aside>/g)].map(m => m[0]);
