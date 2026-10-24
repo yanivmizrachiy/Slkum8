@@ -117,6 +117,14 @@ if (summaryEnd > summaryStart) {
     assert(matchingRows.length === 1, 'Expected exactly one catalog row for: ' + id);
     assert(Boolean(pageDate) && Boolean(tableDate) && pageDate === tableDate,
       'First-meeting date mismatch or missing semantic date: ' + id + ' (detail ' + (pageDate ?? 'missing') + ', table ' + (tableDate ?? 'missing') + ')');
+    // A catalog link must open the same source as its detail page.
+    // In particular, this prevents swapping the two community registration forms.
+    const rowLinks = [...(matchingRows[0] ?? '').matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>/g)].map(m => m[1]);
+    const detailLinks = [...page.matchAll(/<a\b[^>]*href="(https:\/\/[^"]+)"[^>]*>/g)].map(m => m[1]);
+    assert(rowLinks.length === 2 && rowLinks[0] === '#' + id,
+      'Catalog row must have its own page link followed by one external source: ' + id);
+    assert(rowLinks[1]?.startsWith('https://') && detailLinks.includes(rowLinks[1]),
+      'Catalog external link differs from the detail-page source: ' + id);
   }
 }
 assert(sections.indexOf('know-ofek') + 1 === sections.indexOf('know-oz'), 'The two "חשוב לדעת" pages (Ofek Hadash, Oz LaTmura) must be consecutive');
