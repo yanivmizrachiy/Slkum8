@@ -210,6 +210,35 @@ for (const asset of trackedImages) {
   }
 }
 
+
+ // Cross-check the independent Lovable provenance catalog against the image manifest.
+ // This guards against a plausible-looking but misattributed/reused local Lovable image.
+{
+  const catalog = JSON.parse(readFileSync(new URL('../assets/lovable-selected.json', import.meta.url), 'utf8'));
+  const selected = (catalog.assets ?? []).filter(asset => asset.local_copy);
+  const lovable = trackedImages.filter(asset => asset.file?.startsWith('lovable-'));
+  assert(new Set(selected.map(asset => asset.asset_id)).size === selected.length,
+    'Duplicate original Lovable asset ID in provenance catalog');
+  assert(new Set(selected.map(asset => asset.local_copy)).size === selected.length,
+    'Duplicate local Lovable file in provenance catalog');
+  assert(selected.length === lovable.length,
+    'Selected Lovable provenance count must equal Lovable images in manifest');
+  for (const asset of selected) {
+    const localPath = 'assets/selected/' + asset.local_copy?.split('/').at(-1);
+    const matching = lovable.filter(entry => entry.file === asset.local_copy?.split('/').at(-1));
+    assert(asset.local_copy === localPath && matching.length === 1,
+      'Lovable local file missing or mismatched in image manifest: ' + asset.local_copy);
+    assert(/^[0-9a-f-]{36}$/.test(asset.asset_id ?? '')
+      && asset.url?.includes('/__l5e/assets-v1/' + asset.asset_id + '/')
+      && matching[0]?.source === asset.url,
+      'Lovable original asset ID/URL differs between provenance files: ' + asset.local_copy);
+  }
+  for (const entry of lovable) {
+    assert(selected.some(asset => asset.local_copy === 'assets/selected/' + entry.file),
+      'Lovable image has no original-source record: ' + entry.file);
+  }
+}
+
 warnings.push('Three distinct communities: Yaniv/Idan coordinators (no Compass number yet, 25 Oct), Yaniv/Idan teachers (no Compass number yet, started 7 Oct), numbered coordinators 201020 (13 Oct). Dates from separate written sources.');
 warnings.push('The six Compass courses follow the official flyer PDF (השתלמויות תשפ״ז - חט״ב) and jerusalem2 /hishtalmuyot; its hidden text-layer codes (200123, 201298, 201757, 203678) are not visible courses and are not used.');
 warnings.push('External syllabus and image URLs require live browser checks; this script only tests structure.');
