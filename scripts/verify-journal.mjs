@@ -65,7 +65,7 @@ if (communityEnd > communityStart) {
   assert(community.includes('forms/d/1bnZ2j8x9UpR4l-2R5dr6-z0eg0Ai6EO1qpPkGnFm8fk'), 'Missing separate form');
   assert(!community.includes('<strong dir="ltr">201020</strong>'), 'Must not attribute Compass code 201020 to Yaniv-Idan community');
   assert(community.includes('אין עדיין מספר במצפן'), 'Yaniv-Idan coordinators community must state it has no Compass number yet');
-  for (const fact of ['״עדכון תוכנית הלימודים״', 'מדריך מחוזי חט״ב בעיר ירושלים', 'מדריך בית ספרי בעיר ירושלים', '30 שעות לגמול (24 שעות בזום, 6 שעות א־סינכרוניות)', 'בימי רביעי בין השעות 19:00–21:30', 'יום ראשון הקרוב']) {
+  for (const fact of ['״עדכון תוכנית הלימודים״', 'מדריך מחוזי חט״ב בעיר ירושלים', 'מדריך בית ספרי בעיר ירושלים', '30 שעות לגמול (24 שעות בזום, 6 שעות א־סינכרוניות)', 'בימי רביעי בין השעות 19:00–21:30', 'יום ראשון']) {
     assert(community.replace(/<[^>]+>/g, '').includes(fact), 'Yaniv-Idan coordinators community must follow its flyer: ' + fact);
   }
 }
@@ -97,7 +97,7 @@ if (summaryEnd > summaryStart) {
   assert([...summary.matchAll(/class="table-links"/g)].length === 9, 'Expected 2 action links for each summary row');
   assert(summary.includes('#community-yaniv-idan'), 'Missing distinct no-Compass community table row');
   const firstRow = summary.slice(summary.indexOf('<tbody>'), summary.indexOf('</tr>', summary.indexOf('<tbody>')));
-  assert(firstRow.includes('#community-yaniv-idan') && firstRow.includes('25.10.2026') && firstRow.includes('יום ראשון') && !firstRow.includes('יום ראשון הקרוב'), 'First summary row must be the Yaniv/Idan coordinators community, starting this Sunday 25.10.2026');
+  assert(firstRow.includes('#community-yaniv-idan') && firstRow.includes('25.10.2026') && firstRow.includes('יום ראשון') && !firstRow.includes('יום ראשון הקרוב'), 'First summary row must be the Yaniv/Idan coordinators community, first meeting 25.10.2026');
   assert(summary.includes('#community-teachers-jerusalem'), 'Missing teachers community table row');
   assert(!source.includes('יום ראשון הקרוב'), 'Relative date language must not become stale after 25 Oct 2026');
   for (const id of ['201020','201590','201530','201041','204781','2014777']) {
