@@ -134,11 +134,37 @@ with sync_playwright() as playwright:
             pdf_path = OUT / "journal-a4-qa.pdf"
             page.pdf(path=str(pdf_path), print_background=True,
                      prefer_css_page_size=True, format="A4")
-            count = len(PdfReader(str(pdf_path)).pages)
-            report["print"] = {"pdf_pages": count, "expected_pages": 28,
-                               "file": pdf_path.name}
+            # An A4 PDF with the right page count can still lose clickable
+            # syllabus/form links. Verify the nine catalog source links survive
+            # Chromium print as real URI annotations (not just visible text).
+            expected_urls = set(page.locator(
+                '#catalog-summary .table-links a[href^="https://"]'
+            ).evaluate_all("(els) => els.map(a => a.href)"))
+            reader = PdfReader(str(pdf_path))
+            count = len(reader.pages)
+            printed_urls = set()
+            for pdf_page in reader.pages:
+                for annotation in pdf_page.get("/Annots", []):
+                    obj = annotation.get_object()
+                    action = obj.get("/A")
+                    if action and action.get("/S") == "/URI":
+                        printed_urls.add(str(action.get("/URI")))
+            missing_urls = sorted(expected_urls - printed_urls)
+            report["print"] = {
+                "pdf_pages": count, "expected_pages": 28,
+                "file": pdf_path.name,
+                "catalog_external_links_expected": len(expected_urls),
+                "catalog_external_links_in_pdf": len(expected_urls & printed_urls),
+                "catalog_external_links_missing": missing_urls,
+            }
             if count != 28:
                 report["errors"].append(f"A4 PDF page count {count}, expected 28")
+            if len(expected_urls) != 9:
+                report["errors"].append(
+                    f"A4 catalog expected 9 distinct external links, got {len(expected_urls)}")
+            if missing_urls:
+                report["errors"].append(
+                    f"A4 PDF lost {len(missing_urls)} clickable catalog source links")
         page.close()
     browser.close()
 
