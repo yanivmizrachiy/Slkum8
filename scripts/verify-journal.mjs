@@ -97,8 +97,9 @@ if (summaryEnd > summaryStart) {
   assert([...summary.matchAll(/class="table-links"/g)].length === 9, 'Expected 2 action links for each summary row');
   assert(summary.includes('#community-yaniv-idan'), 'Missing distinct no-Compass community table row');
   const firstRow = summary.slice(summary.indexOf('<tbody>'), summary.indexOf('</tr>', summary.indexOf('<tbody>')));
-  assert(firstRow.includes('#community-yaniv-idan') && firstRow.includes('25.10.2026') && firstRow.includes('יום ראשון הקרוב'), 'First summary row must be the Yaniv/Idan coordinators community, starting this Sunday 25.10.2026');
+  assert(firstRow.includes('#community-yaniv-idan') && firstRow.includes('25.10.2026') && firstRow.includes('יום ראשון') && !firstRow.includes('יום ראשון הקרוב'), 'First summary row must be the Yaniv/Idan coordinators community, starting this Sunday 25.10.2026');
   assert(summary.includes('#community-teachers-jerusalem'), 'Missing teachers community table row');
+  assert(!source.includes('יום ראשון הקרוב'), 'Relative date language must not become stale after 25 Oct 2026');
   for (const id of ['201020','201590','201530','201041','204781','2014777']) {
     assert(summary.includes('#course-' + id), 'Missing summary-to-course link: ' + id);
   }
