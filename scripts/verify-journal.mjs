@@ -66,12 +66,14 @@ for (const [id, firstHours] of [
   ['course-2014777', '16:00–18:30']
 ]) {
   const page = source.slice(source.indexOf('id="' + id + '"'));
-  const opening = page.match(/<div class="course-opening">([\\s\\S]*?)<\\/div>/)?.[1] ?? '';
+  const openingStart = page.indexOf('class="course-opening"');
+  const opening = openingStart >= 0 ? page.slice(openingStart, page.indexOf('</div>', openingStart)) : '';
   assert(opening.includes(firstHours), 'Missing verified first-session hours for ' + id + ': ' + firstHours);
 }
 {
   const page = source.slice(source.indexOf('id="course-201590"'));
-  const opening = page.match(/<div class="course-opening">([\\s\\S]*?)<\\/div>/)?.[1] ?? '';
+  const openingStart = page.indexOf('class="course-opening"');
+  const opening = openingStart >= 0 ? page.slice(openingStart, page.indexOf('</div>', openingStart)) : '';
   assert(opening.includes('פתיחה בפסג״ה מודיעין') && opening.includes('בהמשך יום א׳'),
     '201590 must distinguish the opening session from later Sunday sessions; opening hour is not verified');
 }
