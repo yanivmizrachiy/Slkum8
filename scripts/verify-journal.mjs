@@ -169,9 +169,9 @@ if (summaryEnd > summaryStart) {
 // Protect each value in its proper context (both numbers merely appearing is insufficient).
 {
   const event = source.slice(source.indexOf('id="event-203587"'), source.indexOf('</section>', source.indexOf('id="event-203587"')));
-  assert(/class="event-datebox"[\\s\\S]*?14:30–19:15[\\s\\S]*?<\\/div>/.test(event),
+  assert(/class="event-datebox"[\s\S]*?14:30–19:15[\s\S]*?<\/div>/.test(event),
     'Symposium datebox must show 14:30–19:15');
-  assert(/<li><time[^>]*>[^<]*<span class="nw">17:50–19:00<\\/span>[\\s\\S]*?סדנה שנייה<\\/span><\\/li>/.test(event),
+  assert(/<li><time[^>]*>[^<]*<span class="nw">17:50–19:00<\/span>[\s\S]*?סדנה שנייה<\/span><\/li>/.test(event),
     'Final symposium workshop must end at 19:00, not 19:15');
 }
 assert(sections.indexOf('know-ofek') + 1 === sections.indexOf('know-oz'), 'The two "חשוב לדעת" pages (Ofek Hadash, Oz LaTmura) must be consecutive');
