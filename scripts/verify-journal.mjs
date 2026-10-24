@@ -131,6 +131,31 @@ for (const href of [...source.matchAll(/href="#([^"]+)"/g)].map(m => m[1])) {
 const finalPage = source.slice(source.indexOf('id="shabat"'));
 assert(!finalPage.includes('פרשת'), 'Shabbat closing page must not mention weekly parasha');
 assert(finalPage.includes('יניב רז'), 'Closing page must contain יניב רז');
+
+// Editorial invariants: protect the user's exact words and journal identity.
+// These are structural/text checks, not a substitute for human visual approval.
+const folioHtml = id => {
+  const start = source.indexOf('id="' + id + '"');
+  return start < 0 ? '' : source.slice(start, source.indexOf('</section>', start));
+};
+const coverPage = folioHtml('cover');
+for (const fact of ['סיכום שבועי', 'מספר 8', '23.10.2026', 'יום שישי', 'איילת קריספין', 'יניב רז']) {
+  assert(coverPage.includes(fact), 'Cover lost required issue identity or credit: ' + fact);
+}
+const cinematicPage = folioHtml('cinematic');
+for (const originalQuote of [
+  'המורים שנכנסים לכיתה אחרי שישתתפו בהשתלמות, משדרים בשיעורים שקורה עכשיו משהו חדש.',
+  'אם אתה חושב שאתה צריך להירשם להשתלמות, כנראה שההורים שלך זוכים ללמוד אצל הטוב ביותר.'
+]) {
+  assert(cinematicPage.includes(originalQuote), 'Cinematic section changed an exact user-authored quote');
+}
+const israelPage = folioHtml('world-report');
+assert(israelPage.includes('לישראל מגיע') && israelPage.includes('מורים לומדים.')
+  && israelPage.includes('class="feature-flag"'), 'Israel newspaper page lost its headline or flag');
+assert(israelPage.includes('למידת עמיתים. זה משהו שלא לומדים במכללות להוראה. היא ממקצעת אותנו, ואין דרך טובה יותר להתפתח כדי להיות מורים טובים.'),
+  'Israel newspaper page changed the user's peer-learning quote');
+assert(finalPage.includes('שבת') && finalPage.includes('שלום'), 'Final page lost Shabbat greeting');
+
 assert(source.includes('prefers-reduced-motion'), 'Missing reduced-motion support');
 assert(source.includes('@media print'), 'Missing A4 print rules');
 assert(source.includes('ישראל') && source.includes('feature-flag'), 'Missing Israel editorial motif');
