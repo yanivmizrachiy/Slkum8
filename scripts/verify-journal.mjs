@@ -231,6 +231,18 @@ for (const [author, year] of [['Darling-Hammond', '2017'], ['Yoon', '2007'], ['G
   assert(researchNotes.some(n => n.includes(author) && n.includes('(' + year + ')') && n.includes('<cite')), 'Missing cited research note: ' + author + ' ' + year);
 }
 assert(researchNotes.every(n => !n.includes('מן המחקר') && /<p>[^<]+<\/p><cite>על פי מחקר של /.test(n)), 'Research notes: the finding first, then a small "על פי מחקר של…" attribution; no "מן המחקר" label');
+// External course/syllabus/form links open in a new tab. Protect the existing
+// secure HTTPS + rel=noopener noreferrer behavior against future edits.
+// This does not prove that the external forms currently accept submissions.
+const externalAnchors = [...source.matchAll(/<a\b[^>]*\bhref="(https?:\/\/[^\"]+)"[^>]*>/g)];
+assert(externalAnchors.length >= 9, 'Expected external course and registration source links');
+for (const match of externalAnchors) {
+  const [tag, url] = match;
+  const rel = tag.match(/\brel="([^"]+)"/)?.[1]?.split(/\s+/) ?? [];
+  assert(url.startsWith('https://'), 'External journal link must use HTTPS: ' + url);
+  assert(/\btarget="_blank"/.test(tag) && rel.includes('noopener') && rel.includes('noreferrer'),
+    'External journal link must open safely in a new tab: ' + url);
+}
 for (const href of [...source.matchAll(/href="#([^"]+)"/g)].map(m => m[1])) {
   assert(source.includes('id="' + href + '"'), 'Broken internal anchor: #' + href);
 }
