@@ -8,6 +8,19 @@ const source = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const errors = [];
 const warnings = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
+// Unverified registration availability and relative dates must not reappear in
+// this fixed-date issue. A working link does not prove that a form accepts responses.
+// The precise first-meeting dates remain in the individual course pages.
+for (const unsupportedClaim of [
+  'ניתן עדיין להירשם',
+  'ההרשמה עדיין פתוחה',
+  'ההרשמה פתוחה',
+  'יום ראשון הקרוב'
+]) {
+  assert(!source.includes(unsupportedClaim),
+    'Unverified registration claims must not reappear: ' + unsupportedClaim);
+}
+
 const sections = [...source.matchAll(/<section\b[^>]*class="[^"]*\bfolio\b[^"]*"[^>]*\bid="([^"]+)"/g)].map(m => m[1]);
 const unique = new Set(sections);
 assert(unique.size === sections.length, 'Duplicate folio IDs');
