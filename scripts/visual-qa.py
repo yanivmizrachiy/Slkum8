@@ -131,6 +131,56 @@ with sync_playwright() as playwright:
                                animations="disabled", timeout=30000)
         if width == 1280:
             page.emulate_media(media="print")
+            # Inspect every catalog row under print CSS before exporting PDF.
+            # The viewport checks above can miss a row or note that spills out
+            # of its A4 folio only in print media. This is a geometry safeguard,
+            # not a substitute for checking physical-paper readability.
+            catalog_print_geometry = page.evaluate("""() => {
+              const folio = document.querySelector('#catalog-summary');
+              const table = folio?.querySelector('.training-table');
+              const note = folio?.querySelector('.table-note');
+              if (!folio || !table || !note) {
+                return {row_count: 0, outside_rows: ['missing catalog/table/note'],
+                        note_outside: true, table_note_overlap: true};
+              }
+              const pageBox = folio.getBoundingClientRect();
+              const tableBox = table.getBoundingClientRect();
+              const noteBox = note.getBoundingClientRect();
+              const rows = [...table.querySelectorAll('tbody tr')];
+              const tolerance = 2;
+              const outside = rows.flatMap((row, index) => {
+                const rect = row.getBoundingClientRect();
+                return (rect.top < pageBox.top - tolerance ||
+                        rect.bottom > pageBox.bottom + tolerance ||
+                        rect.left < pageBox.left - tolerance ||
+                        rect.right > pageBox.right + tolerance)
+                  ? [index + 1] : [];
+              });
+              return {
+                row_count: rows.length,
+                outside_rows: outside,
+                note_outside: noteBox.top < pageBox.top - tolerance ||
+                              noteBox.bottom > pageBox.bottom + tolerance ||
+                              noteBox.left < pageBox.left - tolerance ||
+                              noteBox.right > pageBox.right + tolerance,
+                table_note_overlap: tableBox.bottom > noteBox.top + tolerance,
+                page_height_px: Math.round(pageBox.height),
+                table_bottom_px: Math.round(tableBox.bottom - pageBox.top),
+                note_bottom_px: Math.round(noteBox.bottom - pageBox.top)
+              };
+            }""")
+            report["catalog_print_geometry"] = catalog_print_geometry
+            if catalog_print_geometry["row_count"] != 9:
+                report["errors"].append(
+                    "Print catalog must contain exactly 9 course/community rows")
+            if catalog_print_geometry["outside_rows"]:
+                report["errors"].append(
+                    "Print catalog rows outside A4 folio: "
+                    + str(catalog_print_geometry["outside_rows"]))
+            if catalog_print_geometry["note_outside"]:
+                report["errors"].append("Print catalog note extends outside A4 folio")
+            if catalog_print_geometry["table_note_overlap"]:
+                report["errors"].append("Print catalog table overlaps its source note")
             pdf_path = OUT / "journal-a4-qa.pdf"
             page.pdf(path=str(pdf_path), print_background=True,
                      prefer_css_page_size=True, format="A4")
