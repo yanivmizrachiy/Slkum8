@@ -181,6 +181,50 @@ with sync_playwright() as playwright:
                 report["errors"].append(
                     f"A4 PDF lost {len(missing_urls)} clickable catalog source links")
         page.close()
+    # The regular screenshot suite requests reduced motion, so it never exercises
+    # the animated cinematic sequence. Check both accessible static fallback
+    # and the real IntersectionObserver-triggered animation separately.
+    for preference in ("reduce", "no-preference"):
+        motion_page = browser.new_page(
+            viewport={"width": 1280, "height": 1400},
+            reduced_motion=preference, locale="he-IL")
+        motion_page.goto((ROOT / "index.html").as_uri(),
+                         wait_until="domcontentloaded", timeout=45000)
+        motion_page.locator("#cinematic").scroll_into_view_if_needed()
+        if preference == "no-preference":
+            try:
+                motion_page.wait_for_function(
+                    "document.querySelector('#cinematic').classList.contains('is-playing')",
+                    timeout=5000)
+            except Exception:
+                report["errors"].append(
+                    "Cinematic animation did not start when scrolled into view")
+        else:
+            motion_page.wait_for_timeout(250)
+        motion = motion_page.evaluate("""() => {
+          const section = document.querySelector('#cinematic');
+          const scene = section.querySelector('.cine-scene.s1');
+          const finale = section.querySelector('.cine-scene.s3');
+          return {
+            preference_reduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
+            playing: section.classList.contains('is-playing'),
+            animation_name: getComputedStyle(scene).animationName,
+            final_opacity: getComputedStyle(finale).opacity
+          };
+        }""")
+        report.setdefault("cinematic_motion", []).append(
+            {"requested_preference": preference, **motion})
+        if preference == "reduce":
+            if (not motion["preference_reduced"] or motion["playing"]
+                    or motion["animation_name"] != "none"
+                    or motion["final_opacity"] != "1"):
+                report["errors"].append(
+                    "Reduced-motion cinematic must show a static final frame")
+        elif (motion["preference_reduced"] or not motion["playing"]
+              or motion["animation_name"] == "none"):
+            report["errors"].append(
+                "Normal-motion cinematic must run its animation in view")
+        motion_page.close()
     browser.close()
 
 (OUT / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2),
