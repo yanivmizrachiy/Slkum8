@@ -185,14 +185,14 @@ for (const [id, expected] of Object.entries(canonicalSourceLinks)) {
   const detailEnd = source.indexOf('</section>', detailStart);
   const detail = detailStart >= 0 && detailEnd > detailStart
     ? source.slice(detailStart, detailEnd) : '';
-  const detailUrls = [...detail.matchAll(/<a\\b[^>]*href="(https:\\/\\/[^"]+)"/g)].map(m => m[1]);
+  const detailUrls = [...detail.matchAll(/<a\b[^>]*href="(https:\/\/[^"]+)"/g)].map(m => m[1]);
   assert(detailUrls.length === 1 && detailUrls[0] === expected,
     'External source link changed from the documented original: ' + id);
   const tableStart = source.indexOf('id="catalog-summary"');
   const tableEnd = source.indexOf('</section>', tableStart);
   const table = tableStart >= 0 && tableEnd > tableStart
     ? source.slice(tableStart, tableEnd) : '';
-  const row = [...table.matchAll(/<tr(?:\\s[^>]*)?>[\\s\\S]*?<\\/tr>/g)]
+  const row = [...table.matchAll(/<tr(?:\s[^>]*)?>[\s\S]*?<\/tr>/g)]
     .map(m => m[0]).find(html => html.includes('href="#' + id + '"'));
   assert(row?.includes('href="' + expected + '"'),
     'Catalog source link changed from the documented original: ' + id);
