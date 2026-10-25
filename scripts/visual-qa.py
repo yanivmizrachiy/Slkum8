@@ -196,8 +196,11 @@ with sync_playwright() as playwright:
                 "status": "diagnostic only; human print legibility not certified"
             }
             if not total_chars:
-                report["limitations"].append(
-                    "Catalog PDF text extraction yielded no font-size metrics.")
+                report["errors"].append(
+                    "Catalog PDF text sizes could not be measured")
+            elif any(pt < 7 for pt, _ in catalog_sizes):
+                report["errors"].append(
+                    "Catalog A4 PDF has text smaller than 7pt; inspect print typography")
             report["print"] = {
                 "catalog_typography": catalog_type,
                 "pdf_pages": count, "expected_pages": 28,
