@@ -248,9 +248,9 @@ with sync_playwright() as playwright:
             if not total_chars:
                 report["errors"].append(
                     "Catalog PDF text sizes could not be measured")
-            elif any(pt < 7 for pt, _ in catalog_sizes):
+            elif any(pt < 8 for pt, _ in catalog_sizes):
                 report["errors"].append(
-                    "Catalog A4 PDF has text smaller than 7pt; inspect print typography")
+                    "Catalog A4 PDF has text smaller than 8pt; inspect print typography")
             report["print"] = {
                 "catalog_typography": catalog_type,
                 "pdf_pages": count, "expected_pages": 28,
