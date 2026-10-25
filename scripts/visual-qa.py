@@ -142,6 +142,16 @@ with sync_playwright() as playwright:
             ).evaluate_all("(els) => els.map(a => a.href)"))
             reader = PdfReader(str(pdf_path))
             count = len(reader.pages)
+            # Verify physical A4 portrait dimensions, not just the number of
+            # pages. CSS @page can override Chromium's format="A4" setting.
+            expected_a4_pt = (595.2756, 841.8898)
+            non_a4_pages = [
+                {"page": i, "width_pt": round(float(pdf_page.mediabox.width), 2),
+                 "height_pt": round(float(pdf_page.mediabox.height), 2)}
+                for i, pdf_page in enumerate(reader.pages, start=1)
+                if abs(float(pdf_page.mediabox.width) - expected_a4_pt[0]) > 2
+                or abs(float(pdf_page.mediabox.height) - expected_a4_pt[1]) > 2
+            ]
             printed_urls = set()
             for pdf_page in reader.pages:
                 for annotation in pdf_page.get("/Annots", []):
@@ -152,6 +162,8 @@ with sync_playwright() as playwright:
             missing_urls = sorted(expected_urls - printed_urls)
             report["print"] = {
                 "pdf_pages": count, "expected_pages": 28,
+                "a4_portrait_size_verified": not non_a4_pages,
+                "non_a4_pages": non_a4_pages,
                 "file": pdf_path.name,
                 "catalog_external_links_expected": len(expected_urls),
                 "catalog_external_links_in_pdf": len(expected_urls & printed_urls),
@@ -159,6 +171,9 @@ with sync_playwright() as playwright:
             }
             if count != 28:
                 report["errors"].append(f"A4 PDF page count {count}, expected 28")
+            if non_a4_pages:
+                report["errors"].append(
+                    f"PDF has {len(non_a4_pages)} pages with non-A4 portrait dimensions")
             if len(expected_urls) != 9:
                 report["errors"].append(
                     f"A4 catalog expected 9 distinct external links, got {len(expected_urls)}")
