@@ -181,6 +181,42 @@ with sync_playwright() as playwright:
                 report["errors"].append("Print catalog note extends outside A4 folio")
             if catalog_print_geometry["table_note_overlap"]:
                 report["errors"].append("Print catalog table overlaps its source note")
+            # Verify the Israel newspaper's key editorial elements and the
+            # signed final greeting remain visible inside their own A4 folios.
+            # This checks printed layout, not just DOM presence or page count.
+            editorial_print = page.evaluate("""() => {
+              const checks = [
+                ['world-report', '.feature-headline'],
+                ['world-report', '.feature-flag'],
+                ['world-report', '.feature-pull'],
+                ['shabat', 'h2'],
+                ['shabat', '.shabat-name']
+              ];
+              return checks.map(([folioId, selector]) => {
+                const folio = document.getElementById(folioId);
+                const el = folio?.querySelector(selector);
+                if (!folio || !el) return {folio: folioId, selector, ok: false,
+                                           reason: 'missing element'};
+                const p = folio.getBoundingClientRect();
+                const r = el.getBoundingClientRect();
+                const style = getComputedStyle(el);
+                const tolerance = 2;
+                const ok = r.width > 0 && r.height > 0 &&
+                  r.left >= p.left - tolerance && r.right <= p.right + tolerance &&
+                  r.top >= p.top - tolerance && r.bottom <= p.bottom + tolerance &&
+                  style.display !== 'none' && style.visibility !== 'hidden' &&
+                  Number(style.opacity) > 0;
+                return {folio: folioId, selector, ok,
+                        reason: ok ? 'within A4 folio' : 'clipped or invisible'};
+              });
+            }""")
+            report["editorial_print_geometry"] = editorial_print
+            for item in editorial_print:
+                if not item["ok"]:
+                    report["errors"].append(
+                        "Print editorial element failed: "
+                        + item["folio"] + " " + item["selector"]
+                        + " (" + item["reason"] + ")")
             pdf_path = OUT / "journal-a4-qa.pdf"
             page.pdf(path=str(pdf_path), print_background=True,
                      prefer_css_page_size=True, format="A4")
