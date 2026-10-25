@@ -188,9 +188,13 @@ with sync_playwright() as playwright:
               const checks = [
                 ['world-report', '.feature-headline'],
                 ['world-report', '.feature-flag'],
+                ['world-report', '.feature-visual img'],
+                ['world-report', '.feature-visual figcaption'],
+                ['world-report', '.feature-deck'],
                 ['world-report', '.feature-pull'],
                 ['shabat', 'h2'],
-                ['shabat', '.shabat-name']
+                ['shabat', '.shabat-name'],
+                ['shabat', '.shabat-role']
               ];
               return checks.map(([folioId, selector]) => {
                 const folio = document.getElementById(folioId);
