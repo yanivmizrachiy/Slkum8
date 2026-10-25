@@ -165,6 +165,39 @@ if (summaryEnd > summaryStart) {
       'Catalog external link differs from the detail-page source: ' + id);
   }
 }
+// Canonical external source links (recorded in SSOT and independently checked
+// previously). Matching the table to the detail page is insufficient: if both
+// are changed to the same wrong URL, that weaker consistency test still passes.
+// This guard detects accidental swaps or edits, not current link availability.
+const canonicalSourceLinks = {
+  'community-yaniv-idan': 'https://docs.google.com/forms/d/1bnZ2j8x9UpR4l-2R5dr6-z0eg0Ai6EO1qpPkGnFm8fk/viewform',
+  'community-teachers-jerusalem': 'https://docs.google.com/forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc/viewform',
+  'course-201020': 'https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view',
+  'course-201590': 'https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view',
+  'course-201530': 'https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view',
+  'course-201041': 'https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view',
+  'course-204781': 'https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view',
+  'course-2014777': 'https://docs.google.com/document/d/1-FTftCvxTF0v1HiR4p8eUg464LUVHlfU3dd_-kuCbB4/edit',
+  'event-203587': 'https://forms.gle/aekTYoPvQtMYmxGA8'
+};
+for (const [id, expected] of Object.entries(canonicalSourceLinks)) {
+  const detailStart = source.indexOf('id="' + id + '"');
+  const detailEnd = source.indexOf('</section>', detailStart);
+  const detail = detailStart >= 0 && detailEnd > detailStart
+    ? source.slice(detailStart, detailEnd) : '';
+  const detailUrls = [...detail.matchAll(/<a\\b[^>]*href="(https:\\/\\/[^"]+)"/g)].map(m => m[1]);
+  assert(detailUrls.length === 1 && detailUrls[0] === expected,
+    'External source link changed from the documented original: ' + id);
+  const tableStart = source.indexOf('id="catalog-summary"');
+  const tableEnd = source.indexOf('</section>', tableStart);
+  const table = tableStart >= 0 && tableEnd > tableStart
+    ? source.slice(tableStart, tableEnd) : '';
+  const row = [...table.matchAll(/<tr(?:\\s[^>]*)?>[\\s\\S]*?<\\/tr>/g)]
+    .map(m => m[0]).find(html => html.includes('href="#' + id + '"'));
+  assert(row?.includes('href="' + expected + '"'),
+    'Catalog source link changed from the documented original: ' + id);
+}
+
 // The symposium ends at 19:15; its final workshop ends at 19:00.
 // Protect each value in its proper context (both numbers merely appearing is insufficient).
 {
