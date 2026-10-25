@@ -11,6 +11,23 @@ const assert = (condition, message) => { if (!condition) errors.push(message); }
 const sections = [...source.matchAll(/<section\b[^>]*class="[^"]*\bfolio\b[^"]*"[^>]*\bid="([^"]+)"/g)].map(m => m[1]);
 const unique = new Set(sections);
 assert(unique.size === sections.length, 'Duplicate folio IDs');
+
+// Accessibility regression guard: Hebrew reading direction and descriptive
+// image alternatives are required in the actual publication markup.
+// This is static validation; it does not certify screen-reader usability.
+assert(/<html\s+lang="he"\s+dir="rtl">/.test(source),
+  'Journal root must declare Hebrew language and right-to-left reading direction');
+const allImageTags = [...source.matchAll(/<img\b[^>]*>/g)].map(m => m[0]);
+assert(allImageTags.length >= 16, 'Expected the journal artwork and cover logo');
+for (const tag of allImageTags) {
+  const src = tag.match(/\bsrc="([^"]+)"/)?.[1] ?? '(missing src)';
+  assert(/\balt="[^"]+"/.test(tag), 'Image missing a descriptive alt attribute: ' + src);
+  if (src.startsWith('assets/selected/')) {
+    assert(/\bloading="(?:lazy|eager)"/.test(tag) && /\bdecoding="async"/.test(tag),
+      'Local journal artwork must declare loading and decoding behavior: ' + src);
+  }
+}
+
 assert(sections.length >= 15, 'Expected 15+ folios including the two distinct coordinator community pages');
 assert(sections[0] === 'cover', 'First folio must be the cover');
 assert(sections.at(-1) === 'shabat', 'Last folio must be Shabbat greeting');
