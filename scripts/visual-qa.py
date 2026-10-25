@@ -160,7 +160,46 @@ with sync_playwright() as playwright:
                     if action and action.get("/S") == "/URI":
                         printed_urls.add(str(action.get("/URI")))
             missing_urls = sorted(expected_urls - printed_urls)
+            # Print typography is a separate quality gate from geometry. Collect
+            # measured PDF text sizes for the catalog page so a CSS improvement
+            # cannot be called readable merely because pagination still passes.
+            # These are diagnostics, not proof of legibility on physical paper.
+            catalog_index = page.locator("section.folio").evaluate_all(
+                "(els) => els.findIndex(el => el.id === 'catalog-summary')")
+            catalog_sizes = []
+            if 0 <= catalog_index < count:
+                def collect_catalog_text(text, cm, tm, font_dict, font_size):
+                    chars = len(text.strip())
+                    if not chars:
+                        return
+                    # Chromium may place a scale in the PDF current transform.
+                    # Account for it instead of trusting the raw font operand.
+                    scale = max((cm[0] ** 2 + cm[1] ** 2) ** 0.5,
+                                (cm[2] ** 2 + cm[3] ** 2) ** 0.5)
+                    pt = float(font_size) * scale
+                    if 2 <= pt <= 40:
+                        catalog_sizes.append((pt, chars))
+                reader.pages[catalog_index].extract_text(
+                    visitor_text=collect_catalog_text)
+            total_chars = sum(chars for _, chars in catalog_sizes)
+            catalog_type = {
+                "pdf_page": catalog_index + 1 if catalog_index >= 0 else None,
+                "measured_characters": total_chars,
+                "min_effective_pt": round(min((pt for pt, _ in catalog_sizes),
+                                          default=0), 2),
+                "percent_characters_below_7pt": round(
+                    100 * sum(chars for pt, chars in catalog_sizes if pt < 7)
+                    / total_chars, 1) if total_chars else None,
+                "percent_characters_below_8pt": round(
+                    100 * sum(chars for pt, chars in catalog_sizes if pt < 8)
+                    / total_chars, 1) if total_chars else None,
+                "status": "diagnostic only; human print legibility not certified"
+            }
+            if not total_chars:
+                report["limitations"].append(
+                    "Catalog PDF text extraction yielded no font-size metrics.")
             report["print"] = {
+                "catalog_typography": catalog_type,
                 "pdf_pages": count, "expected_pages": 28,
                 "a4_portrait_size_verified": not non_a4_pages,
                 "non_a4_pages": non_a4_pages,
