@@ -15,10 +15,12 @@ for (const unsupportedClaim of [
   'ניתן עדיין להירשם',
   'ההרשמה עדיין פתוחה',
   'ההרשמה פתוחה',
-  'יום ראשון הקרוב'
+  'יום ראשון הקרוב',
+  'יפורסם בהמשך',
+  'מספר מצפן בהמשך'
 ]) {
   assert(!source.includes(unsupportedClaim),
-    'Unverified registration claims must not reappear: ' + unsupportedClaim);
+    'Unverified registration/Compass promises or stale relative dates must not reappear: ' + unsupportedClaim);
 }
 
 const sections = [...source.matchAll(/<section\b[^>]*class="[^"]*\bfolio\b[^"]*"[^>]*\bid="([^"]+)"/g)].map(m => m[1]);
