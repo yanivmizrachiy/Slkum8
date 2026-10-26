@@ -356,6 +356,33 @@ with sync_playwright() as playwright:
               or motion["animation_name"] == "none"):
             report["errors"].append(
                 "Normal-motion cinematic must run its animation in view")
+        # The previous check only established that playback started. A
+        # cinematic scene can start and still end with missing/hidden text.
+        # Wait for the authored final composition, including the exact quote.
+        # This tests rendered opacity in a real browser, not just CSS tokens.
+        if preference == "no-preference" and motion["playing"]:
+            try:
+                motion_page.wait_for_function("""() => {
+                  const root = document.querySelector('#cinematic');
+                  if (!root) return false;
+                  const opacity = selector => {
+                    const element = root.querySelector(selector);
+                    return element ? Number(getComputedStyle(element).opacity) : -1;
+                  };
+                  return opacity('.s1') <= 0.02 && opacity('.s2') <= 0.02 &&
+                         opacity('.s3') >= 0.98 &&
+                         opacity('.s3 .cine-finale-quote') >= 0.98;
+                }""", timeout=18000)
+                report["cinematic_final_frame"] = {
+                    "visible": True, "preceding_scenes_hidden": True,
+                    "test": "rendered opacity of scene 3 and finale quote"
+                }
+            except Exception as exc:
+                report["cinematic_final_frame"] = {
+                    "visible": False, "reason": str(exc)[:300]
+                }
+                report["errors"].append(
+                    "Normal-motion cinematic did not reach a readable final frame")
         motion_page.close()
     browser.close()
 
