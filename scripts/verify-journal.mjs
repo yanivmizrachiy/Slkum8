@@ -138,7 +138,7 @@ const teachersEnd = source.indexOf('</section>', teachersStart);
 assert(teachersStart >= 0 && teachersEnd > teachersStart, 'Missing Jerusalem district teachers community page');
 if (teachersEnd > teachersStart) {
   const teachers = source.slice(teachersStart, teachersEnd);
-  assert(teachers.includes('<time datetime="2026-10-07">07.10.2026</time>'), 'Teachers community started 7 Oct 2026');
+  assert(teachers.includes('<time datetime="2026-10-07">07.10.2026</time>') && teachers.includes('תאריך הפתיחה אינו מאומת: 07.10 מול 24.10'), 'Teachers community must disclose the disputed 07.10/24.10 opening date');
   assert(teachers.includes('forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc'), 'Missing teachers community form');
   assert(teachers.includes('אין עדיין מספר במצפן'), 'Teachers community must state it has no Compass number yet');
 }
@@ -161,11 +161,10 @@ if (summaryEnd > summaryStart) {
   // Each of the nine catalog dates must match the corresponding detail page.
   // This catches silent first-meeting drift without inferring dates from weekday labels.
   const summaryRows = [...summary.matchAll(/<tr(?:\s[^>]*)?>[\s\S]*?<\/tr>/g)].map(m => m[0]);
-  // Pin the verified source dates, not merely the agreement between page and table.
-  // Otherwise the same incorrect date in both places would silently pass CI.
+  // Pin source-confirmed dates, not merely page/table agreement. The teachers
+  // community date is disputed (07.10 vs 24.10), so it is NOT source-confirmed.
   const expectedFirstDates = {
     'community-yaniv-idan': '2026-10-25',
-    'community-teachers-jerusalem': '2026-10-07',
     'course-201020': '2026-10-13',
     'course-201590': '2026-10-28',
     'course-201530': '2026-10-28',
@@ -185,8 +184,15 @@ if (summaryEnd > summaryStart) {
     assert(matchingRows.length === 1, 'Expected exactly one catalog row for: ' + id);
     assert(Boolean(pageDate) && Boolean(tableDate) && pageDate === tableDate,
       'First-meeting date mismatch or missing semantic date: ' + id + ' (detail ' + (pageDate ?? 'missing') + ', table ' + (tableDate ?? 'missing') + ')');
-    assert(pageDate === expectedFirstDates[id] && tableDate === expectedFirstDates[id],
-      'First-meeting date differs from the verified source for ' + id + ': expected ' + expectedFirstDates[id]);
+    if (id === 'community-teachers-jerusalem') {
+      assert(page.includes('תאריך הפתיחה אינו מאומת: 07.10 מול 24.10')
+        && matchingRows[0]?.includes('תאריך פתיחה בבדיקה')
+        && pageDate === '2026-10-07',
+        'Disputed teachers-community date must be visibly qualified in both views, without silently changing the displayed provisional date');
+    } else {
+      assert(pageDate === expectedFirstDates[id] && tableDate === expectedFirstDates[id],
+        'First-meeting date differs from the verified source for ' + id + ': expected ' + expectedFirstDates[id]);
+    }
     // A catalog link must open the same source as its detail page.
     // In particular, this prevents swapping the two community registration forms.
     const rowLinks = [...(matchingRows[0] ?? '').matchAll(/<a\b[^>]*href="([^"]+)"[^>]*>/g)].map(m => m[1]);
