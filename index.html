@@ -612,10 +612,23 @@ a{-webkit-tap-highlight-color:#ffd77a59}
  .summary-sheet .training-table tbody .first-date::before{content:'מפגש ראשון'}
  .summary-sheet .training-table tbody .code-cell::before{content:'מצפן'}
  .summary-sheet .training-table tbody .table-links{grid-area:links;display:flex;gap:8px}
- .summary-sheet .training-table tbody .table-links a{flex:1 1 0;margin:0;min-height:40px;display:flex;align-items:center;justify-content:center;font-size:14px}
+ .summary-sheet .training-table tbody .table-links a{flex:1 1 0;margin:0;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:14px}
  .summary-sheet .training-table .soon-pill{font-size:11.5px;padding:2px 9px}
  .summary-sheet .training-table tr.soon-row{box-shadow:inset -5px 0 0 #e2574c}
  .summary-sheet .table-note,.summary-sheet .table-note b{font-size:12.5px;line-height:1.5}
+}
+/* Print-only readability: raise secondary catalog labels to 11.5px (8.625pt
+   at 100% scale); keep the mobile cards and all nine source links unchanged. */
+@media print{
+ .summary-sheet .training-table tbody th small{font-size:11.5px}
+ .summary-sheet .training-table .verify-caption{font-size:11.5px}
+ .summary-sheet .training-table .soon-pill{font-size:11.5px}
+ .summary-sheet .table-links a{font-size:11.5px}
+ /* Two no-Compass rows have longer labels; keep them legible on paper. */
+ .summary-sheet .training-table .code-cell strong.no-compass-label{font-size:11.5px}
+ .summary-sheet .training-table thead th{font-size:11.5px}
+ .summary-sheet .table-note,.summary-sheet .table-note b{font-size:11.5px}
+ .summary-sheet .catalog-footer span{font-size:11.5px}
 }
 </style>
 </head>
@@ -653,14 +666,14 @@ a{-webkit-tap-highlight-color:#ffd77a59}
 <div class="catalog-type">קהילות מורים למתמטיקה · ״עדכון תוכנית הלימודים״</div>
 <h2>קהילת מורים למתמטיקה<br>מחוז ירושלים</h2>
 <p class="catalog-sub">עם <strong>יניב רז ועידן אחוון</strong></p>
-<div class="community-registration-type no-compass-yet"><strong>אין עדיין מספר במצפן</strong><span>ההרשמה בטופס קהילת מחוז ירושלים</span></div>
+<div class="community-registration-type no-compass-yet"><strong>אין עדיין מספר במצפן</strong><span>טופס קהילת מחוז ירושלים · זמינות ההרשמה טעונה בדיקה</span></div>
 <div class="catalog-rule"></div>
-<div class="course-opening"><span class="opening-label">ההשתלמות החלה</span><time datetime="2026-10-07">07.10.2026</time><small>ההשתלמות כבר החלה — אבל ניתן עדיין להירשם · מפגשים בימי רביעי <span class="nw">19:00–21:30</span></small></div>
+<div class="course-opening"><span class="opening-label">תאריך הפתיחה טעון אימות</span><time datetime="2026-10-07">07.10.2026</time><small>תאריך הפתיחה אינו מאומת: 07.10 מול 24.10 · מפגשים בימי רביעי <span class="nw">19:00–21:30</span></small></div>
 <div class="course-description"><span class="course-kicker">30 שעות לגמול · 24 שעות בזום ו־6 שעות א־סינכרוניות</span>
 <p>הקהילות מיועדות ללוות את ההטמעה של תוכנית הלימודים המעודכנת במתמטיקה בחטיבת הביניים. במסגרת הקהילות יינתן מענה לכלל היבטי העדכון, ובהם תכני הלימוד, משימות החובה ושילוב המתמטיקה האוריינית בהוראה.</p>
 </div>
 <div class="catalog-actions"><a href="https://docs.google.com/forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc/viewform" target="_blank" rel="noopener noreferrer" aria-label="פתיחת טופס ההרשמה לקהילת המורים מחוז ירושלים">לטופס ההרשמה לקהילת המורים ↗</a><div class="compass-instruction"><b>שימו לב:</b> זו קהילה <b>למורים</b>. לרכזים יש את קהילת הרכזים של יניב רז ועידן אחוון.</div></div>
-<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>קהילה · מספר מצפן בהמשך</span></div>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>קהילה · ללא מספר במצפן</span></div>
 </section>
 <section class="folio editorial-sheet editorial-deep lovable-artwork has-research" id="inspiration" aria-label="עמוד השראה על מורים לומדים">
 <div class="editorial-top" dir="ltr">LEARNING NEVER STOPS&nbsp; / &nbsp;ISSUE 08</div>
@@ -674,8 +687,8 @@ a{-webkit-tap-highlight-color:#ffd77a59}
 <div class="catalog-type">קהילות רכזי מתמטיקה: ״עדכון תוכנית הלימודים״</div>
 <h2>קהילת רכזי מתמטיקה<br>מחוז ירושלים</h2>
 <div class="community-leaders" aria-label="בהדרכת"><span><b>יניב רז</b>מדריך מחוזי חט״ב בעיר ירושלים</span><span><b>עידן אחוון</b>מדריך בית ספרי בעיר ירושלים</span></div>
-<div class="community-registration-type no-compass-yet"><strong>אין עדיין מספר במצפן</strong><span>המספר יפורסם בהמשך · ההרשמה כעת בטופס הקהילה</span></div>
-<div class="course-opening"><span class="opening-label">המפגש הראשון · יום ראשון הקרוב</span><time datetime="2026-10-25">25.10.2026</time><small>יום ראשון · <span class="nw">19:00–21:30</span> · מפגשי הקהילה יתקיימו בימי רביעי בין השעות <span class="nw">19:00–21:30</span></small></div>
+<div class="community-registration-type no-compass-yet"><strong>אין עדיין מספר במצפן</strong><span>ללא מספר מצפן מאומת · קישור הטופס קיים, זמינות ההרשמה טעונה בדיקה</span></div>
+<div class="course-opening"><span class="opening-label">המפגש הראשון · יום ראשון</span><time datetime="2026-10-25">25.10.2026</time><small>יום ראשון · <span class="nw">19:00–21:30</span> · מפגשי הקהילה יתקיימו בימי רביעי בין השעות <span class="nw">19:00–21:30</span></small></div>
 <div class="course-description"><span class="course-kicker">היקף הפעילות: 30 שעות לגמול (24 שעות בזום, 6 שעות א־סינכרוניות)</span>
 <ul class="community-points">
 <li>בקהילות נתמקד בסוגיות של הובלת צוות מורים למתמטיקה ובהטמעה של תוכנית הלימודים המעודכנת במתמטיקה בחטיבת הביניים.</li>
@@ -685,7 +698,7 @@ a{-webkit-tap-highlight-color:#ffd77a59}
 <p class="community-dates">מפגשים נוספים: 11.11 · 18.11 · 23.12 · 27.1 · 3.2 · 14.4 · 5.5</p>
 </div>
 <div class="catalog-actions"><a href="https://docs.google.com/forms/d/1bnZ2j8x9UpR4l-2R5dr6-z0eg0Ai6EO1qpPkGnFm8fk/viewform" target="_blank" rel="noopener noreferrer" aria-label="פתיחת טופס ההרשמה לקהילת הרכזים של יניב רז ועידן אחוון">לטופס ההרשמה לקהילת הרכזים ↗</a><div class="compass-instruction"><b>לא לבלבל:</b> לקהילה זו של יניב רז ועידן אחוון <b>אין עדיין מספר במצפן</b>. ההשתלמויות <b dir="ltr">201020</b> (קהילת הרכזים שבעלון המחוז) ו־<b dir="ltr">2014777</b> (עדכון תוכנית הלימודים במתמטיקה) הן השתלמויות אחרות.</div></div>
-<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>קהילה · מספר מצפן בהמשך</span></div>
+<div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>קהילה · ללא מספר במצפן</span></div>
 </section>
 <section class="folio cine-sheet" id="cinematic" aria-label="מקטע קולנועי: מורים לומדים">
 <div class="cine-scene s1">
@@ -809,7 +822,7 @@ a{-webkit-tap-highlight-color:#ffd77a59}
 <div class="catalog-rule"></div>
 <div class="course-opening"><span class="opening-label">מועד תחילת ההשתלמות</span><time datetime="2026-10-28">28.10.2026</time><small>מפגש פתיחה <span class="nw">16:00–18:30</span> · פסג״ה מודיעין · בהמשך יום ד׳ · <span class="nw">19:30–22:00</span></small></div>
 <div class="course-description"><span class="course-kicker">30 שעות · 10 מפגשים · סיום 17.03.2027</span><p class="studyday-pill">ההשתלמות כוללת בתוכה את יום העיון ב־28/10</p></div>
-<div class="catalog-actions"><a href="https://docs.google.com/document/d/1-FTftCvxTF0v1HiR4p8eUg464LUVHlfU3dd_-kuCbB4/edit" target="_blank" rel="noopener noreferrer">פתיחת מסמך הסילבוס ↗</a><div class="compass-instruction">להרשמה: חפשו את הקוד <b>2014777</b> במערכת מצפן. <span class="not-confuse">זו השתלמות למורים, ואינה קהילת הרכזים ״עדכון תוכנית הלימודים״.</span></div></div>
+<div class="catalog-actions"><a href="https://docs.google.com/document/d/1-FTftCvxTF0v1HiR4p8eUg464LUVHlfU3dd_-kuCbB4/edit" target="_blank" rel="noopener noreferrer">פתיחת מסמך הסילבוס ↗</a><div class="compass-instruction">בסילבוס ״2014777 מוטיבציה ומתמטיקה״ מועד הפתיחה תואם לעלון, אך שמו שונה מכותרת העלון. זמינות ההרשמה במצפן טרם אומתה. <span class="not-confuse">זו השתלמות למורים, ואינה קהילת הרכזים ״עדכון תוכנית הלימודים״.</span></div></div>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>20</span></div>
 </section>
 <section class="folio invite-sheet" id="seminar-invite" aria-label="הזמנה ליום העיון: זה יהיה הזמן שלנו יחד — 28.10.2026">
@@ -826,7 +839,7 @@ a{-webkit-tap-highlight-color:#ffd77a59}
 <p class="event-eyebrow">מפגש מקצועי דו־מחוזי · חטיבות הביניים · ז׳–ח׳</p>
 <h2>נפגשים. <em>לומדים.</em><br>מובילים שינוי.</h2>
 <p class="event-subtitle">יום העיון למורות ולמורי המתמטיקה בחטיבות הביניים</p>
-<div class="event-information"><div class="event-datebox"><span>יום רביעי</span><strong dir="ltr">28.10.2026</strong><span><span class="nw">14:30–19:15</span></span></div><div class="event-location"><span>מקום המפגש</span><strong>מרכז פסג״ה מודיעין</strong><small>שדרות יצחק רבין 4, מודיעין־מכבים־רעות</small></div></div>
+<div class="event-information"><div class="event-datebox"><span>יום רביעי</span><strong dir="ltr"><time datetime="2026-10-28">28.10.2026</time></strong><span><span class="nw">14:30–19:15</span></span></div><div class="event-location"><span>מקום המפגש</span><strong>מרכז פסג״ה מודיעין</strong><small>שדרות יצחק רבין 4, מודיעין־מכבים־רעות</small></div></div>
 <div class="event-registration"><div><small>קוד יום העיון במצפן</small><strong dir="ltr">203587</strong><span>חפשו את המספר במערכת מצפן — בנוסף להרשמה בטופס</span></div><a href="https://forms.gle/aekTYoPvQtMYmxGA8" target="_blank" rel="noopener noreferrer">לטופס ההרשמה ליום העיון ↗</a></div>
 <h3>סדר היום</h3>
 <ol class="event-timeline">
@@ -848,14 +861,14 @@ a{-webkit-tap-highlight-color:#ffd77a59}
 </section>
 <section class="folio summary-sheet" id="catalog-summary" aria-label="טבלת השתלמויות: מפגש ראשון, מצפן וקישורים">
 <div class="lux-title"><h2>ירושלים <em>לומדת</em></h2><div class="lux-rule" aria-hidden="true"><i></i></div></div>
-<div class="training-table-wrap"><table class="training-table"><thead><tr><th scope="col">השתלמות</th><th scope="col">מפגש ראשון</th><th scope="col">מצפן</th><th scope="col">קישורים</th></tr></thead><tbody><tr class="soon-row"><th scope="row">קהילת רכזי מתמטיקה · מחוז ירושלים<small>״עדכון תוכנית הלימודים״ · יניב רז ועידן אחוון · ימי רביעי <span class="nw">19:00–21:30</span></small></th><td class="first-date"><time datetime="2026-10-25" dir="ltr">25.10.2026</time><span class="soon-pill">יום ראשון הקרוב</span></td><td class="code-cell"><strong class="no-compass-label">אין עדיין מספר · יפורסם בהמשך</strong></td><td class="table-links"><a href="#community-yaniv-idan" aria-label="לעמוד קהילת הרכזים של יניב רז ועידן אחוון">לעמוד</a><a href="https://docs.google.com/forms/d/1bnZ2j8x9UpR4l-2R5dr6-z0eg0Ai6EO1qpPkGnFm8fk/viewform" target="_blank" rel="noopener noreferrer" aria-label="לטופס ההרשמה לקהילת הרכזים של יניב רז ועידן אחוון">הרשמה ↗</a></td></tr><tr><th scope="row">קהילת מורים למתמטיקה · מחוז ירושלים<small>עם יניב רז ועידן אחוון · ימי רביעי <span class="nw">19:00–21:30</span> · החלה, ניתן עדיין להירשם</small></th><td class="first-date"><time datetime="2026-10-07" dir="ltr">07.10.2026</time></td><td class="code-cell"><strong class="no-compass-label">אין עדיין מספר במצפן</strong></td><td class="table-links"><a href="#community-teachers-jerusalem" aria-label="לעמוד קהילת המורים מחוז ירושלים">לעמוד</a><a href="https://docs.google.com/forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc/viewform" target="_blank" rel="noopener noreferrer" aria-label="לטופס ההרשמה לקהילת המורים מחוז ירושלים">הרשמה ↗</a></td></tr>
+<div class="training-table-wrap"><table class="training-table"><thead><tr><th scope="col">השתלמות</th><th scope="col">מפגש ראשון</th><th scope="col">מצפן</th><th scope="col">קישורים</th></tr></thead><tbody><tr class="soon-row"><th scope="row">קהילת רכזי מתמטיקה · מחוז ירושלים<small>״עדכון תוכנית הלימודים״ · יניב רז ועידן אחוון · ימי רביעי <span class="nw">19:00–21:30</span></small></th><td class="first-date"><time datetime="2026-10-25" dir="ltr">25.10.2026</time><span class="soon-pill">יום ראשון</span></td><td class="code-cell"><strong class="no-compass-label">אין עדיין מספר במצפן</strong></td><td class="table-links"><a href="#community-yaniv-idan" aria-label="לעמוד קהילת הרכזים של יניב רז ועידן אחוון">לעמוד</a><a href="https://docs.google.com/forms/d/1bnZ2j8x9UpR4l-2R5dr6-z0eg0Ai6EO1qpPkGnFm8fk/viewform" target="_blank" rel="noopener noreferrer" aria-label="לטופס ההרשמה לקהילת הרכזים של יניב רז ועידן אחוון">טופס ↗</a></td></tr><tr><th scope="row">קהילת מורים למתמטיקה · מחוז ירושלים<small>עם יניב רז ועידן אחוון · ימי רביעי <span class="nw">19:00–21:30</span> · תאריך פתיחה בבדיקה</small></th><td class="first-date"><time datetime="2026-10-07" dir="ltr">07.10.2026</time></td><td class="code-cell"><strong class="no-compass-label">אין עדיין מספר במצפן</strong></td><td class="table-links"><a href="#community-teachers-jerusalem" aria-label="לעמוד קהילת המורים מחוז ירושלים">לעמוד</a><a href="https://docs.google.com/forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc/viewform" target="_blank" rel="noopener noreferrer" aria-label="לטופס ההרשמה לקהילת המורים מחוז ירושלים">טופס ↗</a></td></tr>
 
 <tr><th scope="row">קהילת רכזי מתמטיקה<small>הקהילה שבעלון המחוז · יום ג׳ <span class="nw">19:00–21:30</span></small></th><td class="first-date"><time datetime="2026-10-13" dir="ltr">13.10.2026</time></td><td class="code-cell"><strong dir="ltr">201020</strong></td><td class="table-links"><a href="#course-201020" aria-label="לעמוד: קהילת רכזי מתמטיקה">לעמוד</a><a href="https://drive.google.com/file/d/1QHYojSXEUtFHHtRDhhAb9guiXE4tF-oR/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: קהילת רכזי מתמטיקה">סילבוס ↗</a></td></tr>
 <tr><th scope="row">בינה מלאכותית ו־MOODLE<small>בהוראת המתמטיקה ז׳–ח׳ · יום א׳ <span class="nw">19:00–21:30</span> · כולל יום העיון</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">201590</strong></td><td class="table-links"><a href="#course-201590" aria-label="לעמוד: בינה מלאכותית ו־MOODLE">לעמוד</a><a href="https://drive.google.com/file/d/1MPTDPrM6no1dOwKkayU4RSEpfFDbijTH/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: בינה מלאכותית ו־MOODLE">סילבוס ↗</a></td></tr>
 <tr><th scope="row">הוראת התלמיד המתקשה<small>בכיתתו וחנ״מ · יום ד׳ <span class="nw">19:00–21:30</span> · מקוון</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">201530</strong></td><td class="table-links"><a href="#course-201530" aria-label="לעמוד: הוראת התלמיד המתקשה">לעמוד</a><a href="https://drive.google.com/file/d/1aVlPA5UMQfbSIAmPs0bhoCsPJ86VStGe/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: הוראת התלמיד המתקשה">סילבוס ↗</a></td></tr>
 <tr><th scope="row">הוראת המתמטיקה בכיתות ט׳<small>בדגש לקראת 4 ו־5 יח״ל · יום ג׳ <span class="nw">19:00–21:30</span></small></th><td class="first-date"><time datetime="2026-10-13" dir="ltr">13.10.2026</time></td><td class="code-cell"><strong dir="ltr">201041</strong></td><td class="table-links"><a href="#course-201041" aria-label="לעמוד: הוראת המתמטיקה בכיתות ט׳">לעמוד</a><a href="https://drive.google.com/file/d/14ybA9ao125SbMv4yqwa_u0inSpCcMQh-/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: הוראת המתמטיקה בכיתות ט׳">סילבוס ↗</a></td></tr>
 <tr><th scope="row">גיאומטריה מהשטח<small>מהמחשה פיזית להבנה מתמטית · יום א׳ · כולל יום העיון</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">204781</strong></td><td class="table-links"><a href="#course-204781" aria-label="לעמוד: גיאומטריה מהשטח">לעמוד</a><a href="https://drive.google.com/file/d/1FTEh4Lt5sBqd1kHF_riunRx6m4IjdxlS/view" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: גיאומטריה מהשטח">סילבוס ↗</a></td></tr><tr><th scope="row">עדכון תוכנית הלימודים במתמטיקה<small>התמדה, התמודדות ופתרון בעיות · יום ד׳ <span class="nw">19:30–22:00</span> · כולל יום העיון</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">2014777</strong></td><td class="table-links"><a href="#course-2014777" aria-label="לעמוד: עדכון תוכנית הלימודים במתמטיקה">לעמוד</a><a href="https://docs.google.com/document/d/1-FTftCvxTF0v1HiR4p8eUg464LUVHlfU3dd_-kuCbB4/edit" target="_blank" rel="noopener noreferrer" aria-label="לסילבוס: עדכון תוכנית הלימודים במתמטיקה">סילבוס ↗</a></td></tr><tr class="event-row"><th scope="row">יום העיון<small>עדכון תוכנית הלימודים בחטיבת הביניים</small></th><td class="first-date"><time datetime="2026-10-28" dir="ltr">28.10.2026</time></td><td class="code-cell"><strong dir="ltr">203587</strong></td><td class="table-links"><a href="#event-203587">לעמוד</a><a href="https://forms.gle/aekTYoPvQtMYmxGA8" target="_blank" rel="noopener noreferrer">הרשמה ↗</a></td></tr></tbody></table></div>
-<p class="table-note">להרשמה במצפן חפשו לפי המספר. לשתי הקהילות של יניב רז ועידן אחוון — קהילת הרכזים וקהילת המורים — <b>אין עדיין מספר במצפן</b>, וההרשמה אליהן בטופס. קהילת רכזי המתמטיקה <b dir="ltr">201020</b> היא השתלמות אחרת, הרשומה במצפן.</p>
+<p class="table-note">להרשמה במצפן חפשו לפי המספר. לשתי הקהילות של יניב רז ועידן אחוון — קהילת הרכזים וקהילת המורים — <b>אין עדיין מספר במצפן</b>, וקישורי ההרשמה אליהן מובילים לטפסים; יש לוודא שהטפסים מקבלים תשובות. קהילת רכזי המתמטיקה <b dir="ltr">201020</b> היא השתלמות אחרת, הרשומה במצפן.</p>
 <div class="catalog-footer"><span>הדרכה במחוז ירושלים והעיר ירושלים – מנח״י</span><span>קטלוג השתלמויות</span></div></section>
 <section class="folio gallery-sheet g-frame g-center" id="gallery-mosaic" aria-label="עמוד עיצוב: חשוב לדעת">
 <img class="gallery-img" src="assets/selected/lovable-mosaic-geometry.jpg" alt="פסיפס גאומטרי של כוכבים ומצולעים" style="object-position:50% 50%" loading="lazy" decoding="async" onerror="this.remove()">
