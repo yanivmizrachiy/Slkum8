@@ -138,7 +138,7 @@ const teachersEnd = source.indexOf('</section>', teachersStart);
 assert(teachersStart >= 0 && teachersEnd > teachersStart, 'Missing Jerusalem district teachers community page');
 if (teachersEnd > teachersStart) {
   const teachers = source.slice(teachersStart, teachersEnd);
-  assert(teachers.includes('<time datetime="2026-10-07">07.10.2026</time>') && teachers.includes('תאריך הפתיחה אינו מאומת: 07.10 מול 24.10'), 'Teachers community must disclose the disputed 07.10/24.10 opening date');
+  assert(teachers.includes('<strong class="opening-unverified">טרם אומת</strong>') && teachers.includes('מקורות סותרים: 07.10 מול 24.10') && !/<time\\b/.test(teachers), 'Disputed teachers-community date must not appear as a confirmed semantic date');
   assert(teachers.includes('forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc'), 'Missing teachers community form');
   assert(teachers.includes('אין עדיין מספר במצפן'), 'Teachers community must state it has no Compass number yet');
 }
@@ -182,14 +182,18 @@ if (summaryEnd > summaryStart) {
     const matchingRows = summaryRows.filter(row => row.includes('href="#' + id + '"'));
     const tableDate = matchingRows[0]?.match(/<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"/)?.[1];
     assert(matchingRows.length === 1, 'Expected exactly one catalog row for: ' + id);
-    assert(Boolean(pageDate) && Boolean(tableDate) && pageDate === tableDate,
-      'First-meeting date mismatch or missing semantic date: ' + id + ' (detail ' + (pageDate ?? 'missing') + ', table ' + (tableDate ?? 'missing') + ')');
     if (id === 'community-teachers-jerusalem') {
-      assert(page.includes('תאריך הפתיחה אינו מאומת: 07.10 מול 24.10')
-        && matchingRows[0]?.includes('תאריך פתיחה בבדיקה')
-        && pageDate === '2026-10-07',
-        'Disputed teachers-community date must be visibly qualified in both views, without silently changing the displayed provisional date');
+      // Neither 07.10 nor 24.10 is source-confirmed for this exact cohort.
+      // Preserve the conflicting dates as an explanation, not a published first meeting.
+      assert(!pageDate && !tableDate
+        && page.includes('מקורות סותרים: 07.10 מול 24.10')
+        && page.includes('class="opening-unverified">טרם אומת')
+        && matchingRows[0]?.includes('class="date-unverified">טרם אומת')
+        && matchingRows[0]?.includes('תאריך פתיחה בבדיקה'),
+        'Disputed teachers-community first meeting must be unverified in both views');
     } else {
+      assert(Boolean(pageDate) && Boolean(tableDate) && pageDate === tableDate,
+        'First-meeting date mismatch or missing semantic date: ' + id + ' (detail ' + (pageDate ?? 'missing') + ', table ' + (tableDate ?? 'missing') + ')');
       assert(pageDate === expectedFirstDates[id] && tableDate === expectedFirstDates[id],
         'First-meeting date differs from the verified source for ' + id + ': expected ' + expectedFirstDates[id]);
     }
