@@ -138,7 +138,7 @@ const teachersEnd = source.indexOf('</section>', teachersStart);
 assert(teachersStart >= 0 && teachersEnd > teachersStart, 'Missing Jerusalem district teachers community page');
 if (teachersEnd > teachersStart) {
   const teachers = source.slice(teachersStart, teachersEnd);
-  assert(teachers.includes('<strong class="opening-unverified">טרם אומת</strong>') && teachers.includes('מקורות סותרים: 07.10 מול 24.10') && !/<time\\b/.test(teachers), 'Disputed teachers-community date must not appear as a confirmed semantic date');
+  assert(teachers.includes('<strong class="opening-unverified">טרם אומת</strong>') && teachers.includes('מקורות סותרים: 07.10 מול 24.10') && !/<time\b/.test(teachers), 'Disputed teachers-community date must not appear as a confirmed semantic date');
   assert(teachers.includes('forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc'), 'Missing teachers community form');
   assert(teachers.includes('אין עדיין מספר במצפן'), 'Teachers community must state it has no Compass number yet');
 }
