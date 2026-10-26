@@ -274,6 +274,13 @@ with sync_playwright() as playwright:
             expected_urls = set(page.locator(
                 '#catalog-summary .table-links a[href^="https://"]'
             ).evaluate_all("(els) => els.map(a => a.href)"))
+            # The catalog promises TWO usable links per row. The existing
+            # URI check covers external forms/syllabi; separately verify that
+            # Chromium preserved all nine in-document page destinations in PDF.
+            expected_page_targets = set(page.locator(
+                '#catalog-summary .table-links a[href^="#"]'
+            ).evaluate_all(
+                "(els) => els.map(a => a.getAttribute('href').slice(1))"))
             reader = PdfReader(str(pdf_path))
             count = len(reader.pages)
             # Verify physical A4 portrait dimensions, not just the number of
@@ -294,6 +301,21 @@ with sync_playwright() as playwright:
                     if action and action.get("/S") == "/URI":
                         printed_urls.add(str(action.get("/URI")))
             missing_urls = sorted(expected_urls - printed_urls)
+            printed_page_targets = set()
+            catalog_pdf_index = page.locator("section.folio").evaluate_all(
+                "(els) => els.findIndex(el => el.id === 'catalog-summary')")
+            if 0 <= catalog_pdf_index < count:
+                for annotation in reader.pages[catalog_pdf_index].get("/Annots", []):
+                    obj = annotation.get_object()
+                    destination = obj.get("/Dest")
+                    if destination is None:
+                        action = obj.get("/A")
+                        if action and action.get("/S") == "/GoTo":
+                            destination = action.get("/D")
+                    if isinstance(destination, str):
+                        printed_page_targets.add(destination.lstrip("/"))
+            missing_page_targets = sorted(
+                expected_page_targets - printed_page_targets)
             # Print typography is a separate quality gate from geometry. Collect
             # measured PDF text sizes for the catalog page so a CSS improvement
             # cannot be called readable merely because pagination still passes.
@@ -344,6 +366,10 @@ with sync_playwright() as playwright:
                 "catalog_external_links_expected": len(expected_urls),
                 "catalog_external_links_in_pdf": len(expected_urls & printed_urls),
                 "catalog_external_links_missing": missing_urls,
+                "catalog_page_links_expected": len(expected_page_targets),
+                "catalog_page_links_in_pdf": len(
+                    expected_page_targets & printed_page_targets),
+                "catalog_page_links_missing": missing_page_targets,
             }
             if count != 28:
                 report["errors"].append(f"A4 PDF page count {count}, expected 28")
@@ -356,6 +382,13 @@ with sync_playwright() as playwright:
             if missing_urls:
                 report["errors"].append(
                     f"A4 PDF lost {len(missing_urls)} clickable catalog source links")
+            if len(expected_page_targets) != 9:
+                report["errors"].append(
+                    f"A4 catalog expected 9 distinct internal page links, got {len(expected_page_targets)}")
+            if missing_page_targets:
+                report["errors"].append(
+                    "A4 PDF lost clickable catalog page destinations: "
+                    + ", ".join(missing_page_targets))
         page.close()
     # The regular screenshot suite requests reduced motion, so it never exercises
     # the animated cinematic sequence. Check both accessible static fallback
