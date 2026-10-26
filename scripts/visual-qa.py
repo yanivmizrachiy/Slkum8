@@ -221,6 +221,47 @@ with sync_playwright() as playwright:
                         "Print editorial element failed: "
                         + item["folio"] + " " + item["selector"]
                         + " (" + item["reason"] + ")")
+            # Guard the seven original Lovable gallery pages in print CSS.
+            # A successful image decode on mobile does not prove that the
+            # artwork or its title survives the A4 print stylesheet.
+            # This checks visibility and nonzero intrinsic dimensions, not
+            # subjective composition or originality of the source images.
+            lovable_gallery_print = page.evaluate("""() => {
+              const ids = ['gallery-digital', 'gallery-online',
+                'gallery-origami', 'gallery-hybrid', 'gallery-jerusalem',
+                'gallery-workshop', 'gallery-mosaic'];
+              return ids.map(id => {
+                const folio = document.getElementById(id);
+                const img = folio?.querySelector('img.gallery-img');
+                const title = folio?.querySelector('.gallery-title');
+                const visible = el => {
+                  if (!el) return false;
+                  const s = getComputedStyle(el);
+                  const r = el.getBoundingClientRect();
+                  return s.display !== 'none' && s.visibility !== 'hidden' &&
+                    Number(s.opacity) > 0 && r.width > 0 && r.height > 0;
+                };
+                const box = folio?.getBoundingClientRect();
+                const imageBox = img?.getBoundingClientRect();
+                const inside = Boolean(box && imageBox &&
+                  imageBox.left >= box.left - 2 &&
+                  imageBox.right <= box.right + 2 &&
+                  imageBox.top >= box.top - 2 &&
+                  imageBox.bottom <= box.bottom + 2);
+                return {folio: id, image_present: Boolean(img),
+                  decoded: Boolean(img && img.complete && img.naturalWidth > 0),
+                  image_visible: visible(img), title_visible: visible(title),
+                  image_inside_a4: inside};
+              });
+            }""")
+            report["lovable_gallery_print"] = lovable_gallery_print
+            for item in lovable_gallery_print:
+                if not all(item[key] for key in (
+                        "image_present", "decoded", "image_visible",
+                        "title_visible", "image_inside_a4")):
+                    report["errors"].append(
+                        "Lovable A4 gallery image/title missing or clipped: "
+                        + item["folio"] + " " + str(item))
             pdf_path = OUT / "journal-a4-qa.pdf"
             page.pdf(path=str(pdf_path), print_background=True,
                      prefer_css_page_size=True, format="A4")
