@@ -243,22 +243,25 @@ with sync_playwright() as playwright:
                 };
                 const box = folio?.getBoundingClientRect();
                 const imageBox = img?.getBoundingClientRect();
-                const inside = Boolean(box && imageBox &&
-                  imageBox.left >= box.left - 2 &&
-                  imageBox.right <= box.right + 2 &&
-                  imageBox.top >= box.top - 2 &&
-                  imageBox.bottom <= box.bottom + 2);
+                const titleBox = title?.getBoundingClientRect();
+                const withinFolio = rect => Boolean(box && rect &&
+                  rect.left >= box.left - 2 &&
+                  rect.right <= box.right + 2 &&
+                  rect.top >= box.top - 2 &&
+                  rect.bottom <= box.bottom + 2);
                 return {folio: id, image_present: Boolean(img),
                   decoded: Boolean(img && img.complete && img.naturalWidth > 0),
                   image_visible: visible(img), title_visible: visible(title),
-                  image_inside_a4: inside};
+                  image_inside_a4: withinFolio(imageBox),
+                  title_inside_a4: withinFolio(titleBox)};
               });
             }""")
             report["lovable_gallery_print"] = lovable_gallery_print
             for item in lovable_gallery_print:
                 if not all(item[key] for key in (
                         "image_present", "decoded", "image_visible",
-                        "title_visible", "image_inside_a4")):
+                        "title_visible", "image_inside_a4",
+                        "title_inside_a4")):
                     report["errors"].append(
                         "Lovable A4 gallery image/title missing or clipped: "
                         + item["folio"] + " " + str(item))
