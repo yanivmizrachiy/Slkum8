@@ -293,17 +293,19 @@ with sync_playwright() as playwright:
                 if abs(float(pdf_page.mediabox.width) - expected_a4_pt[0]) > 2
                 or abs(float(pdf_page.mediabox.height) - expected_a4_pt[1]) > 2
             ]
+            # A link on a course detail page cannot substitute for a broken
+            # catalog link. Count URI annotations on the catalog PDF page only.
+            catalog_pdf_index = page.locator("section.folio").evaluate_all(
+                "(els) => els.findIndex(el => el.id === 'catalog-summary')")
             printed_urls = set()
-            for pdf_page in reader.pages:
-                for annotation in pdf_page.get("/Annots", []):
+            if 0 <= catalog_pdf_index < count:
+                for annotation in reader.pages[catalog_pdf_index].get("/Annots", []):
                     obj = annotation.get_object()
                     action = obj.get("/A")
                     if action and action.get("/S") == "/URI":
                         printed_urls.add(str(action.get("/URI")))
             missing_urls = sorted(expected_urls - printed_urls)
             printed_page_targets = set()
-            catalog_pdf_index = page.locator("section.folio").evaluate_all(
-                "(els) => els.findIndex(el => el.id === 'catalog-summary')")
             if 0 <= catalog_pdf_index < count:
                 for annotation in reader.pages[catalog_pdf_index].get("/Annots", []):
                     obj = annotation.get_object()
