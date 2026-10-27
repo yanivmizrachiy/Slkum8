@@ -179,8 +179,8 @@ if (summaryEnd > summaryStart) {
   const openingTimeGuards = [
     {
       id: 'course-201590',
-      detail: 'פתיחה בפסג״ה מודיעין · בהמשך יום א׳',
-      table: 'שעת הפתיחה לא אומתה · בהמשך יום א׳ <span class="nw">19:00–21:30</span>'
+      detail: 'פתיחה בפסג״ה מודיעין · לפי שעות הכנס · בהמשך יום א׳',
+      table: 'פתיחה לפי שעות הכנס · בהמשך יום א׳ <span class="nw">19:00–21:30</span>'
     },
     {
       id: 'course-204781',
