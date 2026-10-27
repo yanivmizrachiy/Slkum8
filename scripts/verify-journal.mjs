@@ -89,6 +89,12 @@ for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['20
     'Course 2014777 must use the verified syllabus title and prominently disclose the flyer mismatch and unverified Compass registration');
   assert(source.includes('מוטיבציה ומתמטיקה<small>שם לפי הסילבוס · שיוך לכותרת העלון בבדיקה'),
     'Summary table must not label 2014777 as the verified district-flyer course title');
+  // The district flyer claims study-day inclusion, but the linked image-based
+  // syllabus has a different title. Do not present the unverified mapping as fact.
+  assert(page.includes('לפי עלון המחוז: כולל יום העיון ב־28/10 · שיוך הסילבוס בבדיקה')
+    && source.includes('יום העיון לפי העלון — שיוך בבדיקה</small></th>')
+    && !page.includes('ההשתלמות כוללת בתוכה את יום העיון'),
+    'Course 2014777 study-day inclusion must remain explicitly conditional on flyer/syllabus mapping');
 }
 // First-session hours are distinct from the recurring schedule. Guard only hours
 // confirmed in the course records; do not invent a first-session hour for 201590.
