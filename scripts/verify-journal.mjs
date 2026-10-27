@@ -43,6 +43,22 @@ for (const tag of allImageTags) {
   }
 }
 
+// Keep the official district logo self-contained for offline/A4 printing.
+// Pin the exact existing source asset, not a redrawn or generated logo.
+const districtLogoPath = new URL('../assets/meta/district-logo.png', import.meta.url);
+assert(allImageTags.some(tag => tag.includes('src="assets/meta/district-logo.png"') && tag.includes('alt="לוגו מחוז ירושלים המקורי"')),
+  'Cover must use the original district logo from a committed local asset');
+assert(allImageTags.every(tag => !/\bsrc="https?:\/\//.test(tag)),
+  'Journal image tags must not depend on third-party hosts for printing');
+if (existsSync(districtLogoPath)) {
+  const logoBytes = readFileSync(districtLogoPath);
+  assert(logoBytes.length > 1024 &&
+    createHash('sha1').update('blob ' + logoBytes.length + '\0').update(logoBytes).digest('hex') === '07269f8c42119dabac4a86afd7f7464565e1e5dd',
+    'Local district logo differs from the existing original in summary7-public');
+} else {
+  assert(false, 'Missing committed district logo for offline printing');
+}
+
 assert(sections.length >= 15, 'Expected 15+ folios including the two distinct coordinator community pages');
 assert(sections[0] === 'cover', 'First folio must be the cover');
 assert(sections.at(-1) === 'shabat', 'Last folio must be Shabbat greeting');
