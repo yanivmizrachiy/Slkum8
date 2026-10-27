@@ -115,8 +115,8 @@ for (const [id, firstHours] of [
   const page = source.slice(source.indexOf('id="course-201590"'));
   const openingStart = page.indexOf('class="course-opening"');
   const opening = openingStart >= 0 ? page.slice(openingStart, page.indexOf('</div>', openingStart)) : '';
-  assert(opening.includes('פתיחה בפסג״ה מודיעין') && opening.includes('בהמשך יום א׳'),
-    '201590 must distinguish the opening session from later Sunday sessions; opening hour is not verified');
+  assert(opening.includes('פתיחה בפסג״ה מודיעין') && opening.includes('לפי שעות הכנס') && opening.includes('בהמשך יום א׳'),
+    '201590 syllabus says the 28 Oct opening follows conference hours; later Sunday hours must stay separate');
 }
 
 const communityStart = source.indexOf('id="community-yaniv-idan"');
@@ -156,6 +156,9 @@ const summaryEnd = source.indexOf('</section>', summaryStart);
 assert(summaryStart >= 0 && summaryEnd > summaryStart, 'Missing summary page');
 if (summaryEnd > summaryStart) {
   const summary = source.slice(summaryStart, summaryEnd);
+  const aiRow = summary.split('</tr>').find(row => row.includes('href="#course-201590"')) || '';
+  assert(aiRow.includes('פתיחה לפי שעות הכנס') && aiRow.includes('בהמשך יום א׳') && !aiRow.includes('שעת הפתיחה לא אומתה'),
+    '201590 summary must follow the scanned primary syllabus: conference hours, not recurring Sunday hours');
   const rows = [...summary.matchAll(/<tr(?:\s|>)/g)].length - 1;
   assert(rows === 9, 'Expected 9 summary rows (2 no-Compass communities + 6 numbered courses + symposium), got ' + rows);
   assert([...summary.matchAll(/class="table-links"/g)].length === 9, 'Expected 2 action links for each summary row');
