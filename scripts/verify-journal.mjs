@@ -170,6 +170,33 @@ if (summaryEnd > summaryStart) {
   // Each of the nine catalog dates must match the corresponding detail page.
   // This catches silent first-meeting drift without inferring dates from weekday labels.
   const summaryRows = [...summary.matchAll(/<tr(?:\s[^>]*)?>[\s\S]*?<\/tr>/g)].map(m => m[0]);
+  // First-session times must not be confused with recurring meeting times.
+  // In particular, the 28 Oct opening sessions differ from later weekdays/hours.
+  // These are source-specific editorial checks, not live registration checks.
+  const openingTimeGuards = [
+    {
+      id: 'course-201590',
+      detail: 'פתיחה בפסג״ה מודיעין · בהמשך יום א׳',
+      table: 'שעת הפתיחה לא אומתה · בהמשך יום א׳ <span class="nw">19:00–21:30</span>'
+    },
+    {
+      id: 'course-204781',
+      detail: 'פתיחה <span class="nw">15:00–19:00</span> בפסג״ה מודיעין · בהמשך יום א׳',
+      table: 'פתיחה <span class="nw">15:00–19:00</span> · בהמשך יום א׳'
+    },
+    {
+      id: 'course-2014777',
+      detail: 'מפגש פתיחה <span class="nw">16:00–18:30</span> · פסג״ה מודיעין · בהמשך יום ד׳ · <span class="nw">19:30–22:00</span>',
+      table: 'פתיחה לפי הסילבוס <span class="nw">16:00–18:30</span> · בהמשך יום ד׳ <span class="nw">19:30–22:00</span>'
+    }
+  ];
+  for (const { id, detail, table } of openingTimeGuards) {
+    const start = source.indexOf('id="' + id + '"');
+    const page = start >= 0 ? source.slice(start, source.indexOf('</section>', start)) : '';
+    const row = summaryRows.find(html => html.includes('href="#' + id + '"')) ?? '';
+    assert(page.includes(detail), 'Detail page lost verified first-vs-recurring schedule: ' + id);
+    assert(row.includes(table), 'Catalog conflates first-session and recurring hours: ' + id);
+  }
   // Pin source-confirmed dates, not merely page/table agreement. The teachers
   // community date is disputed (07.10 vs 24.10), so it is NOT source-confirmed.
   const expectedFirstDates = {
