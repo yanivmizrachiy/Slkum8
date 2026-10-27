@@ -73,7 +73,7 @@ for (const id of ['201020','201590','201530','201041','204781','2014777']) {
   const page = source.slice(start, source.indexOf('</section>', start));
   assert(!page.includes('יניב רז') && !page.includes('עידן'), 'Compass 201020 is not the Yaniv/Idan coordinators community: do not name them on #course-201020');
 }
-for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['201530','בכיתתו וחנ״מ'],['201041','הוראת המתמטיקה בכיתות ט׳'],['204781','גיאומטריה מהשטח'],['2014777','עדכון תוכנית הלימודים במתמטיקה']]) {
+for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['201530','בכיתתו וחנ״מ'],['201041','הוראת המתמטיקה בכיתות ט׳'],['204781','גיאומטריה מהשטח']]) {
   const start = source.indexOf('id="course-' + id + '"');
   assert(source.slice(start, source.indexOf('</section>', start)).includes(name), 'Course ' + id + ' must use the official flyer title: ' + name);
 }
@@ -82,10 +82,13 @@ for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['20
 {
   const start = source.indexOf('id="course-2014777"');
   const page = start >= 0 ? source.slice(start, source.indexOf('</section>', start)) : '';
-  assert(page.includes('2014777 מוטיבציה ומתמטיקה')
-    && page.includes('שמו שונה מכותרת העלון')
-    && page.includes('זמינות ההרשמה במצפן טרם אומתה'),
-    'Course 2014777 must disclose the syllabus/flyer title mismatch and unverified Compass registration');
+  assert(page.includes('<h2>מוטיבציה ומתמטיקה</h2>')
+    && page.includes('2014777 מוטיבציה ומתמטיקה')
+    && page.includes('עדכון תוכנית הלימודים במתמטיקה')
+    && page.includes('שיוך המסמכים לאותו מחזור וזמינות ההרשמה במצפן טרם אומתו'),
+    'Course 2014777 must use the verified syllabus title and prominently disclose the flyer mismatch and unverified Compass registration');
+  assert(source.includes('מוטיבציה ומתמטיקה<small>שם לפי הסילבוס · שיוך לכותרת העלון בבדיקה'),
+    'Summary table must not label 2014777 as the verified district-flyer course title');
 }
 // First-session hours are distinct from the recurring schedule. Guard only hours
 // confirmed in the course records; do not invent a first-session hour for 201590.
