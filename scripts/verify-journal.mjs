@@ -373,6 +373,39 @@ for (const asset of trackedImages) {
   }
 }
 
+
+// Independently pinned to the original Lovable project's .asset.json files
+// (project 48b47a05-85de-4209-8634-a9622a1b85ca, commit
+// f23baaef09a84203327a5712f7fd94d65f3b0a63; checked 2026-10-27).
+// Unlike the two local manifests above, this snapshot came from Lovable itself.
+// It guards original asset identity, NOT byte-for-byte equivalence after resizing
+// and NOT perceptual similarity or licensing.
+{
+  const lovableOriginalMetadata = new Map([
+    ['01-jerusalem-geometry-sky.jpg', '2f5ef542-26e3-4e24-bd41-8506aa3046c3'],
+    ['02-teachers-workshop.jpg', 'b521ba41-1a86-46bf-9416-5d9473cd5427'],
+    ['03-mosaic-geometry.jpg', '1323a78f-0f93-42b1-a100-3ef04902917a'],
+    ['05-virtual-workshop-zoom.jpg', 'dd113f26-f1f8-463f-857b-a1d88850ce35'],
+    ['06-digital-math-lab.jpg', 'c0dfb1e7-275d-45d1-9c55-50aa61698936'],
+    ['07-teachers-learning-together.jpg', '1c29dc7e-6e67-4332-b7af-984f5efa886f'],
+    ['08-hybrid-session-jerusalem.jpg', '36034ad0-0f53-471d-9050-c48ed32a7a35'],
+    ['09-origami-polyhedra-workshop.jpg', '148fb2ea-045a-457d-a899-5c3bd2dbba68']
+  ]);
+  const catalog = JSON.parse(readFileSync(new URL('../assets/lovable-selected.json', import.meta.url), 'utf8'));
+  const selected = (catalog.assets ?? []).filter(asset => asset.local_copy);
+  assert(new Set(lovableOriginalMetadata.values()).size === lovableOriginalMetadata.size,
+    'Original Lovable source IDs must be unique');
+  assert(selected.length === lovableOriginalMetadata.size,
+    'Selected Lovable assets differ from independently verified source snapshot');
+  for (const asset of selected) {
+    const originalId = lovableOriginalMetadata.get(asset.file);
+    const expectedUrl = 'https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/'
+      + originalId + '/' + asset.file;
+    assert(Boolean(originalId) && asset.asset_id === originalId && asset.url === expectedUrl,
+      'Selected Lovable image differs from the original project metadata: ' + asset.file);
+  }
+}
+
 warnings.push('Three distinct communities: Yaniv/Idan coordinators (no Compass number yet, 25 Oct), Yaniv/Idan teachers (no Compass number, opening unverified: conflicting 07 Oct / 24 Oct sources), numbered coordinators 201020 (13 Oct). Dates from separate written sources.');
 warnings.push('The six Compass courses follow the official flyer PDF (השתלמויות תשפ״ז - חט״ב) and jerusalem2 /hishtalmuyot; its hidden text-layer codes (200123, 201298, 201757, 203678) are not visible courses and are not used.');
 warnings.push('External syllabus and image URLs require live browser checks; this script only tests structure.');
