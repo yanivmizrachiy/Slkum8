@@ -145,6 +145,9 @@ if (communityEnd > communityStart) {
   assert(community.includes('forms/d/1bnZ2j8x9UpR4l-2R5dr6-z0eg0Ai6EO1qpPkGnFm8fk'), 'Missing separate form');
   assert(!community.includes('<strong dir="ltr">201020</strong>'), 'Must not attribute Compass code 201020 to Yaniv-Idan community');
   assert(community.includes('אין עדיין מספר במצפן'), 'Yaniv-Idan coordinators community must state it has no Compass number yet');
+  assert(community.includes('2014777</b> (״מוטיבציה ומתמטיקה״ לפי הסילבוס; שיוך העלון בבדיקה)')
+    && !community.includes('2014777</b> (עדכון תוכנית הלימודים במתמטיקה)'),
+    'Coordinator cross-reference must qualify the disputed 2014777 flyer/syllabus mapping');
   for (const fact of ['״עדכון תוכנית הלימודים״', 'מדריך מחוזי חט״ב בעיר ירושלים', 'מדריך בית ספרי בעיר ירושלים', '30 שעות לגמול (24 שעות בזום, 6 שעות א־סינכרוניות)', 'בימי רביעי בין השעות 19:00–21:30', 'יום ראשון']) {
     assert(community.replace(/<[^>]+>/g, '').includes(fact), 'Yaniv-Idan coordinators community must follow its flyer: ' + fact);
   }
