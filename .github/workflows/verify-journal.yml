@@ -2,8 +2,8 @@ name: Verify Sikum 8 Journal
 on:
   push:
     branches: [main]
+  # Run structural checks for stacked draft PRs as well as PRs into main.
   pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

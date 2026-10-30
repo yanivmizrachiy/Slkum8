@@ -221,6 +221,50 @@ with sync_playwright() as playwright:
                         "Print editorial element failed: "
                         + item["folio"] + " " + item["selector"]
                         + " (" + item["reason"] + ")")
+            # Guard the seven original Lovable gallery pages in print CSS.
+            # A successful image decode on mobile does not prove that the
+            # artwork or its title survives the A4 print stylesheet.
+            # This checks visibility and nonzero intrinsic dimensions, not
+            # subjective composition or originality of the source images.
+            lovable_gallery_print = page.evaluate("""() => {
+              const ids = ['gallery-digital', 'gallery-online',
+                'gallery-origami', 'gallery-hybrid', 'gallery-jerusalem',
+                'gallery-workshop', 'gallery-mosaic'];
+              return ids.map(id => {
+                const folio = document.getElementById(id);
+                const img = folio?.querySelector('img.gallery-img');
+                const title = folio?.querySelector('.gallery-title');
+                const visible = el => {
+                  if (!el) return false;
+                  const s = getComputedStyle(el);
+                  const r = el.getBoundingClientRect();
+                  return s.display !== 'none' && s.visibility !== 'hidden' &&
+                    Number(s.opacity) > 0 && r.width > 0 && r.height > 0;
+                };
+                const box = folio?.getBoundingClientRect();
+                const imageBox = img?.getBoundingClientRect();
+                const titleBox = title?.getBoundingClientRect();
+                const withinFolio = rect => Boolean(box && rect &&
+                  rect.left >= box.left - 2 &&
+                  rect.right <= box.right + 2 &&
+                  rect.top >= box.top - 2 &&
+                  rect.bottom <= box.bottom + 2);
+                return {folio: id, image_present: Boolean(img),
+                  decoded: Boolean(img && img.complete && img.naturalWidth > 0),
+                  image_visible: visible(img), title_visible: visible(title),
+                  image_inside_a4: withinFolio(imageBox),
+                  title_inside_a4: withinFolio(titleBox)};
+              });
+            }""")
+            report["lovable_gallery_print"] = lovable_gallery_print
+            for item in lovable_gallery_print:
+                if not all(item[key] for key in (
+                        "image_present", "decoded", "image_visible",
+                        "title_visible", "image_inside_a4",
+                        "title_inside_a4")):
+                    report["errors"].append(
+                        "Lovable A4 gallery image/title missing or clipped: "
+                        + item["folio"] + " " + str(item))
             pdf_path = OUT / "journal-a4-qa.pdf"
             page.pdf(path=str(pdf_path), print_background=True,
                      prefer_css_page_size=True, format="A4")
@@ -230,6 +274,13 @@ with sync_playwright() as playwright:
             expected_urls = set(page.locator(
                 '#catalog-summary .table-links a[href^="https://"]'
             ).evaluate_all("(els) => els.map(a => a.href)"))
+            # The catalog promises TWO usable links per row. The existing
+            # URI check covers external forms/syllabi; separately verify that
+            # Chromium preserved all nine in-document page destinations in PDF.
+            expected_page_targets = set(page.locator(
+                '#catalog-summary .table-links a[href^="#"]'
+            ).evaluate_all(
+                "(els) => els.map(a => a.getAttribute('href').slice(1))"))
             reader = PdfReader(str(pdf_path))
             count = len(reader.pages)
             # Verify physical A4 portrait dimensions, not just the number of
@@ -242,14 +293,31 @@ with sync_playwright() as playwright:
                 if abs(float(pdf_page.mediabox.width) - expected_a4_pt[0]) > 2
                 or abs(float(pdf_page.mediabox.height) - expected_a4_pt[1]) > 2
             ]
+            # A link on a course detail page cannot substitute for a broken
+            # catalog link. Count URI annotations on the catalog PDF page only.
+            catalog_pdf_index = page.locator("section.folio").evaluate_all(
+                "(els) => els.findIndex(el => el.id === 'catalog-summary')")
             printed_urls = set()
-            for pdf_page in reader.pages:
-                for annotation in pdf_page.get("/Annots", []):
+            if 0 <= catalog_pdf_index < count:
+                for annotation in reader.pages[catalog_pdf_index].get("/Annots", []):
                     obj = annotation.get_object()
                     action = obj.get("/A")
                     if action and action.get("/S") == "/URI":
                         printed_urls.add(str(action.get("/URI")))
             missing_urls = sorted(expected_urls - printed_urls)
+            printed_page_targets = set()
+            if 0 <= catalog_pdf_index < count:
+                for annotation in reader.pages[catalog_pdf_index].get("/Annots", []):
+                    obj = annotation.get_object()
+                    destination = obj.get("/Dest")
+                    if destination is None:
+                        action = obj.get("/A")
+                        if action and action.get("/S") == "/GoTo":
+                            destination = action.get("/D")
+                    if isinstance(destination, str):
+                        printed_page_targets.add(destination.lstrip("/"))
+            missing_page_targets = sorted(
+                expected_page_targets - printed_page_targets)
             # Print typography is a separate quality gate from geometry. Collect
             # measured PDF text sizes for the catalog page so a CSS improvement
             # cannot be called readable merely because pagination still passes.
@@ -300,6 +368,10 @@ with sync_playwright() as playwright:
                 "catalog_external_links_expected": len(expected_urls),
                 "catalog_external_links_in_pdf": len(expected_urls & printed_urls),
                 "catalog_external_links_missing": missing_urls,
+                "catalog_page_links_expected": len(expected_page_targets),
+                "catalog_page_links_in_pdf": len(
+                    expected_page_targets & printed_page_targets),
+                "catalog_page_links_missing": missing_page_targets,
             }
             if count != 28:
                 report["errors"].append(f"A4 PDF page count {count}, expected 28")
@@ -312,6 +384,13 @@ with sync_playwright() as playwright:
             if missing_urls:
                 report["errors"].append(
                     f"A4 PDF lost {len(missing_urls)} clickable catalog source links")
+            if len(expected_page_targets) != 9:
+                report["errors"].append(
+                    f"A4 catalog expected 9 distinct internal page links, got {len(expected_page_targets)}")
+            if missing_page_targets:
+                report["errors"].append(
+                    "A4 PDF lost clickable catalog page destinations: "
+                    + ", ".join(missing_page_targets))
         page.close()
     # The regular screenshot suite requests reduced motion, so it never exercises
     # the animated cinematic sequence. Check both accessible static fallback
@@ -356,6 +435,33 @@ with sync_playwright() as playwright:
               or motion["animation_name"] == "none"):
             report["errors"].append(
                 "Normal-motion cinematic must run its animation in view")
+        # The previous check only established that playback started. A
+        # cinematic scene can start and still end with missing/hidden text.
+        # Wait for the authored final composition, including the exact quote.
+        # This tests rendered opacity in a real browser, not just CSS tokens.
+        if preference == "no-preference" and motion["playing"]:
+            try:
+                motion_page.wait_for_function("""() => {
+                  const root = document.querySelector('#cinematic');
+                  if (!root) return false;
+                  const opacity = selector => {
+                    const element = root.querySelector(selector);
+                    return element ? Number(getComputedStyle(element).opacity) : -1;
+                  };
+                  return opacity('.s1') <= 0.02 && opacity('.s2') <= 0.02 &&
+                         opacity('.s3') >= 0.98 &&
+                         opacity('.s3 .cine-finale-quote') >= 0.98;
+                }""", timeout=18000)
+                report["cinematic_final_frame"] = {
+                    "visible": True, "preceding_scenes_hidden": True,
+                    "test": "rendered opacity of scene 3 and finale quote"
+                }
+            except Exception as exc:
+                report["cinematic_final_frame"] = {
+                    "visible": False, "reason": str(exc)[:300]
+                }
+                report["errors"].append(
+                    "Normal-motion cinematic did not reach a readable final frame")
         motion_page.close()
     browser.close()
 

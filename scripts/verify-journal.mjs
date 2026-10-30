@@ -43,6 +43,22 @@ for (const tag of allImageTags) {
   }
 }
 
+// Keep the official district logo self-contained for offline/A4 printing.
+// Pin the exact existing source asset, not a redrawn or generated logo.
+const districtLogoPath = new URL('../assets/meta/district-logo.png', import.meta.url);
+assert(allImageTags.some(tag => tag.includes('src="assets/meta/district-logo.png"') && tag.includes('alt="לוגו מחוז ירושלים המקורי"')),
+  'Cover must use the original district logo from a committed local asset');
+assert(allImageTags.every(tag => !/\bsrc="https?:\/\//.test(tag)),
+  'Journal image tags must not depend on third-party hosts for printing');
+if (existsSync(districtLogoPath)) {
+  const logoBytes = readFileSync(districtLogoPath);
+  assert(logoBytes.length > 1024 &&
+    createHash('sha1').update('blob ' + logoBytes.length + '\0').update(logoBytes).digest('hex') === '07269f8c42119dabac4a86afd7f7464565e1e5dd',
+    'Local district logo differs from the existing original in summary7-public');
+} else {
+  assert(false, 'Missing committed district logo for offline printing');
+}
+
 assert(sections.length >= 15, 'Expected 15+ folios including the two distinct coordinator community pages');
 assert(sections[0] === 'cover', 'First folio must be the cover');
 assert(sections.at(-1) === 'shabat', 'Last folio must be Shabbat greeting');
@@ -73,7 +89,7 @@ for (const id of ['201020','201590','201530','201041','204781','2014777']) {
   const page = source.slice(start, source.indexOf('</section>', start));
   assert(!page.includes('יניב רז') && !page.includes('עידן'), 'Compass 201020 is not the Yaniv/Idan coordinators community: do not name them on #course-201020');
 }
-for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['201530','בכיתתו וחנ״מ'],['201041','הוראת המתמטיקה בכיתות ט׳'],['204781','גיאומטריה מהשטח'],['2014777','עדכון תוכנית הלימודים במתמטיקה']]) {
+for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['201530','בכיתתו וחנ״מ'],['201041','הוראת המתמטיקה בכיתות ט׳'],['204781','גיאומטריה מהשטח']]) {
   const start = source.indexOf('id="course-' + id + '"');
   assert(source.slice(start, source.indexOf('</section>', start)).includes(name), 'Course ' + id + ' must use the official flyer title: ' + name);
 }
@@ -82,10 +98,19 @@ for (const [id, name] of [['201590','בינה מלאכותית ו־MOODLE'],['20
 {
   const start = source.indexOf('id="course-2014777"');
   const page = start >= 0 ? source.slice(start, source.indexOf('</section>', start)) : '';
-  assert(page.includes('2014777 מוטיבציה ומתמטיקה')
-    && page.includes('שמו שונה מכותרת העלון')
-    && page.includes('זמינות ההרשמה במצפן טרם אומתה'),
-    'Course 2014777 must disclose the syllabus/flyer title mismatch and unverified Compass registration');
+  assert(page.includes('<h2>מוטיבציה ומתמטיקה</h2>')
+    && page.includes('2014777 מוטיבציה ומתמטיקה')
+    && page.includes('עדכון תוכנית הלימודים במתמטיקה')
+    && page.includes('שיוך המסמכים לאותו מחזור וזמינות ההרשמה במצפן טרם אומתו'),
+    'Course 2014777 must use the verified syllabus title and prominently disclose the flyer mismatch and unverified Compass registration');
+  assert(source.includes('מוטיבציה ומתמטיקה<small>שם לפי הסילבוס · שיוך לכותרת העלון בבדיקה'),
+    'Summary table must not label 2014777 as the verified district-flyer course title');
+  // The district flyer claims study-day inclusion, but the linked image-based
+  // syllabus has a different title. Do not present the unverified mapping as fact.
+  assert(page.includes('לפי עלון המחוז: כולל יום העיון ב־28/10 · שיוך הסילבוס בבדיקה')
+    && source.includes('יום העיון לפי העלון — שיוך בבדיקה</small></th>')
+    && !page.includes('ההשתלמות כוללת בתוכה את יום העיון'),
+    'Course 2014777 study-day inclusion must remain explicitly conditional on flyer/syllabus mapping');
 }
 // First-session hours are distinct from the recurring schedule. Guard only hours
 // confirmed in the course records; do not invent a first-session hour for 201590.
@@ -106,8 +131,8 @@ for (const [id, firstHours] of [
   const page = source.slice(source.indexOf('id="course-201590"'));
   const openingStart = page.indexOf('class="course-opening"');
   const opening = openingStart >= 0 ? page.slice(openingStart, page.indexOf('</div>', openingStart)) : '';
-  assert(opening.includes('פתיחה בפסג״ה מודיעין') && opening.includes('בהמשך יום א׳'),
-    '201590 must distinguish the opening session from later Sunday sessions; opening hour is not verified');
+  assert(opening.includes('פתיחה בפסג״ה מודיעין') && opening.includes('לפי שעות הכנס') && opening.includes('בהמשך יום א׳'),
+    '201590 syllabus says the 28 Oct opening follows conference hours; later Sunday hours must stay separate');
 }
 
 const communityStart = source.indexOf('id="community-yaniv-idan"');
@@ -120,6 +145,9 @@ if (communityEnd > communityStart) {
   assert(community.includes('forms/d/1bnZ2j8x9UpR4l-2R5dr6-z0eg0Ai6EO1qpPkGnFm8fk'), 'Missing separate form');
   assert(!community.includes('<strong dir="ltr">201020</strong>'), 'Must not attribute Compass code 201020 to Yaniv-Idan community');
   assert(community.includes('אין עדיין מספר במצפן'), 'Yaniv-Idan coordinators community must state it has no Compass number yet');
+  assert(community.includes('2014777</b> (״מוטיבציה ומתמטיקה״ לפי הסילבוס; שיוך העלון בבדיקה)')
+    && !community.includes('2014777</b> (עדכון תוכנית הלימודים במתמטיקה)'),
+    'Coordinator cross-reference must qualify the disputed 2014777 flyer/syllabus mapping');
   for (const fact of ['״עדכון תוכנית הלימודים״', 'מדריך מחוזי חט״ב בעיר ירושלים', 'מדריך בית ספרי בעיר ירושלים', '30 שעות לגמול (24 שעות בזום, 6 שעות א־סינכרוניות)', 'בימי רביעי בין השעות 19:00–21:30', 'יום ראשון']) {
     assert(community.replace(/<[^>]+>/g, '').includes(fact), 'Yaniv-Idan coordinators community must follow its flyer: ' + fact);
   }
@@ -138,7 +166,7 @@ const teachersEnd = source.indexOf('</section>', teachersStart);
 assert(teachersStart >= 0 && teachersEnd > teachersStart, 'Missing Jerusalem district teachers community page');
 if (teachersEnd > teachersStart) {
   const teachers = source.slice(teachersStart, teachersEnd);
-  assert(teachers.includes('<time datetime="2026-10-07">07.10.2026</time>') && teachers.includes('תאריך הפתיחה אינו מאומת: 07.10 מול 24.10'), 'Teachers community must disclose the disputed 07.10/24.10 opening date');
+  assert(teachers.includes('<strong class="opening-unverified">טרם אומת</strong>') && teachers.includes('מקורות סותרים: 07.10 מול 24.10') && !/<time\b/.test(teachers), 'Disputed teachers-community date must not appear as a confirmed semantic date');
   assert(teachers.includes('forms/d/12akaEX5eVHsHTWZ59IPKLrboP7TFZRTPEulUQ6lSUbc'), 'Missing teachers community form');
   assert(teachers.includes('אין עדיין מספר במצפן'), 'Teachers community must state it has no Compass number yet');
 }
@@ -147,6 +175,9 @@ const summaryEnd = source.indexOf('</section>', summaryStart);
 assert(summaryStart >= 0 && summaryEnd > summaryStart, 'Missing summary page');
 if (summaryEnd > summaryStart) {
   const summary = source.slice(summaryStart, summaryEnd);
+  const aiRow = summary.split('</tr>').find(row => row.includes('href="#course-201590"')) || '';
+  assert(aiRow.includes('פתיחה לפי שעות הכנס') && aiRow.includes('בהמשך יום א׳') && !aiRow.includes('שעת הפתיחה לא אומתה'),
+    '201590 summary must follow the scanned primary syllabus: conference hours, not recurring Sunday hours');
   const rows = [...summary.matchAll(/<tr(?:\s|>)/g)].length - 1;
   assert(rows === 9, 'Expected 9 summary rows (2 no-Compass communities + 6 numbered courses + symposium), got ' + rows);
   assert([...summary.matchAll(/class="table-links"/g)].length === 9, 'Expected 2 action links for each summary row');
@@ -161,6 +192,33 @@ if (summaryEnd > summaryStart) {
   // Each of the nine catalog dates must match the corresponding detail page.
   // This catches silent first-meeting drift without inferring dates from weekday labels.
   const summaryRows = [...summary.matchAll(/<tr(?:\s[^>]*)?>[\s\S]*?<\/tr>/g)].map(m => m[0]);
+  // First-session times must not be confused with recurring meeting times.
+  // In particular, the 28 Oct opening sessions differ from later weekdays/hours.
+  // These are source-specific editorial checks, not live registration checks.
+  const openingTimeGuards = [
+    {
+      id: 'course-201590',
+      detail: 'פתיחה בפסג״ה מודיעין · לפי שעות הכנס · בהמשך יום א׳',
+      table: 'פתיחה לפי שעות הכנס · בהמשך יום א׳ <span class="nw">19:00–21:30</span>'
+    },
+    {
+      id: 'course-204781',
+      detail: 'פתיחה <span class="nw">15:00–19:00</span> בפסג״ה מודיעין · בהמשך יום א׳',
+      table: 'פתיחה <span class="nw">15:00–19:00</span> · בהמשך יום א׳'
+    },
+    {
+      id: 'course-2014777',
+      detail: 'מפגש פתיחה <span class="nw">16:00–18:30</span> · פסג״ה מודיעין · בהמשך יום ד׳ · <span class="nw">19:30–22:00</span>',
+      table: 'פתיחה לפי הסילבוס <span class="nw">16:00–18:30</span> · בהמשך יום ד׳ <span class="nw">19:30–22:00</span>'
+    }
+  ];
+  for (const { id, detail, table } of openingTimeGuards) {
+    const start = source.indexOf('id="' + id + '"');
+    const page = start >= 0 ? source.slice(start, source.indexOf('</section>', start)) : '';
+    const row = summaryRows.find(html => html.includes('href="#' + id + '"')) ?? '';
+    assert(page.includes(detail), 'Detail page lost verified first-vs-recurring schedule: ' + id);
+    assert(row.includes(table), 'Catalog conflates first-session and recurring hours: ' + id);
+  }
   // Pin source-confirmed dates, not merely page/table agreement. The teachers
   // community date is disputed (07.10 vs 24.10), so it is NOT source-confirmed.
   const expectedFirstDates = {
@@ -182,14 +240,18 @@ if (summaryEnd > summaryStart) {
     const matchingRows = summaryRows.filter(row => row.includes('href="#' + id + '"'));
     const tableDate = matchingRows[0]?.match(/<time\b[^>]*datetime="(\d{4}-\d{2}-\d{2})"/)?.[1];
     assert(matchingRows.length === 1, 'Expected exactly one catalog row for: ' + id);
-    assert(Boolean(pageDate) && Boolean(tableDate) && pageDate === tableDate,
-      'First-meeting date mismatch or missing semantic date: ' + id + ' (detail ' + (pageDate ?? 'missing') + ', table ' + (tableDate ?? 'missing') + ')');
     if (id === 'community-teachers-jerusalem') {
-      assert(page.includes('תאריך הפתיחה אינו מאומת: 07.10 מול 24.10')
-        && matchingRows[0]?.includes('תאריך פתיחה בבדיקה')
-        && pageDate === '2026-10-07',
-        'Disputed teachers-community date must be visibly qualified in both views, without silently changing the displayed provisional date');
+      // Neither 07.10 nor 24.10 is source-confirmed for this exact cohort.
+      // Preserve the conflicting dates as an explanation, not a published first meeting.
+      assert(!pageDate && !tableDate
+        && page.includes('מקורות סותרים: 07.10 מול 24.10')
+        && page.includes('class="opening-unverified">טרם אומת')
+        && matchingRows[0]?.includes('class="date-unverified">טרם אומת')
+        && matchingRows[0]?.includes('תאריך פתיחה בבדיקה'),
+        'Disputed teachers-community first meeting must be unverified in both views');
     } else {
+      assert(Boolean(pageDate) && Boolean(tableDate) && pageDate === tableDate,
+        'First-meeting date mismatch or missing semantic date: ' + id + ' (detail ' + (pageDate ?? 'missing') + ', table ' + (tableDate ?? 'missing') + ')');
       assert(pageDate === expectedFirstDates[id] && tableDate === expectedFirstDates[id],
         'First-meeting date differs from the verified source for ' + id + ': expected ' + expectedFirstDates[id]);
     }
@@ -369,7 +431,40 @@ for (const asset of trackedImages) {
   }
 }
 
-warnings.push('Three distinct communities: Yaniv/Idan coordinators (no Compass number yet, 25 Oct), Yaniv/Idan teachers (no Compass number yet, started 7 Oct), numbered coordinators 201020 (13 Oct). Dates from separate written sources.');
+
+// Independently pinned to the original Lovable project's .asset.json files
+// (project 48b47a05-85de-4209-8634-a9622a1b85ca, commit
+// f23baaef09a84203327a5712f7fd94d65f3b0a63; checked 2026-10-27).
+// Unlike the two local manifests above, this snapshot came from Lovable itself.
+// It guards original asset identity, NOT byte-for-byte equivalence after resizing
+// and NOT perceptual similarity or licensing.
+{
+  const lovableOriginalMetadata = new Map([
+    ['01-jerusalem-geometry-sky.jpg', '2f5ef542-26e3-4e24-bd41-8506aa3046c3'],
+    ['02-teachers-workshop.jpg', 'b521ba41-1a86-46bf-9416-5d9473cd5427'],
+    ['03-mosaic-geometry.jpg', '1323a78f-0f93-42b1-a100-3ef04902917a'],
+    ['05-virtual-workshop-zoom.jpg', 'dd113f26-f1f8-463f-857b-a1d88850ce35'],
+    ['06-digital-math-lab.jpg', 'c0dfb1e7-275d-45d1-9c55-50aa61698936'],
+    ['07-teachers-learning-together.jpg', '1c29dc7e-6e67-4332-b7af-984f5efa886f'],
+    ['08-hybrid-session-jerusalem.jpg', '36034ad0-0f53-471d-9050-c48ed32a7a35'],
+    ['09-origami-polyhedra-workshop.jpg', '148fb2ea-045a-457d-a899-5c3bd2dbba68']
+  ]);
+  const catalog = JSON.parse(readFileSync(new URL('../assets/lovable-selected.json', import.meta.url), 'utf8'));
+  const selected = (catalog.assets ?? []).filter(asset => asset.local_copy);
+  assert(new Set(lovableOriginalMetadata.values()).size === lovableOriginalMetadata.size,
+    'Original Lovable source IDs must be unique');
+  assert(selected.length === lovableOriginalMetadata.size,
+    'Selected Lovable assets differ from independently verified source snapshot');
+  for (const asset of selected) {
+    const originalId = lovableOriginalMetadata.get(asset.file);
+    const expectedUrl = 'https://jerusalem-geometry-garden.lovable.app/__l5e/assets-v1/'
+      + originalId + '/' + asset.file;
+    assert(Boolean(originalId) && asset.asset_id === originalId && asset.url === expectedUrl,
+      'Selected Lovable image differs from the original project metadata: ' + asset.file);
+  }
+}
+
+warnings.push('Three distinct communities: Yaniv/Idan coordinators (no Compass number yet, 25 Oct), Yaniv/Idan teachers (no Compass number, opening unverified: conflicting 07 Oct / 24 Oct sources), numbered coordinators 201020 (13 Oct). Dates from separate written sources.');
 warnings.push('The six Compass courses follow the official flyer PDF (השתלמויות תשפ״ז - חט״ב) and jerusalem2 /hishtalmuyot; its hidden text-layer codes (200123, 201298, 201757, 203678) are not visible courses and are not used.');
 warnings.push('External syllabus and image URLs require live browser checks; this script only tests structure.');
 console.log(JSON.stringify({ status: errors.length ? 'FAIL' : 'PASS', pages: sections.length, courses: 6, summaryRows: 9, heroImages: artwork.length, errors, warnings }, null, 2));
